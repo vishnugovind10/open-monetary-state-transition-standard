@@ -6,6 +6,7 @@ nav:
   - Specification: specification.md
   - Why OMST: why-omst.md
   - What OMST Is Not: what-omst-is-not.md
+  - Explorer: explorer.md
   - Concepts:
       - Overview: concepts/01-overview.md
       - Monetary Instruments: concepts/02-monetary-instruments.md

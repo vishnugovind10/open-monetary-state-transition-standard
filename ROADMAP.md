@@ -1,5 +1,12 @@
 # Roadmap
 
+## v0.4
+
+- [x] Add the OMST Explorer web workbench.
+- [x] Cover settlement evaluator, equivalence, graph, stress and conformance flows with browser tests.
+- [x] Add Vercel deployment configuration.
+- [x] Preserve synthetic-data and non-production evidence boundaries.
+
 ## v0.x
 
 - Stabilise v0.3 schemas from public issue feedback.

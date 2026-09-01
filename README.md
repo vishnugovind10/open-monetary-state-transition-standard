@@ -4,7 +4,7 @@
 
 Machine-readable infrastructure for digital-money state, transitions and interoperability.
 
-[Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Conformance](conformance/)
+[Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Explorer](web/) [Conformance](conformance/)
 
 Digital money is becoming programmable, tokenised and fragmented.
 
@@ -52,6 +52,19 @@ The central research question is:
 ```bash
 pip install -e .
 ```
+
+## Explorer
+
+OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, equivalence, routing, stress scenarios and conformance status.
+
+```bash
+npm install
+npm run web:build
+npm run web:test
+npm run web:dev
+```
+
+The Explorer is not issuer evidence, regulatory evidence, market-condition evidence or production compliance tooling.
 
 ## CLI
 
@@ -130,4 +143,4 @@ print(result.reasons)
 
 ## Status
 
-v0.3.0 is an experimental reference specification and implementation. Do not call it an industry standard until independent implementations and conformance evidence exist.
+v0.4.0 is an experimental reference specification and implementation with a synthetic-data Explorer. Do not call it an industry standard until independent implementations and conformance evidence exist.

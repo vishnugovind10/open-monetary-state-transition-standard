@@ -4,6 +4,10 @@ __pycache__/
 .mypy_cache/
 *.egg-info/
 site/
+node_modules/
+web/dist/
+test-results/
+playwright-report/
 .env
 .env.*
 !.env.example

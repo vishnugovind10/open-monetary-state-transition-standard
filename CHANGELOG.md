@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.0
+
+- Added OMST Explorer, a Vite/React workbench for synthetic monetary state, settlement, equivalence, graph, stress and conformance inspection.
+- Added browser-level Explorer tests and CI web build/test gates.
+- Added Vercel deployment configuration for the public Explorer.
+- Documented the Explorer evidence boundary and local usage.
+
 ## v0.3.0
 
 - Added settlement intent, settlement compatibility, transition plan and settlement bundle primitives.
