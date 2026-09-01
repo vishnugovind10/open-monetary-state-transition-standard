@@ -9,6 +9,7 @@ from .enums import (
     MoneyEventType,
     MoneyState,
     RelationType,
+    SettlementBundleMode,
     TransitionEvaluationStatus,
     TransitionType,
 )
@@ -68,7 +69,7 @@ class MoneyProfile:
     network_profile: dict[str, Any]
     evidence: list[Evidence] = field(default_factory=list)
     capabilities: list[MoneyCapability] = field(default_factory=list)
-    version: str = "0.2.0"
+    version: str = "0.3.0"
 
 
 @dataclass(frozen=True)
@@ -116,7 +117,7 @@ class MoneyEvent:
     ledger_reference: str
     transaction_reference: str
     evidence: list[Evidence] = field(default_factory=list)
-    omst_schema_version: str = "0.2.0"
+    omst_schema_version: str = "0.3.0"
 
 
 @dataclass(frozen=True)
@@ -178,6 +179,9 @@ class TransitionRequirement:
     minimum_liquidity: Decimal
     required_capabilities: tuple[CapabilityType, ...]
     evidence_required: bool = True
+    required_finality: str = "qualified"
+    required_atomicity: bool = False
+    required_access: str = "institutional"
 
 
 @dataclass(frozen=True)
@@ -199,3 +203,60 @@ class RouteEdge:
     availability: str
     constraints: dict[str, Any]
     evidence: list[Evidence] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class SettlementIntent:
+    intent_id: str
+    intent_type: str
+    cash_currency: str
+    cash_amount: Decimal
+    asset: str | None
+    required_finality: str
+    maximum_latency_seconds: int | None
+    required_availability: str
+    required_atomicity: bool
+    venue: str
+    participants: tuple[str, ...] = ()
+    omst_schema_version: str = "0.3.0"
+
+
+@dataclass(frozen=True)
+class TransitionPlanStep:
+    source: str
+    target: str
+    transition: TransitionType
+    requirements: TransitionRequirement
+    expected_state: MoneyState
+    failure_path: str
+    evidence: list[Evidence] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class TransitionPlan:
+    plan_id: str
+    intent: SettlementIntent
+    steps: list[TransitionPlanStep]
+    status: str
+    assumptions: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class SettlementBundle:
+    bundle_id: str
+    mode: SettlementBundleMode
+    cash_leg: TransitionPlan | None
+    asset_leg: dict[str, Any] | None = None
+    fx_leg: dict[str, Any] | None = None
+    collateral_leg: dict[str, Any] | None = None
+    fee_leg: dict[str, Any] | None = None
+
+
+@dataclass(frozen=True)
+class SettlementCompatibility:
+    status: TransitionEvaluationStatus
+    reasons: list[dict[str, str]]
+    required_transitions: list[TransitionPlanStep]
+    evidence: list[Evidence]
+    assumptions: list[str]
+    confidence: str

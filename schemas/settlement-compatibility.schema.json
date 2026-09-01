@@ -1,0 +1,32 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-compatibility.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementCompatibility",
+  "description": "Machine-readable result of evaluating money against settlement requirements.",
+  "type": "object",
+  "required": ["omst_type", "status", "reasons", "required_transitions", "evidence", "assumptions", "confidence"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "settlement-compatibility"},
+    "status": {"enum": ["COMPATIBLE", "CONDITIONALLY_COMPATIBLE", "INCOMPATIBLE", "UNKNOWN"]},
+    "reasons": {"type": "array", "items": {"type": "object"}},
+    "required_transitions": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array"},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "confidence": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-compatibility",
+      "status": "COMPATIBLE",
+      "reasons": [],
+      "required_transitions": [],
+      "evidence": [],
+      "assumptions": ["synthetic data"],
+      "confidence": "synthetic-reference"
+    }
+  ]
+}

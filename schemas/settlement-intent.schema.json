@@ -1,0 +1,52 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-intent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementIntent",
+  "description": "A transaction-level declaration of settlement needs before a monetary instrument is selected.",
+  "type": "object",
+  "required": ["omst_type", "omst_schema_version", "intent_id", "intent_type", "cash", "requirements", "venue", "participants"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "settlement-intent"},
+    "omst_schema_version": {"type": "string"},
+    "intent_id": {"type": "string"},
+    "intent_type": {"type": "string"},
+    "cash": {
+      "type": "object",
+      "required": ["currency", "amount"],
+      "properties": {
+        "currency": {"type": "string"},
+        "amount": {"type": "string"}
+      }
+    },
+    "asset": {"type": ["string", "null"]},
+    "requirements": {
+      "type": "object",
+      "required": ["atomicity", "finality", "maximum_latency_seconds", "availability"],
+      "properties": {
+        "atomicity": {"type": "boolean"},
+        "finality": {"type": "string"},
+        "maximum_latency_seconds": {"type": ["integer", "null"]},
+        "availability": {"type": "string"}
+      }
+    },
+    "venue": {"type": "string"},
+    "participants": {"type": "array", "items": {"type": "string"}}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-intent",
+      "omst_schema_version": "0.3.0",
+      "intent_id": "intent-tokenized-bond-dvp",
+      "intent_type": "TOKENIZED_BOND_DVP",
+      "cash": {"currency": "EUR", "amount": "50000000"},
+      "asset": "synthetic-tokenised-bond",
+      "requirements": {"atomicity": true, "finality": "qualified", "maximum_latency_seconds": 60, "availability": "24_7"},
+      "venue": "synthetic-venue",
+      "participants": ["synthetic-buyer", "synthetic-seller"]
+    }
+  ]
+}

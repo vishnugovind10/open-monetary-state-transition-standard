@@ -1,0 +1,20 @@
+{
+  "omst_type": "settlement-intent",
+  "omst_schema_version": "0.3.0",
+  "intent_id": "intent-tokenized-bond-dvp",
+  "intent_type": "TOKENIZED_BOND_DVP",
+  "cash": {
+    "currency": "EUR",
+    "amount": "50000000"
+  },
+  "asset": "synthetic-tokenised-bond",
+  "requirements": {
+    "atomicity": true,
+    "finality": "qualified",
+    "maximum_latency_seconds": 60,
+    "availability": "24_7"
+  },
+  "venue": "synthetic-venue",
+  "participants": ["synthetic-buyer", "synthetic-seller"],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

@@ -1,0 +1,30 @@
+{
+  "$id": "https://omst.dev/schemas/transition-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TransitionPlan",
+  "description": "Ordered transitions proposed to satisfy a settlement intent.",
+  "type": "object",
+  "required": ["omst_type", "plan_id", "intent_id", "steps", "status", "assumptions"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "transition-plan"},
+    "plan_id": {"type": "string"},
+    "intent_id": {"type": "string"},
+    "steps": {"type": "array", "items": {"type": "object"}},
+    "status": {"type": "string"},
+    "assumptions": {"type": "array", "items": {"type": "string"}}
+  },
+  "examples": [
+    {
+      "omst_type": "transition-plan",
+      "plan_id": "plan-tokenized-bond-dvp",
+      "intent_id": "intent-tokenized-bond-dvp",
+      "steps": [{"source": "EUR-X", "target": "CBM", "transition": "CONVERT"}],
+      "status": "PLANNED",
+      "assumptions": ["synthetic data"]
+    }
+  ]
+}

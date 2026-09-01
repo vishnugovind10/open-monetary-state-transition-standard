@@ -3,7 +3,15 @@ from typing import Any
 
 from .enums import CapabilityStatus, CapabilityType
 from .graph import MoneyGraph
-from .models import LiquidityProfile, MoneyCapability, MoneyProfile, RouteEdge, TransactionContext
+from .models import (
+    LiquidityProfile,
+    MoneyCapability,
+    MoneyProfile,
+    RouteEdge,
+    SettlementIntent,
+    TransactionContext,
+    TransitionRequirement,
+)
 
 
 def synthetic_profiles() -> dict[str, MoneyProfile]:
@@ -40,6 +48,7 @@ def synthetic_profiles() -> dict[str, MoneyProfile]:
                 MoneyCapability(CapabilityType.SETTLEMENT, CapabilityStatus.SUPPORTED),
                 MoneyCapability(CapabilityType.REDEMPTION, CapabilityStatus.SUPPORTED),
                 MoneyCapability(CapabilityType.DELIVERY_VERSUS_PAYMENT, CapabilityStatus.CONDITIONAL),
+                MoneyCapability(CapabilityType.DVP, CapabilityStatus.CONDITIONAL),
                 MoneyCapability(CapabilityType.ATOMIC_SETTLEMENT, CapabilityStatus.CONDITIONAL),
             ],
         )
@@ -77,5 +86,44 @@ def synthetic_graph() -> MoneyGraph:
 
 def context_by_name(name: str) -> TransactionContext:
     if name in {"tokenized-dvp", "tokenised-dvp"}:
-        return TransactionContext(name="tokenized-dvp", required_finality="qualified", max_latency_seconds=60, required_functions=("settlement",))
+        return TransactionContext(
+            name="tokenized-dvp",
+            transaction_type="DVP",
+            amount=Decimal(50000000),
+            asset="synthetic-tokenised-bond",
+            required_finality="qualified",
+            max_latency_seconds=60,
+            required_functions=("settlement",),
+            operating_window="24_7",
+            settlement_mode="DVP",
+        )
     return TransactionContext(name=name, required_finality="qualified")
+
+
+def synthetic_settlement_intent() -> SettlementIntent:
+    return SettlementIntent(
+        intent_id="intent-tokenized-bond-dvp",
+        intent_type="TOKENIZED_BOND_DVP",
+        cash_currency="EUR",
+        cash_amount=Decimal(50000000),
+        asset="synthetic-tokenised-bond",
+        required_finality="qualified",
+        maximum_latency_seconds=60,
+        required_availability="24_7",
+        required_atomicity=True,
+        venue="synthetic-venue",
+        participants=("synthetic-buyer", "synthetic-seller"),
+    )
+
+
+def synthetic_transition_requirement() -> TransitionRequirement:
+    return TransitionRequirement(
+        required_finality_seconds=60,
+        required_availability="24_7",
+        minimum_liquidity=Decimal(50000000),
+        required_capabilities=(CapabilityType.SETTLEMENT, CapabilityType.ATOMIC_SETTLEMENT, CapabilityType.DVP),
+        evidence_required=False,
+        required_finality="qualified",
+        required_atomicity=True,
+        required_access="institutional",
+    )

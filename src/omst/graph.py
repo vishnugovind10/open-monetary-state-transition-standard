@@ -27,3 +27,13 @@ class MoneyGraph:
                 seen.add(edge.target)
                 queue.append((edge.target, path + [edge]))
         return None
+
+    def to_mermaid(self) -> str:
+        lines = ["flowchart LR"]
+        for edge in self.edges:
+            label = (
+                f"{edge.cost_bps} bps, {edge.latency_seconds}s, "
+                f"{edge.liquidity} liquidity, {edge.finality}"
+            )
+            lines.append(f"    {edge.source} -->|{label}| {edge.target}")
+        return "\n".join(lines)

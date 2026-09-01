@@ -1,0 +1,26 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementBundle",
+  "description": "Multi-leg settlement bundle for cash, asset, FX, collateral and fee legs.",
+  "type": "object",
+  "required": ["omst_type", "bundle_id", "mode", "legs"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "settlement-bundle"},
+    "bundle_id": {"type": "string"},
+    "mode": {"enum": ["ATOMIC", "CONDITIONAL_ATOMIC", "SEQUENCED", "NETTED", "PARTIALLY_ATOMIC", "NON_ATOMIC", "UNKNOWN"]},
+    "legs": {"type": "array", "items": {"type": "object"}}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-bundle",
+      "bundle_id": "bundle-tokenized-bond-dvp",
+      "mode": "CONDITIONAL_ATOMIC",
+      "legs": [{"type": "cash", "plan_id": "plan-tokenized-bond-dvp"}]
+    }
+  ]
+}

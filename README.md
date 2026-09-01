@@ -57,21 +57,28 @@ pip install -e .
 
 ```bash
 omst validate examples/
+omst validate conformance/vectors/
 omst inspect examples/synthetic-eur-stablecoin/eur-x.json
+omst profile examples/eur-x.json
 omst state EUR-X
+omst capability EUR-X
 omst transition --from EUR-X:AVAILABLE --to EUR-Y:FINAL --amount 50000000
+omst equivalence EUR-X EUR-Z --context tokenized-dvp
 omst velocity EUR-X --window 30d
 omst liquidity EUR-X
 omst mobility --from EUR-X --to EUR-Y --amount 50000000
 omst route --from EUR-X --to EUR-Y --amount 50000000 --context tokenized-dvp
-omst equivalence EUR-X EUR-Y --context tokenized-dvp
+omst evaluate-settlement examples/tokenized-bond-dvp/
+omst plan examples/tokenized-bond-dvp/
+omst graph --format mermaid
 omst simulate redemption-shock
+omst stress --scenario liquidity-shock
 pytest
 ```
 
 ## Flagship Scenario
 
-The v0.1 reference scenario evaluates a synthetic EUR 50m tokenised-bond DvP cash leg. It loads synthetic money profiles, checks state, liquidity, route constraints, transition cost, settlement latency, finality and transition integrity, then rejects incompatible routes.
+The v0.3 reference scenario evaluates a synthetic EUR 50m tokenised-bond DvP cash leg. It loads synthetic money profiles, checks state, liquidity, route constraints, transition cost, settlement latency, finality and transition integrity, then produces a settlement compatibility result and transition plan.
 
 All public examples are synthetic.
 
@@ -123,4 +130,4 @@ print(result.reasons)
 
 ## Status
 
-v0.2.0 is an experimental reference specification and implementation. Do not call it an industry standard until independent implementations and conformance evidence exist.
+v0.3.0 is an experimental reference specification and implementation. Do not call it an industry standard until independent implementations and conformance evidence exist.

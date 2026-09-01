@@ -4,7 +4,7 @@
   "title": "TransitionRequirement",
   "description": "Machine-readable requirements a monetary transition must satisfy for a context.",
   "type": "object",
-  "required": ["omst_type", "required_finality_seconds", "required_availability", "minimum_liquidity", "required_capabilities", "evidence_required"],
+  "required": ["omst_type", "required_finality_seconds", "required_availability", "minimum_liquidity", "required_capabilities", "evidence_required", "required_finality", "required_atomicity", "required_access"],
   "additionalProperties": false,
   "patternProperties": {
     "^x-": {}
@@ -15,7 +15,10 @@
     "required_availability": {"type": "string"},
     "minimum_liquidity": {"type": "string"},
     "required_capabilities": {"type": "array", "items": {"type": "string"}},
-    "evidence_required": {"type": "boolean"}
+    "evidence_required": {"type": "boolean"},
+    "required_finality": {"type": "string"},
+    "required_atomicity": {"type": "boolean"},
+    "required_access": {"type": "string"}
   },
   "examples": [
     {
@@ -24,7 +27,10 @@
       "required_availability": "business_hours",
       "minimum_liquidity": "50000000",
       "required_capabilities": ["SETTLEMENT", "ATOMIC_SETTLEMENT"],
-      "evidence_required": true
+      "evidence_required": true,
+      "required_finality": "qualified",
+      "required_atomicity": true,
+      "required_access": "institutional"
     }
   ]
 }

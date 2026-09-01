@@ -13,10 +13,17 @@ from .models import (
     MoneyProfile,
     MoneyRelation,
     MoneyTransition,
+    SettlementBundle,
+    SettlementCompatibility,
+    SettlementIntent,
     TransactionContext,
+    TransitionPlan,
+    TransitionPlanStep,
     TransitionRequirement,
 )
 from .routing import route_money
+from .settlement import evaluate_settlement, plan_transition
+from .stress import stress_test
 from .velocity import settlement_velocity
 
 __all__ = [
@@ -34,12 +41,20 @@ __all__ = [
     "MoneyState",
     "MoneyTransition",
     "RelationType",
+    "SettlementBundle",
+    "SettlementCompatibility",
+    "SettlementIntent",
     "TransactionContext",
+    "TransitionPlan",
+    "TransitionPlanStep",
     "TransitionRequirement",
     "evaluate_requirements",
+    "evaluate_settlement",
     "evaluate_transition",
     "monetary_equivalence",
+    "plan_transition",
     "route_money",
     "settlement_velocity",
+    "stress_test",
     "transition_cost",
 ]

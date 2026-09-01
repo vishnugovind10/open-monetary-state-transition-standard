@@ -20,3 +20,33 @@ def test_simulate_cli(capsys):
 def test_equivalence_cli(capsys):
     assert main(["equivalence", "EUR-X", "EUR-Z", "--context", "tokenized-dvp"]) == 0
     assert "FUNCTIONALLY_EQUIVALENT" in capsys.readouterr().out
+
+
+def test_profile_cli(capsys):
+    assert main(["profile", "examples/eur-x.json"]) == 0
+    assert "EUR-X" in capsys.readouterr().out
+
+
+def test_capability_cli(capsys):
+    assert main(["capability", "EUR-X"]) == 0
+    assert "ATOMIC_SETTLEMENT" in capsys.readouterr().out
+
+
+def test_evaluate_settlement_cli(capsys):
+    assert main(["evaluate-settlement", "examples/tokenized-bond-dvp/"]) == 0
+    assert "COMPATIBLE" in capsys.readouterr().out
+
+
+def test_plan_cli(capsys):
+    assert main(["plan", "examples/tokenized-bond-dvp/"]) == 0
+    assert "plan-tokenized-bond-dvp" in capsys.readouterr().out
+
+
+def test_graph_mermaid_cli(capsys):
+    assert main(["graph", "--format", "mermaid"]) == 0
+    assert "flowchart LR" in capsys.readouterr().out
+
+
+def test_stress_cli(capsys):
+    assert main(["stress", "--scenario", "liquidity-shock"]) == 0
+    assert "liquidity-shock" in capsys.readouterr().out
