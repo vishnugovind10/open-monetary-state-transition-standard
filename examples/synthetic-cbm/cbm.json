@@ -1,0 +1,18 @@
+{
+  "omst_type": "money-profile",
+  "id": "CBM",
+  "name": "Synthetic EUR Money CBM",
+  "currency": "EUR",
+  "issuer": "Synthetic Issuer CBM",
+  "claim_type": "digital_money",
+  "monetary_layer_reference": "m0_reference",
+  "functions": {"payment":"supported","settlement":"supported","redemption":"supported","store_of_value":"conditional","collateral":"conditional","liquidity":"supported","treasury":"supported","cross_border":"conditional","programmable_transfer":"supported"},
+  "settlement_profile": {"finality_type":"deterministic","availability":"TARGET_window"},
+  "redemption_profile": {"at_par":true,"latency_seconds":30},
+  "transfer_profile": {"transferable":true,"limits":"synthetic"},
+  "access_profile": {"institutional":true,"retail":false},
+  "control_profile": {"freeze_possible":true},
+  "network_profile": {"network":"synthetic-ledger"},
+  "evidence": [],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

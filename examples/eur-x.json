@@ -1,0 +1,44 @@
+{
+  "omst_type": "money-profile",
+  "id": "EUR-X",
+  "name": "Synthetic EUR Money X",
+  "currency": "EUR",
+  "issuer": "Synthetic Issuer X",
+  "claim_type": "digital_money",
+  "monetary_layer_reference": "m1_reference",
+  "functions": {
+    "payment": "supported",
+    "settlement": "supported",
+    "redemption": "supported",
+    "store_of_value": "conditional",
+    "collateral": "conditional",
+    "liquidity": "supported",
+    "treasury": "supported",
+    "cross_border": "conditional",
+    "programmable_transfer": "supported"
+  },
+  "settlement_profile": {
+    "finality_type": "qualified",
+    "availability": "24_7"
+  },
+  "redemption_profile": {
+    "at_par": true,
+    "latency_seconds": 30
+  },
+  "transfer_profile": {
+    "transferable": true,
+    "limits": "synthetic"
+  },
+  "access_profile": {
+    "institutional": true,
+    "retail": false
+  },
+  "control_profile": {
+    "freeze_possible": true
+  },
+  "network_profile": {
+    "network": "synthetic-ledger"
+  },
+  "evidence": [],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}
