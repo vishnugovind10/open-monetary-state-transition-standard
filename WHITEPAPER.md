@@ -20,7 +20,9 @@ MoneyProfile -> MoneyCapability -> MoneyState -> MoneyTransition
 
 ## Scope
 
-OMST is a semantic and conformance layer for the monetary leg of tokenised finance. It is protocol-agnostic and can be used with synthetic data, issuer-declared data, observed ledger data, research datasets and future adapters.
+OMST is a semantic and conformance layer for the monetary leg of tokenised finance. It is protocol-agnostic and can be used with synthetic data, issuer-declared data, observed ledger data, research datasets and adapter mappings.
+
+v0.6 expands the model into a portable profile layer. Money profiles, settlement profiles, participant profiles and interoperability profiles can be exchanged independently, fingerprinted deterministically and evaluated against the same settlement intent without depending on a single implementation.
 
 ## Non-Scope
 
@@ -31,3 +33,9 @@ OMST is not a stablecoin, reserve platform, treasury platform, bank, payment net
 OTAS asks what a tokenised asset is and what it can do. OMST asks what the monetary instrument is and what it can do. Together, an asset representation and a monetary representation can support cross-domain settlement compatibility analysis.
 
 No affiliation or formal compatibility is claimed.
+
+## v0.6 Interoperability Thesis
+
+Settlement interoperability needs more than message translation. A payment, DvP leg, PvP leg, repo movement, collateral movement or redemption flow requires compatible monetary state, finality, availability, atomicity, eligibility, evidence freshness and route constraints.
+
+OMST v0.6 treats external standards as adapter surfaces. An adapter may map fields exactly, approximately, derivatively or lossily. The mapping classification is part of the result, so semantic uncertainty is not hidden behind a successful parse.

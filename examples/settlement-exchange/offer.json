@@ -1,0 +1,13 @@
+{
+  "omst_type": "settlement-offer",
+  "offer_id": "offer-party-a-eur-x",
+  "provider": "party-a",
+  "money_profile": "money-eur-x-v06",
+  "settlement_profile": "settlement-network-a",
+  "available_amount": "120000000",
+  "availability": "24_7",
+  "requirements_supported": ["atomicity", "finality", "availability", "effective_liquidity"],
+  "evidence": [],
+  "valid_until": "2026-09-02T00:00:00Z",
+  "x-note": "Synthetic settlement offer."
+}

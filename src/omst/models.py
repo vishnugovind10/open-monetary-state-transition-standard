@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from decimal import Decimal
 from typing import Any
@@ -7,8 +9,13 @@ from .enums import (
     CapabilityType,
     CompatibilityReasonCode,
     EvidenceSourceType,
+    MappingClassification,
+    MappingDirection,
     MoneyEventType,
     MoneyState,
+    NetworkType,
+    ParticipantType,
+    ProfileLifecycleStatus,
     ReasonSeverity,
     RelationType,
     RequirementComposition,
@@ -77,6 +84,141 @@ class MoneyProfile:
     evidence: list[Evidence] = field(default_factory=list)
     capabilities: list[MoneyCapability] = field(default_factory=list)
     version: str = "0.3.0"
+
+
+@dataclass(frozen=True)
+class MoneyProfileV06:
+    profile_id: str
+    profile_version: str
+    omst_version: str
+    identity: dict[str, Any]
+    issuer_reference: str
+    currency: str
+    claim_type: str
+    monetary_layer: str
+    representation: str
+    ledger: str
+    settlement_model: str
+    capabilities: tuple[CapabilityType, ...]
+    relations: tuple[str, ...]
+    availability: dict[str, Any]
+    transferability: dict[str, Any]
+    redemption: dict[str, Any]
+    access: dict[str, Any]
+    state_model: dict[str, Any]
+    evidence_policy: dict[str, Any]
+    jurisdiction_reference: str
+    metadata: dict[str, Any]
+    lifecycle_status: ProfileLifecycleStatus = ProfileLifecycleStatus.DRAFT
+    effective_from: str | None = None
+    effective_until: str | None = None
+    supersedes: str | None = None
+    profile_fingerprint: str | None = None
+
+
+@dataclass(frozen=True)
+class SettlementProfile:
+    settlement_profile_id: str
+    name: str
+    version: str
+    supported_assets: tuple[str, ...]
+    supported_money: tuple[str, ...]
+    finality: str
+    atomicity: bool
+    availability: str
+    latency: dict[str, Any]
+    transaction_limits: dict[str, Any]
+    operating_windows: tuple[str, ...]
+    supported_settlement_modes: tuple[str, ...]
+    interoperability: dict[str, Any]
+    evidence: tuple[Evidence, ...] = ()
+
+
+@dataclass(frozen=True)
+class ParticipantProfile:
+    participant_id: str
+    participant_type: ParticipantType
+    access_model: str
+    supported_money: tuple[str, ...]
+    supported_settlement: tuple[str, ...]
+    jurisdiction_reference: str
+    capabilities: tuple[CapabilityType, ...]
+    constraints: dict[str, Any]
+    evidence: tuple[Evidence, ...] = ()
+
+
+@dataclass(frozen=True)
+class SettlementNetworkProfile:
+    network_id: str
+    network_type: NetworkType
+    ledger_model: str
+    finality: str
+    availability: str
+    atomicity: bool
+    access: str
+    supported_instruments: tuple[str, ...]
+    supported_operations: tuple[CapabilityType, ...]
+    interoperability: dict[str, Any]
+    failure_model: dict[str, Any]
+    evidence: tuple[Evidence, ...] = ()
+
+
+@dataclass(frozen=True)
+class InteroperabilityProfile:
+    profile_id: str
+    external_standard: str
+    external_version: str
+    mapping_direction: MappingDirection
+    supported_objects: tuple[str, ...]
+    supported_fields: dict[str, MappingClassification]
+    lossiness: MappingClassification
+    constraints: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SettlementOffer:
+    offer_id: str
+    provider: str
+    money_profile: str
+    settlement_profile: str
+    available_amount: Decimal
+    availability: str
+    requirements_supported: tuple[str, ...]
+    evidence: tuple[Evidence, ...]
+    valid_until: str
+
+
+@dataclass(frozen=True)
+class SettlementRequest:
+    request_id: str
+    settlement_intent: SettlementIntent
+    required_money: str
+    required_capabilities: tuple[CapabilityType, ...]
+    amount: Decimal
+    deadline: str
+    evidence_policy: EvidencePolicy
+
+
+@dataclass(frozen=True)
+class SettlementResponse:
+    request_id: str
+    status: TransitionEvaluationStatus
+    accepted_requirements: tuple[str, ...]
+    rejected_requirements: tuple[str, ...]
+    conditional_requirements: tuple[str, ...]
+    evidence: tuple[Evidence, ...]
+    transition_plan: TransitionPlan | None
+    route: dict[str, Any]
+    valid_until: str
+
+
+@dataclass(frozen=True)
+class MoneyGraphSnapshot:
+    snapshot_id: str
+    timestamp: str
+    nodes: tuple[dict[str, Any], ...]
+    edges: tuple[dict[str, Any], ...]
+    evidence: tuple[Evidence, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -229,8 +371,8 @@ class MoneyRequirementSet:
     description: str
     composition: RequirementComposition
     requirements: tuple[MoneyRequirement, ...]
-    schema_version: str = "0.5.0"
-    ruleset_version: str = "omst-core-0.5"
+    schema_version: str = "0.6.0"
+    ruleset_version: str = "omst-core-0.6"
 
 
 @dataclass(frozen=True)

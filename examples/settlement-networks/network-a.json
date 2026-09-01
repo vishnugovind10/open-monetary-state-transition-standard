@@ -1,0 +1,27 @@
+{
+  "omst_type": "settlement-profile",
+  "settlement_profile_id": "settlement-network-a",
+  "name": "Synthetic Settlement Network A",
+  "version": "2026-09-01",
+  "supported_assets": ["synthetic-tokenised-bond"],
+  "supported_money": ["EUR-X", "EUR-Y"],
+  "finality": "qualified",
+  "atomicity": true,
+  "availability": "24_7",
+  "latency": {
+    "maximum_seconds": 60,
+    "observed_seconds": 45
+  },
+  "transaction_limits": {
+    "maximum_amount": "150000000",
+    "currency": "EUR"
+  },
+  "operating_windows": ["24_7"],
+  "supported_settlement_modes": ["DVP", "ATOMIC"],
+  "interoperability": {
+    "profile": "OMST-INTEROPERABILITY",
+    "adapter": "generic"
+  },
+  "evidence": [],
+  "x-note": "Synthetic settlement environment. Not an operator attestation."
+}

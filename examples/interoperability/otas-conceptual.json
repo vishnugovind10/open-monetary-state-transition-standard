@@ -1,0 +1,19 @@
+{
+  "omst_type": "interoperability-profile",
+  "profile_id": "adapter-otas-v06",
+  "external_standard": "OTAS",
+  "external_version": "conceptual",
+  "mapping_direction": "BIDIRECTIONAL",
+  "supported_objects": ["asset", "settlement_intent"],
+  "supported_fields": {
+    "asset_id": "LOSSLESS",
+    "cash_leg": "DERIVED",
+    "money_state": "UNSUPPORTED"
+  },
+  "lossiness": "DERIVED",
+  "constraints": [
+    "OTAS is asset-side representation; OMST is money-side representation.",
+    "This adapter example does not claim official OTAS interoperability or affiliation."
+  ],
+  "x-note": "Conceptual mapping example only."
+}

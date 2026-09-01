@@ -1,0 +1,78 @@
+{
+  "omst_type": "money-profile",
+  "id": "EUR-X",
+  "name": "Synthetic regulated e-money",
+  "currency": "EUR",
+  "issuer": "Synthetic",
+  "claim_type": "regulated_e_money",
+  "monetary_layer_reference": "m1_reference",
+  "functions": {
+    "payment": "supported",
+    "settlement": "supported",
+    "redemption": "supported"
+  },
+  "settlement_profile": {
+    "finality_type": "qualified",
+    "availability": "24_7",
+    "atomicity": true
+  },
+  "redemption_profile": {
+    "redeemable": true
+  },
+  "transfer_profile": {
+    "transferable": true
+  },
+  "access_profile": {
+    "institutional": true
+  },
+  "control_profile": {
+    "programmable_controls": true
+  },
+  "network_profile": {
+    "ledger": "synthetic-ledger-a"
+  },
+  "evidence": [],
+  "capabilities": ["TRANSFER", "DVP", "ATOMIC_SETTLEMENT", "SETTLEMENT"],
+  "version": "0.6.0",
+  "profile_id": "money-eur-x-v06",
+  "profile_version": "2026-09-01",
+  "omst_version": "0.6.0",
+  "identity": {
+    "instrument": "EUR-X",
+    "public_name": "Synthetic regulated e-money"
+  },
+  "issuer_reference": "synthetic-issuer",
+  "monetary_layer": "commercial_money",
+  "representation": "tokenized_claim",
+  "ledger": "synthetic-ledger-a",
+  "settlement_model": "delivery-versus-payment",
+  "relations": ["settled_in:CBM"],
+  "availability": {
+    "window": "24_7"
+  },
+  "transferability": {
+    "institutional": true
+  },
+  "redemption": {
+    "redeemable": true
+  },
+  "access": {
+    "model": "institutional"
+  },
+  "state_model": {
+    "available": "settlement_ready"
+  },
+  "evidence_policy": {
+    "effective_liquidity_max_age_seconds": 60
+  },
+  "jurisdiction_reference": "EU-synthetic",
+  "metadata": {
+    "synthetic": true
+  },
+  "lifecycle_status": "PUBLISHED",
+  "effective_from": "2026-09-01T00:00:00Z",
+  "effective_until": null,
+  "supersedes": null,
+  "profile_fingerprint": "computed-by-omst-fingerprint",
+  "x-note": "Synthetic reference profile. Not issuer, regulatory or market-condition evidence."
+}

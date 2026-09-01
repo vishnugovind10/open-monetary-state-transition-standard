@@ -1,0 +1,32 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementRequest",
+  "description": "OMST v0.6 machine-readable request for settlement capabilities.",
+  "type": "object",
+  "required": ["omst_type", "request_id", "settlement_intent", "required_money", "required_capabilities", "amount", "deadline", "evidence_policy"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "settlement-request"},
+    "request_id": {"type": "string"},
+    "settlement_intent": {"type": "string"},
+    "required_money": {"type": "string"},
+    "required_capabilities": {"type": "array", "items": {"type": "string"}},
+    "amount": {"type": "string"},
+    "deadline": {"type": "string"},
+    "evidence_policy": {"type": "object"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-request",
+      "request_id": "request-tokenized-bond-dvp-eur-50m",
+      "settlement_intent": "examples/tokenized-bond-dvp/settlement-intent.json",
+      "required_money": "EUR",
+      "required_capabilities": ["DVP", "ATOMIC_SETTLEMENT"],
+      "amount": "50000000",
+      "deadline": "2026-09-02T00:00:00Z",
+      "evidence_policy": {"effective_liquidity_max_age_seconds": 60}
+    }
+  ]
+}

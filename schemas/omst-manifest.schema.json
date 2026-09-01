@@ -1,0 +1,33 @@
+{
+  "$id": "https://omst.dev/schemas/omst-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OMSTManifest",
+  "description": "OMST v0.6 decentralized implementation discovery manifest.",
+  "type": "object",
+  "required": ["omst_type", "omst_version", "implementation", "conformance", "profiles", "settlement", "interoperability", "experimental"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "omst-manifest"},
+    "omst_version": {"type": "string"},
+    "implementation": {"type": "object"},
+    "conformance": {"type": "array"},
+    "profiles": {"type": "array", "items": {"type": "string"}},
+    "settlement": {"type": "array", "items": {"type": "string"}},
+    "interoperability": {"type": "array", "items": {"type": "string"}},
+    "experimental": {"type": "boolean"},
+    "boundary": {"type": "string"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "omst-manifest",
+      "omst_version": "0.6.0",
+      "implementation": {"name": "python-reference", "version": "0.6.0"},
+      "conformance": [],
+      "profiles": ["money", "settlement"],
+      "settlement": ["request", "response"],
+      "interoperability": ["generic"],
+      "experimental": true
+    }
+  ]
+}

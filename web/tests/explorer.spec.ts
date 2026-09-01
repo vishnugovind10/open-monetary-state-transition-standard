@@ -6,6 +6,9 @@ test("loads the Explorer dashboard and primary panels", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Settlement Compatibility" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Money Graph" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Conformance Status" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Profiles" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Settlement Exchange" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Adapters" })).toBeVisible();
   await expect(page.getByText("COMPATIBLE").first()).toBeVisible();
   await expect(page.getByText("All examples are synthetic.")).toBeVisible();
 });
@@ -29,4 +32,8 @@ test("supports equivalence, graph and conformance navigation", async ({ page }) 
   await expect(page.getByLabel("Source instrument")).toHaveValue("EUR-Z");
   await page.getByRole("button", { name: "Conformance" }).click();
   await expect(page.getByRole("cell", { name: "Partial" }).first()).toBeVisible();
+  await page.getByRole("button", { name: "Profiles" }).click();
+  await expect(page.locator("[aria-label='Profiles workspace']")).toBeVisible();
+  await page.getByRole("button", { name: "Adapters" }).click();
+  await expect(page.getByRole("cell", { name: "ISO 20022" })).toBeVisible();
 });

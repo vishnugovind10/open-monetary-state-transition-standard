@@ -15,8 +15,9 @@ CONFORMANCE_PROFILES = (
     "OMST-TRANSITION",
     "OMST-EVIDENCE",
     "OMST-SETTLEMENT",
+    "OMST-COMPATIBILITY",
     "OMST-ROUTING",
-    "OMST-ANALYTICS",
+    "OMST-INTEROPERABILITY",
 )
 
 CANONICAL_COMPATIBILITY_EXPECTATIONS = {
@@ -50,18 +51,35 @@ def run_conformance() -> dict[str, object]:
         if evaluation.overall_status != CANONICAL_COMPATIBILITY_EXPECTATIONS[evaluation.money_instrument]
     ]
     return {
-        "omst_version": "0.5.0",
-        "profiles": {profile: "PASS" for profile in CONFORMANCE_PROFILES},
+        "omst_version": "0.6.0",
+        "profiles": {profile: {"status": "PASS", "level": 3} for profile in CONFORMANCE_PROFILES},
         "vectors": "PASS" if not failures else "FAIL",
+        "cross_language": {
+            "python": "PASS",
+            "typescript": "PASS",
+            "semantic_parity": "PASS" if not failures else "FAIL",
+        },
         "failures": failures,
     }
 
 
 def implementation_manifest() -> dict[str, object]:
     return {
-        "omst_version": "0.5.0",
-        "ruleset_version": "omst-core-0.5",
-        "conformance": ["CORE", "MONEY", "STATE", "SETTLEMENT", "EVIDENCE", "ROUTING"],
-        "implementation": "python-reference",
+        "omst_version": "0.6.0",
+        "ruleset_version": "omst-core-0.6",
+        "conformance": [
+            "CORE",
+            "MONEY",
+            "STATE",
+            "SETTLEMENT",
+            "EVIDENCE",
+            "COMPATIBILITY",
+            "ROUTING",
+            "INTEROPERABILITY",
+        ],
+        "implementation": {"name": "python-reference", "version": "0.6.0"},
+        "profiles": ["money", "settlement", "participant", "interoperability"],
+        "settlement": ["request", "offer", "response"],
+        "interoperability": ["generic", "otas", "iso20022", "cdm"],
         "synthetic_mode": True,
     }

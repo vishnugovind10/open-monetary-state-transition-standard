@@ -1,6 +1,6 @@
 # OMST — Open Monetary State & Transition Standard
 
-An open, machine-readable standard for evaluating whether digital money can satisfy settlement requirements across heterogeneous financial systems.
+OMST is an open standard for describing digital money and determining whether it can satisfy settlement requirements across heterogeneous financial systems.
 
 [Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Explorer](web/) [Conformance](conformance/)
 
@@ -27,6 +27,9 @@ OMST provides open machine-readable primitives for:
 - monetary mobility
 - transition integrity
 - settlement-compatibility profiles
+- settlement, participant and interoperability profiles
+- settlement request, offer and response exchange
+- adapter mappings for external standards
 - requirement sets
 - conformance vectors
 
@@ -56,7 +59,7 @@ pip install -e .
 
 ## Explorer
 
-OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, equivalence, routing, stress scenarios and conformance status. The v0.5 scenario compares EUR-X, EUR-Y and EUR-Z against the same EUR 50m tokenized-bond DvP requirements:
+OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, profile exchange, adapters, routing, stress scenarios and conformance status. The v0.6 scenario compares EUR-X, EUR-Y and EUR-Z against the same EUR 50m tokenized-bond DvP requirements:
 
 - `EUR-X`: `COMPATIBLE`
 - `EUR-Y`: `CONDITIONALLY_COMPATIBLE` because mandatory requirements pass but liquidity evidence is stale
@@ -89,8 +92,21 @@ omst liquidity EUR-X
 omst mobility --from EUR-X --to EUR-Y --amount 50000000
 omst route --from EUR-X --to EUR-Y --amount 50000000 --context tokenized-dvp
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json
+omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json --settlement examples/settlement-networks/network-a.json
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-y.json
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-z.json
+omst profile validate examples/profiles/money/eur-x.v06.json
+omst settlement-profile examples/settlement-networks/network-a.json
+omst participant examples/participants/party-a.json
+omst interoperability examples/interoperability/iso20022-conceptual.json
+omst adapter iso20022
+omst adapter otas
+omst adapter cdm
+omst fingerprint examples/profiles/money/eur-x.v06.json
+omst exchange --intent examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json --settlement examples/settlement-networks/network-a.json
+omst conformance --profile OMST-INTEROPERABILITY
+omst discovery
+omst api settlement/response
 omst explain evaluation.json
 omst plan examples/tokenized-bond-dvp/
 omst conformance
@@ -103,7 +119,7 @@ pytest
 
 ## Flagship Scenario
 
-The v0.5 reference scenario evaluates a synthetic EUR 50m tokenized-bond DvP cash leg. It loads synthetic money profiles, checks machine-readable requirements, state predicates, liquidity, evidence freshness, route constraints, settlement latency, finality and atomic settlement capability, then produces a reproducible settlement-compatibility profile.
+The v0.6 reference scenario evaluates a synthetic EUR 50m tokenized-bond DvP cash leg. It loads synthetic money profiles, settlement profiles, state predicates, evidence, machine-readable requirements, route constraints, settlement latency, finality and atomic settlement capability, then produces a portable settlement response with a reproducible compatibility profile.
 
 All public examples are synthetic.
 
@@ -155,4 +171,4 @@ print(result.reasons)
 
 ## Status
 
-v0.4.0 is an experimental reference specification and implementation with a synthetic-data Explorer. Do not call it an industry standard until independent implementations and conformance evidence exist.
+v0.6.0 is an experimental open-standard reference specification and implementation with synthetic profiles, conformance vectors, API-shaped endpoints and a synthetic-data Explorer. Do not call it an industry standard until independent implementations and conformance evidence exist.

@@ -3,8 +3,8 @@
   "requirement_set_id": "TOKENIZED_BOND_DVP_EUR",
   "description": "Synthetic EUR tokenized bond DvP cash-leg requirements.",
   "composition": "AND",
-  "schema_version": "0.5.0",
-  "ruleset_version": "omst-core-0.5",
+  "schema_version": "0.6.0",
+  "ruleset_version": "omst-core-0.6",
   "requirements": [
     { "property": "currency", "operator": "EQUALS", "value": "EUR", "priority": "MANDATORY" },
     { "property": "finality", "operator": "IN", "value": ["qualified", "deterministic", "central-bank-final"], "priority": "MANDATORY" },

@@ -1,100 +1,162 @@
-# OMST v0.2 Specification
+# OMST v0.6 Specification
 
-OMST defines machine-readable primitives for describing, validating, simulating and analysing state transitions of digital money across tokenised financial systems.
+OMST is an open standard for describing digital money and determining whether it can satisfy settlement requirements across heterogeneous financial systems.
 
-v0.2 expands the kernel into an open-standard laboratory: concept chapters, RFCs, language-neutral event envelopes, conformance vectors and typed reference objects.
+v0.6 defines a portable interoperability layer around the existing monetary state-transition model. It standardizes money profiles, settlement profiles, participant profiles, interoperability profiles, settlement exchange objects, adapter mappings, graph snapshots and conformance profiles.
 
-## Competitive Boundary
+## Scope
 
-Reserve and treasury systems answer what backs an instrument, how reserves are governed, how capital is protected and how reserve evidence is generated. OMST answers what state a monetary instrument is in, what transition is occurring, what changes during that transition, whether required monetary properties are preserved, what evidence supports the transition and what resulting state exists.
+OMST describes monetary behavior. It does not issue, custody, redeem, transfer or settle money. It does not certify regulatory compliance, issuer solvency, reserve quality, legal enforceability or market conditions.
 
-OMST can consume reserve evidence in a future adapter, but OMST does not become the reserve system.
+All repository examples are synthetic reference data unless explicitly labelled otherwise.
 
-## Monetary Classification
+## Core Inputs
 
-`monetary_layer_reference` may use `m0_reference`, `m1_reference`, `m2_reference`, `other`, `unknown`, or `not_applicable`.
+A deterministic settlement evaluation is computed from:
 
-M0/M1/M2 are monetary-economic classification concepts. OMST does not establish official monetary aggregates or determine regulatory classification.
+- `MoneyProfile`
+- `MoneyState`
+- `SettlementProfile`
+- `SettlementIntent`
+- `MoneyRequirementSet`
+- `Evidence`
+- `EvidencePolicy`
+- ruleset version
+- schema version
+- evaluation timestamp
 
-Monetary classification is distinct from technical implementation, legal classification and current operational state.
+Implementations must not infer compatibility from an instrument name alone. Compatibility must emerge from profile fields, state predicates, requirements, evidence and rules.
 
-## Primitives
+## MoneyProfile v0.6
 
-### MoneyProfile
+`MoneyProfile` describes a monetary instrument's semantic and operational properties. v0.6 adds portable lifecycle metadata:
 
-Required fields: `id`, `name`, `currency`, `issuer`, `claim_type`, `monetary_layer_reference`, `functions`, `settlement_profile`, `redemption_profile`, `transfer_profile`, `access_profile`, `control_profile`, `network_profile`, `evidence`.
+- `profile_version`
+- `profile_lifecycle_status`
+- `profile_fingerprint`
+- `valid_from`
+- `valid_until`
+- `schema_uri`
+- `implementation_uri`
 
-Optional v0.2 fields include `capabilities` and `version`.
+The profile fingerprint is calculated over canonical JSON with `profile_fingerprint` excluded, so independently hosted copies can be compared.
 
-### MoneyCapability
+## SettlementProfile
 
-Capabilities are first-class scoped assertions with `capability`, `status`, `conditions`, `scope`, `evidence`, `valid_from` and `valid_until`.
+`SettlementProfile` describes a settlement environment:
 
-Supported capability names: `PAYMENT`, `SETTLEMENT`, `REDEMPTION`, `TRANSFER`, `CONVERSION`, `COLLATERAL`, `TREASURY`, `CROSS_BORDER`, `PROGRAMMABLE_TRANSFER`, `ATOMIC_SETTLEMENT`, `ESCROW`, `DELIVERY_VERSUS_PAYMENT`, `PAYMENT_VERSUS_PAYMENT`, `INTRADAY_LIQUIDITY`.
+- supported currencies
+- settlement modes
+- finality model
+- atomicity support
+- operating window
+- latency target
+- participant requirements
+- evidence requirements
 
-### MoneyState
+It is separate from the money profile because the same monetary instrument may be usable in multiple settlement environments with different rules.
 
-States: `ISSUED`, `AVAILABLE`, `RESERVED`, `LOCKED`, `TRANSFERRING`, `SETTLING`, `FINAL`, `REDEEMING`, `CONVERTING`, `ENCUMBERED`, `FROZEN`, `FAILED`, `UNKNOWN`.
+## ParticipantProfile
 
-```mermaid
-stateDiagram-v2
-    [*] --> ISSUED
-    ISSUED --> AVAILABLE
-    AVAILABLE --> RESERVED
-    AVAILABLE --> TRANSFERRING
-    AVAILABLE --> REDEEMING
-    AVAILABLE --> CONVERTING
-    RESERVED --> SETTLING
-    TRANSFERRING --> SETTLING
-    CONVERTING --> SETTLING
-    REDEEMING --> FINAL
-    SETTLING --> FINAL
-    SETTLING --> FAILED
-    AVAILABLE --> ENCUMBERED
-    ENCUMBERED --> AVAILABLE
-    AVAILABLE --> FROZEN
-```
+`ParticipantProfile` describes a party or system participating in settlement:
 
-### MoneyTransition
+- participant type
+- jurisdiction reference
+- eligible roles
+- network memberships
+- signing and authorization references
+- evidence references
 
-Required fields: `transition_id`, `transition_type`, `source_instrument`, `target_instrument`, `source_state`, `target_state`, `quantity`, `currency`, `initiated_at`, `completed_at`, `settlement_finality`, `liquidity_consumed`, `constraints`, `evidence`.
+OMST does not identify real institutions in synthetic examples.
 
-Lifecycle states preserve the distinction between pending, final, failed, reverted and unknown results.
+## SettlementNetworkProfile
 
-### Evidence
+`SettlementNetworkProfile` describes a network capable of carrying monetary settlement. It includes network type, supported settlement profiles, availability, finality, routing constraints and participant eligibility constraints.
 
-Evidence source types are `official`, `issuer_declared`, `observed`, `derived`, `simulated`, `community`, and `unknown`. The engine distinguishes `DECLARED`, `OBSERVED`, `DERIVED`, and `SIMULATED` evidence and does not convert declarations into observations.
+## InteroperabilityProfile
 
-Evidence chains represent claim, source, observation, transformation and derived-result lineage.
+`InteroperabilityProfile` records how an OMST profile maps to an external representation. v0.6 includes conceptual mappings for:
 
-### MoneyEvent
+- generic JSON
+- OTAS
+- ISO 20022
+- ISDA CDM
+- FINOS CDM
 
-`MoneyEvent` is the canonical event envelope for external systems. Each event includes `omst_schema_version`, `event_id`, `event_type`, `instrument`, `source_state`, `target_state`, `quantity`, `currency`, `timestamp`, `actor_reference`, `ledger_reference`, `transaction_reference` and `evidence`.
+Mappings must classify each mapped field as `EXACT`, `APPROXIMATED`, `DERIVED`, `UNSUPPORTED` or `LOSSY`. A mapping with approximated or lossy fields must not claim semantic equivalence.
 
-### MoneyRelation
+## Settlement Exchange
 
-`MoneyRelation` represents relationships between monetary instruments, including `REDEEMABLE_FOR`, `CONVERTIBLE_TO`, `SETTLEABLE_AGAINST`, `COLLATERALIZABLE_AGAINST`, `EXCHANGEABLE_FOR`, `BRIDGED_TO`, `MINTED_FROM`, `BACKED_BY` and `SETTLED_IN`.
+OMST defines three portable exchange objects:
 
-`BACKED_BY` belongs to the relationship vocabulary, but OMST does not become a reserve-analysis product.
+- `SettlementRequest`: what settlement is being requested and what money properties are required.
+- `SettlementOffer`: what a participant or system can offer for the requested settlement.
+- `SettlementResponse`: the deterministic compatibility result, accepted requirements, rejected requirements, conditional requirements, route and transition plan.
 
-### SettlementContext
+These objects allow counterparties, routers and applications to exchange machine-readable compatibility information without sharing private operational data.
 
-Settlement context includes transaction type, amount, currency, asset, venue, deadline, required finality, required liquidity, participants, jurisdiction reference, operating window and settlement mode.
+## Compatibility Status
 
-### TransitionRequirement And TransitionEvaluation
+The settlement evaluator returns:
 
-`TransitionRequirement` states what the transaction requires. `TransitionEvaluation` returns `COMPATIBLE`, `INCOMPATIBLE`, `CONDITIONAL` or `UNKNOWN` with explicit reasons such as finality mismatch, liquidity insufficient, operating-window mismatch, capability unavailable, conversion route unavailable or evidence insufficient.
+- `COMPATIBLE`: mandatory requirements and evidence policy checks pass.
+- `CONDITIONALLY_COMPATIBLE`: mandatory requirements pass but stale evidence, warnings or assumptions remain.
+- `INCOMPATIBLE`: one or more mandatory requirements fail.
+- `UNKNOWN`: required state, profile or evidence data is unavailable.
 
-### Monetary Equivalence
+Reason codes are machine-readable and stable within a ruleset version.
 
-Monetary equivalence distinguishes nominal, functional, settlement, economic and contextual equivalence. Same currency does not necessarily mean same settlement capability.
+## Graph Snapshot and Routing
 
-### MonetaryTransitionIntegrity
+`MoneyGraphSnapshot` records monetary instruments, settlement networks, route edges, constraints and fallback routes used during an evaluation. Fallback routes are descriptive outputs, not instructions to execute settlement.
 
-State vector:
+## Manifest and Discovery
 
-```text
-S = (F,R,L,A,T,I,C)
-```
+An OMST implementation may publish:
 
-where finality, redemption, liquidity, availability, transferability, institutional eligibility/access and control constraints are compared dimension-by-dimension. Results are `PRESERVED`, `DEGRADED`, `IMPROVED`, `INCOMPARABLE`, or `UNKNOWN`.
+- `omst-manifest.json`
+- `.well-known/omst.json`
+
+The manifest declares implementation version, conformance profiles, supported profile types, settlement exchange support and adapter families.
+
+## API Shape
+
+The reference repository includes stateless API-shaped endpoints under `/api/v1/*`:
+
+- `/api/v1/profile/validate`
+- `/api/v1/settlement/request`
+- `/api/v1/settlement/evaluate`
+- `/api/v1/settlement/response`
+- `/api/v1/equivalence`
+- `/api/v1/plan`
+- `/api/v1/route`
+- `/api/v1/conformance`
+- `/api/v1/adapter/map`
+
+These endpoints expose synthetic reference responses. They are not production settlement services.
+
+## Conformance 2.0
+
+v0.6 declares the following conformance profiles:
+
+- `OMST-CORE`
+- `OMST-MONEY`
+- `OMST-STATE`
+- `OMST-TRANSITION`
+- `OMST-EVIDENCE`
+- `OMST-SETTLEMENT`
+- `OMST-COMPATIBILITY`
+- `OMST-ROUTING`
+- `OMST-INTEROPERABILITY`
+
+Conforming implementations must reproduce reference statuses, reason codes and canonical JSON hashes for conformance vectors within the same ruleset version.
+
+## Reference Scenario
+
+The flagship scenario is a synthetic EUR 50m tokenized-bond DvP cash leg:
+
+- `EUR-X` is compatible.
+- `EUR-Y` is conditionally compatible because liquidity evidence is stale.
+- `EUR-Z` is incompatible because mandatory atomicity, finality, availability, latency and liquidity requirements fail.
+
+This scenario is generated from profiles, state, requirements, evidence policy and rules. It is not issuer evidence or a representation of live market conditions.

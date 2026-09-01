@@ -23,6 +23,16 @@ export type MoneyProfile = {
   evidenceAgeSeconds: number;
 };
 
+export type SettlementProfile = {
+  settlementProfileId: string;
+  finality: MoneyProfile["finality"][];
+  availability: "24_7" | "business_hours";
+  atomicity: boolean;
+  maximumLatencySeconds: number;
+  minimumLiquidity: number;
+  maximumEvidenceAgeSeconds: number;
+};
+
 export type RequirementSet = {
   minimumLiquidity: number;
   maximumLatencySeconds: number;
@@ -47,30 +57,56 @@ const defaultRequirementSet: RequirementSet = {
   maximumEvidenceAgeSeconds: 86_400
 };
 
+const defaultSettlementProfile: SettlementProfile = {
+  settlementProfileId: "settlement-network-a",
+  finality: ["qualified", "contractual", "central-bank-final"],
+  availability: "24_7",
+  atomicity: true,
+  maximumLatencySeconds: 90,
+  minimumLiquidity: 50_000_000,
+  maximumEvidenceAgeSeconds: 86_400
+};
+
 export function evaluateCompatibility(
   money: MoneyProfile,
-  requirementSet: RequirementSet = defaultRequirementSet
+  requirementSet: RequirementSet = defaultRequirementSet,
+  settlementProfile: SettlementProfile = defaultSettlementProfile
 ): CompatibilityProfile {
   const reasonCodes: ReasonCode[] = [];
 
-  if (requirementSet.requireAtomicSettlement && !money.atomicSettlement) {
+  if ((requirementSet.requireAtomicSettlement || settlementProfile.atomicity) && !money.atomicSettlement) {
     reasonCodes.push("ATOMICITY_UNAVAILABLE");
   }
-  if (!requirementSet.acceptedFinality.includes(money.finality)) {
+  if (
+    !requirementSet.acceptedFinality.includes(money.finality) ||
+    !settlementProfile.finality.includes(money.finality)
+  ) {
     reasonCodes.push("FINALITY_MISMATCH");
   }
-  if (money.settlementAvailability !== requirementSet.requiredAvailability) {
+  if (
+    money.settlementAvailability !== requirementSet.requiredAvailability ||
+    money.settlementAvailability !== settlementProfile.availability
+  ) {
     reasonCodes.push("AVAILABILITY_MISMATCH");
   }
-  if (money.settlementLatencySeconds > requirementSet.maximumLatencySeconds) {
+  if (
+    money.settlementLatencySeconds > requirementSet.maximumLatencySeconds ||
+    money.settlementLatencySeconds > settlementProfile.maximumLatencySeconds
+  ) {
     reasonCodes.push("LATENCY_REQUIREMENT_UNMET");
   }
-  if (money.effectiveLiquidity < requirementSet.minimumLiquidity) {
+  if (
+    money.effectiveLiquidity < requirementSet.minimumLiquidity ||
+    money.effectiveLiquidity < settlementProfile.minimumLiquidity
+  ) {
     reasonCodes.push("LIQUIDITY_INSUFFICIENT");
   }
 
   const blockingReasons = reasonCodes.length;
-  if (money.evidenceAgeSeconds > requirementSet.maximumEvidenceAgeSeconds) {
+  if (
+    money.evidenceAgeSeconds > requirementSet.maximumEvidenceAgeSeconds ||
+    money.evidenceAgeSeconds > settlementProfile.maximumEvidenceAgeSeconds
+  ) {
     reasonCodes.push("LIQUIDITY_EVIDENCE_STALE");
   }
 
@@ -85,6 +121,27 @@ export function evaluateCompatibility(
     moneyInstrument: money.id,
     overallStatus,
     reasonCodes
+  };
+}
+
+export function runConformance() {
+  const expectations = new Map<string, CompatibilityStatus>([
+    ["EUR-X", "COMPATIBLE"],
+    ["EUR-Y", "CONDITIONALLY_COMPATIBLE"],
+    ["EUR-Z", "INCOMPATIBLE"]
+  ]);
+  const failures = referenceProfiles
+    .map((profile) => ({
+      instrument: profile.id,
+      expected: expectations.get(profile.id) ?? "UNKNOWN",
+      actual: evaluateCompatibility(profile).overallStatus
+    }))
+    .filter((result) => result.expected !== result.actual);
+
+  return {
+    omstVersion: "0.6.0",
+    vectors: failures.length === 0 ? "PASS" : "FAIL",
+    failures
   };
 }
 

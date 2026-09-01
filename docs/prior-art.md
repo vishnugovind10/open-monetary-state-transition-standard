@@ -8,3 +8,7 @@
 | ECB Pontes/Appia | Central-bank-money settlement and future ecosystem blueprint | Institutional infrastructure | OMST is an open representation layer, not infrastructure | ECB |
 | BIS unified-ledger work | Singleness and interoperability | Monetary architecture | OMST supplies conformance-oriented state-transition primitives | BIS |
 | ISO 20022 | Financial messaging | Messaging standard | OMST can complement messaging with state-transition semantics | ISO |
+
+## Adapter Boundary
+
+v0.6 treats these projects and standards as interoperability surfaces, not dependencies or endorsements. OMST adapter profiles classify each mapped field as exact, approximated, derived, unsupported or lossy. This keeps message-level compatibility separate from semantic settlement compatibility.

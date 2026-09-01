@@ -1,0 +1,36 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-offer.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementOffer",
+  "description": "OMST v0.6 machine-readable settlement capability offer.",
+  "type": "object",
+  "required": ["omst_type", "offer_id", "provider", "money_profile", "settlement_profile", "available_amount", "availability", "requirements_supported", "evidence", "valid_until"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "settlement-offer"},
+    "offer_id": {"type": "string"},
+    "provider": {"type": "string"},
+    "money_profile": {"type": "string"},
+    "settlement_profile": {"type": "string"},
+    "available_amount": {"type": "string"},
+    "availability": {"type": "string"},
+    "requirements_supported": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array"},
+    "valid_until": {"type": "string"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-offer",
+      "offer_id": "offer-party-a-eur-x",
+      "provider": "party-a",
+      "money_profile": "money-eur-x-v06",
+      "settlement_profile": "settlement-network-a",
+      "available_amount": "120000000",
+      "availability": "24_7",
+      "requirements_supported": ["atomicity", "finality", "availability", "effective_liquidity"],
+      "evidence": [],
+      "valid_until": "2026-09-02T00:00:00Z"
+    }
+  ]
+}

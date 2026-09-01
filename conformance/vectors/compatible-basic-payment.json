@@ -6,7 +6,7 @@
   "expected_status": "COMPATIBLE",
   "expected_reasons": [],
   "expected_properties": { "money_instrument": "EUR-X" },
-  "schema_version": "0.5.0",
-  "ruleset_version": "omst-core-0.5",
+  "schema_version": "0.6.0",
+  "ruleset_version": "omst-core-0.6",
   "x-note": "Synthetic vector. Not issuer, market or regulatory evidence."
 }

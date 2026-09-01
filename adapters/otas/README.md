@@ -1,3 +1,12 @@
 # OTAS Adapter Concept
 
-Future work may map tokenised-asset settlement requirements from OTAS-like asset descriptions into OMST transaction contexts. No affiliation or formal compatibility is claimed.
+OTAS-like representations describe asset-side semantics. OMST describes money-side state-transition semantics.
+
+This adapter demonstrates conceptual mapping only:
+
+- asset identifier: `LOSSLESS`
+- asset settlement requirement: `DERIVED`
+- cash leg: `DERIVED`
+- money state: `UNSUPPORTED`
+
+No official OTAS interoperability, endorsement, certification or affiliation is claimed.

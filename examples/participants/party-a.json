@@ -1,0 +1,15 @@
+{
+  "omst_type": "participant-profile",
+  "participant_id": "party-a",
+  "participant_type": "SETTLEMENT_AGENT",
+  "access_model": "institutional",
+  "supported_money": ["EUR-X"],
+  "supported_settlement": ["settlement-network-a"],
+  "jurisdiction_reference": "EU-synthetic",
+  "capabilities": ["DVP", "ATOMIC_SETTLEMENT"],
+  "constraints": {
+    "pii": "not embedded in OMST core"
+  },
+  "evidence": [],
+  "x-note": "Synthetic non-PII participant capability profile."
+}

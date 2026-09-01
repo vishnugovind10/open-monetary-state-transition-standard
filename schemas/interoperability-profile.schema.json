@@ -1,0 +1,34 @@
+{
+  "$id": "https://omst.dev/schemas/interoperability-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InteroperabilityProfile",
+  "description": "OMST v0.6 adapter mapping profile for external standards and systems.",
+  "type": "object",
+  "required": ["omst_type", "profile_id", "external_standard", "external_version", "mapping_direction", "supported_objects", "supported_fields", "lossiness", "constraints"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "interoperability-profile"},
+    "profile_id": {"type": "string"},
+    "external_standard": {"type": "string"},
+    "external_version": {"type": "string"},
+    "mapping_direction": {"enum": ["EXTERNAL_TO_OMST", "OMST_TO_EXTERNAL", "BIDIRECTIONAL"]},
+    "supported_objects": {"type": "array", "items": {"type": "string"}},
+    "supported_fields": {"type": "object", "additionalProperties": {"enum": ["EXACT", "LOSSLESS", "LOSSY", "DERIVED", "APPROXIMATED", "UNSUPPORTED"]}},
+    "lossiness": {"enum": ["EXACT", "LOSSLESS", "LOSSY", "DERIVED", "APPROXIMATED", "UNSUPPORTED"]},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "interoperability-profile",
+      "profile_id": "adapter-iso20022-v06",
+      "external_standard": "ISO 20022",
+      "external_version": "conceptual",
+      "mapping_direction": "EXTERNAL_TO_OMST",
+      "supported_objects": ["message", "payment_instruction"],
+      "supported_fields": {"amount": "EXACT", "settlement_state": "APPROXIMATED"},
+      "lossiness": "APPROXIMATED",
+      "constraints": ["ISO 20022 is message semantics; OMST is state-transition semantics."]
+    }
+  ]
+}

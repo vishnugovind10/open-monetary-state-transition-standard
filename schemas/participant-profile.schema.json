@@ -1,0 +1,36 @@
+{
+  "$id": "https://omst.dev/schemas/participant-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ParticipantProfile",
+  "description": "OMST v0.6 non-PII participant settlement capability profile.",
+  "type": "object",
+  "required": ["omst_type", "participant_id", "participant_type", "access_model", "supported_money", "supported_settlement", "jurisdiction_reference", "capabilities", "constraints", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "participant-profile"},
+    "participant_id": {"type": "string"},
+    "participant_type": {"enum": ["BANK", "ISSUER", "CUSTODIAN", "SETTLEMENT_AGENT", "VENUE", "PAYMENT_PROVIDER", "CORPORATE", "INFRASTRUCTURE_PROVIDER", "OTHER"]},
+    "access_model": {"type": "string"},
+    "supported_money": {"type": "array", "items": {"type": "string"}},
+    "supported_settlement": {"type": "array", "items": {"type": "string"}},
+    "jurisdiction_reference": {"type": "string"},
+    "capabilities": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "object"},
+    "evidence": {"type": "array"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "participant-profile",
+      "participant_id": "party-a",
+      "participant_type": "SETTLEMENT_AGENT",
+      "access_model": "institutional",
+      "supported_money": ["EUR-X"],
+      "supported_settlement": ["settlement-network-a"],
+      "jurisdiction_reference": "EU-synthetic",
+      "capabilities": ["DVP", "ATOMIC_SETTLEMENT"],
+      "constraints": {"pii": "not embedded in OMST core"},
+      "evidence": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "omst_type": "omst-manifest",
+  "omst_version": "0.6.0",
+  "implementation": {
+    "name": "python-reference",
+    "version": "0.6.0"
+  },
+  "conformance": [
+    {"profile": "OMST-CORE", "level": 3, "version": "0.6.0"},
+    {"profile": "OMST-COMPATIBILITY", "level": 3, "version": "0.6.0"},
+    {"profile": "OMST-INTEROPERABILITY", "level": 4, "version": "0.6.0"}
+  ],
+  "profiles": ["money", "settlement", "participant", "interoperability"],
+  "settlement": ["request", "offer", "response", "graph-snapshot"],
+  "interoperability": ["generic", "otas", "iso20022", "cdm"],
+  "experimental": true,
+  "boundary": "Synthetic reference implementation; not issuer, regulatory or market-condition evidence."
+}

@@ -44,4 +44,4 @@ def test_conformance_runner_reports_pass() -> None:
 
     assert result["vectors"] == "PASS"
     assert result["failures"] == []
-    assert result["profiles"]["OMST-SETTLEMENT"] == "PASS"
+    assert result["profiles"]["OMST-SETTLEMENT"]["status"] == "PASS"

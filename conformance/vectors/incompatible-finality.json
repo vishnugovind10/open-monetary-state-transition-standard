@@ -6,7 +6,7 @@
   "expected_status": "INCOMPATIBLE",
   "expected_reasons": ["FINALITY_MISMATCH", "ATOMICITY_UNAVAILABLE", "LATENCY_REQUIREMENT_UNMET", "LIQUIDITY_INSUFFICIENT"],
   "expected_properties": { "money_instrument": "EUR-Z" },
-  "schema_version": "0.5.0",
-  "ruleset_version": "omst-core-0.5",
+  "schema_version": "0.6.0",
+  "ruleset_version": "omst-core-0.6",
   "x-note": "Synthetic vector. Not issuer, market or regulatory evidence."
 }

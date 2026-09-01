@@ -1,0 +1,39 @@
+{
+  "omst_type": "money-graph-snapshot",
+  "snapshot_id": "graph-snapshot-v06-tokenized-bond-dvp",
+  "timestamp": "2026-09-01T00:00:00Z",
+  "nodes": [
+    {"node_id": "EUR-X", "node_type": "Money"},
+    {"node_id": "CBM", "node_type": "SettlementSystem"},
+    {"node_id": "EUR-Y", "node_type": "Money"},
+    {"node_id": "EUR-Z", "node_type": "Money"}
+  ],
+  "edges": [
+    {
+      "source": "EUR-X",
+      "target": "CBM",
+      "capability": "SETTLEMENT",
+      "cost_bps": "1.2",
+      "latency_seconds": 20,
+      "liquidity": "90000000",
+      "finality": "qualified",
+      "availability": "available",
+      "evidence": [],
+      "conditions": {"synthetic": true}
+    },
+    {
+      "source": "CBM",
+      "target": "EUR-Y",
+      "capability": "SETTLEMENT",
+      "cost_bps": "1.1",
+      "latency_seconds": 25,
+      "liquidity": "150000000",
+      "finality": "deterministic",
+      "availability": "available",
+      "evidence": [],
+      "conditions": {"synthetic": true}
+    }
+  ],
+  "evidence": [],
+  "x-note": "Synthetic graph snapshot for reproducible routing."
+}

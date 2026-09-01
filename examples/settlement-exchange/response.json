@@ -1,0 +1,19 @@
+{
+  "omst_type": "settlement-response",
+  "request_id": "request-tokenized-bond-dvp-eur-50m",
+  "status": "COMPATIBLE",
+  "accepted_requirements": ["currency", "atomicity", "transferability", "access", "finality", "availability", "maximum_latency_seconds", "effective_liquidity"],
+  "rejected_requirements": [],
+  "conditional_requirements": [],
+  "evidence": [],
+  "transition_plan": {
+    "plan_id": "plan-tokenized-bond-dvp"
+  },
+  "route": {
+    "snapshot_id": "graph-snapshot-v06-tokenized-bond-dvp",
+    "primary": ["EUR-X", "CBM", "EUR-Y"],
+    "fallback": ["EUR-X", "REDEMPTION", "BANK_MONEY", "EUR-Y"]
+  },
+  "valid_until": "2026-09-02T00:00:00Z",
+  "x-note": "Synthetic settlement response."
+}

@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.6.0
+
+- Added portable settlement interoperability layer with settlement, participant, network and interoperability profile models.
+- Added profile fingerprints, decentralized OMST manifest discovery and `.well-known/omst.json`.
+- Added settlement request, offer and response examples for cross-party compatibility exchange.
+- Added Conformance 2.0 profile declarations, cross-language parity reporting and TypeScript conformance entry point.
+- Added MoneyGraph snapshots, fallback/recovery route output and adapter framework documentation for generic, OTAS, ISO 20022 and CDM mappings.
+- Added stateless API-shaped endpoints under `/api/v1/*` for profile validation, settlement exchange, route, plan, conformance and adapter mapping.
+- Updated Explorer with Profiles, Settlement Exchange and Adapters proof panels.
+
 ## v0.5.0
 
 - Added settlement-compatibility profiles with `COMPATIBLE`, `CONDITIONALLY_COMPATIBLE`, `INCOMPATIBLE` and `UNKNOWN` statuses.

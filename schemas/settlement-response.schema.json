@@ -1,0 +1,36 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementResponse",
+  "description": "OMST v0.6 portable settlement compatibility response.",
+  "type": "object",
+  "required": ["omst_type", "request_id", "status", "accepted_requirements", "rejected_requirements", "conditional_requirements", "evidence", "transition_plan", "route", "valid_until"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "settlement-response"},
+    "request_id": {"type": "string"},
+    "status": {"enum": ["COMPATIBLE", "CONDITIONALLY_COMPATIBLE", "INCOMPATIBLE", "UNKNOWN"]},
+    "accepted_requirements": {"type": "array", "items": {"type": "string"}},
+    "rejected_requirements": {"type": "array", "items": {"type": "string"}},
+    "conditional_requirements": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array"},
+    "transition_plan": {"type": ["object", "null"]},
+    "route": {"type": "object"},
+    "valid_until": {"type": "string"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-response",
+      "request_id": "request-tokenized-bond-dvp-eur-50m",
+      "status": "COMPATIBLE",
+      "accepted_requirements": ["atomicity", "finality"],
+      "rejected_requirements": [],
+      "conditional_requirements": [],
+      "evidence": [],
+      "transition_plan": {},
+      "route": {},
+      "valid_until": "2026-09-02T00:00:00Z"
+    }
+  ]
+}

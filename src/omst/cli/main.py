@@ -15,7 +15,7 @@ from omst.compatibility import (
     load_settlement_intent_v05,
     synthetic_money_states,
 )
-from omst.conformance import implementation_manifest, run_conformance
+from omst.conformance import run_conformance
 from omst.cost import transition_cost
 from omst.data import (
     context_by_name,
@@ -26,6 +26,16 @@ from omst.data import (
 from omst.enums import MoneyState, TransitionType
 from omst.equivalence import monetary_equivalence
 from omst.integrity import evaluate_transition
+from omst.interoperability import (
+    adapter_mapping,
+    api_response,
+    example_participant_profile,
+    example_settlement_profile,
+    profile_fingerprint,
+    settlement_response,
+    v06_manifest,
+    well_known_discovery,
+)
 from omst.io import validate_document
 from omst.models import MoneyTransition
 from omst.routing import route_money
@@ -58,7 +68,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("validate"); p.add_argument("path")
     p = sub.add_parser("inspect"); p.add_argument("path")
-    p = sub.add_parser("profile"); p.add_argument("path")
+    p = sub.add_parser("profile"); p.add_argument("path", nargs="?"); p.add_argument("extra", nargs="?")
     p = sub.add_parser("state"); p.add_argument("instrument")
     p = sub.add_parser("capability"); p.add_argument("instrument")
     p = sub.add_parser("requirement"); p.add_argument("path", nargs="?")
@@ -69,11 +79,19 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("liquidity"); p.add_argument("instrument")
     p = sub.add_parser("mobility"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True)
     p = sub.add_parser("route"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True); p.add_argument("--context", default="tokenized-dvp")
-    p = sub.add_parser("evaluate-settlement"); p.add_argument("path"); p.add_argument("--money")
+    p = sub.add_parser("evaluate-settlement"); p.add_argument("path", nargs="?"); p.add_argument("--intent"); p.add_argument("--money"); p.add_argument("--settlement")
     p = sub.add_parser("plan"); p.add_argument("path")
     p = sub.add_parser("explain"); p.add_argument("path")
-    sub.add_parser("conformance")
+    p = sub.add_parser("conformance"); p.add_argument("--profile")
     sub.add_parser("manifest")
+    sub.add_parser("discovery")
+    p = sub.add_parser("settlement-profile"); p.add_argument("path", nargs="?")
+    p = sub.add_parser("participant"); p.add_argument("path", nargs="?")
+    p = sub.add_parser("interoperability"); p.add_argument("path", nargs="?")
+    p = sub.add_parser("adapter"); p.add_argument("name", nargs="?", default="iso20022")
+    p = sub.add_parser("fingerprint"); p.add_argument("path")
+    p = sub.add_parser("exchange"); p.add_argument("--intent", default="examples/tokenized-bond-dvp/settlement-intent.json"); p.add_argument("--money", default="examples/eur-x.json"); p.add_argument("--settlement", default="examples/settlement-networks/network-a.json")
+    p = sub.add_parser("api"); p.add_argument("endpoint")
     p = sub.add_parser("graph"); p.add_argument("--format", choices=["json", "mermaid"], default="json")
     p = sub.add_parser("simulate"); p.add_argument("scenario")
     p = sub.add_parser("stress"); p.add_argument("--scenario", default="liquidity-shock")
@@ -86,8 +104,22 @@ def main(argv: list[str] | None = None) -> int:
         failed = {k: v for k, v in errors.items() if v}
         out({"status": "VALID" if not failed else "INVALID", "checked": len(files), "errors": failed})
         return 1 if failed else 0
-    if args.cmd == "inspect" or args.cmd == "profile":
+    if args.cmd == "inspect":
         out(json.loads(Path(args.path).read_text(encoding="utf-8")))
+    elif args.cmd == "profile":
+        if args.path == "validate":
+            profile_path = Path(args.extra or "examples/profiles/money/eur-x.v06.json")
+            profile_errors = validate_document(profile_path)
+            payload = json.loads(profile_path.read_text(encoding="utf-8"))
+            out(
+                {
+                    "status": "VALID" if not profile_errors else "INVALID",
+                    "errors": profile_errors,
+                    "profile_fingerprint": profile_fingerprint(payload),
+                }
+            )
+            return 1 if profile_errors else 0
+        out(json.loads(Path(args.path or "examples/profiles/money/eur-x.v06.json").read_text(encoding="utf-8")))
     elif args.cmd == "state":
         out({"instrument": args.instrument, "state": "AVAILABLE", "definition": STATE_DEFINITIONS["AVAILABLE"]})
     elif args.cmd == "capability":
@@ -115,9 +147,10 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "route":
         out(route_money(synthetic_graph(), args.from_, args.to, Decimal(args.amount), context_by_name(args.context)))
     elif args.cmd == "evaluate-settlement":
-        if args.money:
-            intent_path = Path(args.path)
-            requirement_path = intent_path.parent.parent / "requirements" / "tokenized-bond-dvp.json"
+        intent_arg = args.intent or args.path
+        if args.money and intent_arg:
+            intent_path = Path(intent_arg)
+            requirement_path = Path("examples/requirements/tokenized-bond-dvp.json")
             money = load_money_profile(Path(args.money))
             states = synthetic_money_states()
             out(
@@ -137,9 +170,39 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "explain":
         print(explain_compatibility(json.loads(Path(args.path).read_text(encoding="utf-8"))))
     elif args.cmd == "conformance":
-        out(canonical_json(run_conformance()))
+        result = canonical_json(run_conformance())
+        if args.profile:
+            profiles_result = result["profiles"]
+            out({args.profile: profiles_result.get(args.profile, "UNKNOWN")})
+        else:
+            out(result)
     elif args.cmd == "manifest":
-        out(implementation_manifest())
+        out(v06_manifest())
+    elif args.cmd == "discovery":
+        out(well_known_discovery())
+    elif args.cmd == "settlement-profile":
+        if args.path:
+            out(json.loads(Path(args.path).read_text(encoding="utf-8")))
+        else:
+            out(canonical_json(example_settlement_profile()))
+    elif args.cmd == "participant":
+        if args.path:
+            out(json.loads(Path(args.path).read_text(encoding="utf-8")))
+        else:
+            out(canonical_json(example_participant_profile()))
+    elif args.cmd == "interoperability":
+        if args.path:
+            out(json.loads(Path(args.path).read_text(encoding="utf-8")))
+        else:
+            out(canonical_json(adapter_mapping("iso20022")))
+    elif args.cmd == "adapter":
+        out(canonical_json(adapter_mapping(args.name)))
+    elif args.cmd == "fingerprint":
+        out({"profile_fingerprint": profile_fingerprint(json.loads(Path(args.path).read_text(encoding="utf-8")))})
+    elif args.cmd == "exchange":
+        out(canonical_json(settlement_response(Path(args.intent), Path(args.money), Path(args.settlement))))
+    elif args.cmd == "api":
+        out(api_response(args.endpoint))
     elif args.cmd == "graph":
         graph = synthetic_graph()
         if args.format == "mermaid":

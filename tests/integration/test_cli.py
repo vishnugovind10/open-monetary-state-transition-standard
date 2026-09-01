@@ -62,7 +62,14 @@ def test_requirement_cli(capsys):
 def test_conformance_cli(capsys):
     assert main(["conformance"]) == 0
     output = capsys.readouterr().out
-    assert "OMST-SETTLEMENT" in output
+    assert "OMST-INTEROPERABILITY" in output
+    assert "PASS" in output
+
+
+def test_conformance_profile_cli(capsys):
+    assert main(["conformance", "--profile", "OMST-INTEROPERABILITY"]) == 0
+    output = capsys.readouterr().out
+    assert "OMST-INTEROPERABILITY" in output
     assert "PASS" in output
 
 
@@ -86,3 +93,56 @@ def test_graph_mermaid_cli(capsys):
 def test_stress_cli(capsys):
     assert main(["stress", "--scenario", "liquidity-shock"]) == 0
     assert "liquidity-shock" in capsys.readouterr().out
+
+
+def test_v06_profile_validate_cli(capsys):
+    assert main(["profile", "validate", "examples/profiles/money/eur-x.v06.json"]) == 0
+    output = capsys.readouterr().out
+    assert "profile_fingerprint" in output
+    assert "VALID" in output
+
+
+def test_v06_settlement_profile_cli(capsys):
+    assert main(["settlement-profile", "examples/settlement-networks/network-a.json"]) == 0
+    assert "settlement-network-a" in capsys.readouterr().out
+
+
+def test_v06_adapter_cli(capsys):
+    assert main(["adapter", "iso20022"]) == 0
+    output = capsys.readouterr().out
+    assert "ISO 20022" in output
+    assert "APPROXIMATED" in output
+
+
+def test_v06_exchange_cli(capsys):
+    assert (
+        main(
+            [
+                "exchange",
+                "--intent",
+                "examples/tokenized-bond-dvp/settlement-intent.json",
+                "--money",
+                "examples/eur-x.json",
+                "--settlement",
+                "examples/settlement-networks/network-a.json",
+            ]
+        )
+        == 0
+    )
+    output = capsys.readouterr().out
+    assert "request-tokenized-bond-dvp-eur-50m" in output
+    assert "COMPATIBLE" in output
+
+
+def test_v06_manifest_and_discovery_cli(capsys):
+    assert main(["manifest"]) == 0
+    assert "0.6.0" in capsys.readouterr().out
+    assert main(["discovery"]) == 0
+    assert "experimental" in capsys.readouterr().out
+
+
+def test_v06_api_cli(capsys):
+    assert main(["api", "settlement/response"]) == 0
+    output = capsys.readouterr().out
+    assert "portable" not in output
+    assert "COMPATIBLE" in output

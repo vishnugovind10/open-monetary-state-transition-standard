@@ -1,0 +1,19 @@
+{
+  "omst_type": "interoperability-profile",
+  "profile_id": "adapter-iso20022-v06",
+  "external_standard": "ISO 20022",
+  "external_version": "conceptual",
+  "mapping_direction": "EXTERNAL_TO_OMST",
+  "supported_objects": ["message", "payment_instruction"],
+  "supported_fields": {
+    "amount": "EXACT",
+    "currency": "EXACT",
+    "settlement_state": "APPROXIMATED"
+  },
+  "lossiness": "APPROXIMATED",
+  "constraints": [
+    "ISO 20022 is message semantics; OMST is monetary state-transition semantics.",
+    "This adapter example does not claim official ISO 20022 affiliation."
+  ],
+  "x-note": "Conceptual mapping example only."
+}

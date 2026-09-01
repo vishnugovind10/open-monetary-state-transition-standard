@@ -2,8 +2,11 @@ import { Database } from "lucide-react";
 import { useMemo, useState } from "react";
 import { ConformancePanel } from "./components/ConformancePanel";
 import { EvaluatorPanel } from "./components/EvaluatorPanel";
+import { AdapterPanel } from "./components/AdapterPanel";
+import { ExchangePanel } from "./components/ExchangePanel";
 import { InstrumentPanel } from "./components/InstrumentPanel";
 import { MoneyGraphPanel } from "./components/MoneyGraphPanel";
+import { ProfilesPanel } from "./components/ProfilesPanel";
 import { StressPanel } from "./components/StressPanel";
 import { VerdictPanel } from "./components/VerdictPanel";
 import { instruments, stressScenarios } from "./data";
@@ -16,8 +19,10 @@ const navItems = [
   "Settlement",
   "Plans",
   "Graph",
-  "Stress Lab",
   "Conformance",
+  "Stress Lab",
+  "Profiles",
+  "Adapters",
   "Specification",
   "Research"
 ];
@@ -59,7 +64,7 @@ export function App() {
         </nav>
         <div className="dataset-pill">
           <Database size={16} aria-hidden />
-          <span>Dataset: synthetic v0.5</span>
+          <span>Dataset: synthetic v0.6</span>
         </div>
       </header>
 
@@ -84,6 +89,9 @@ export function App() {
           <VerdictPanel source={source} target={target} amount={amount} verdict={verdict} />
           <MoneyGraphPanel sourceCode={sourceCode} onSelect={setSourceCode} />
           <ConformancePanel />
+          <ProfilesPanel />
+          <ExchangePanel />
+          <AdapterPanel />
           <StressPanel scenarioId={scenarioId} onSelect={setScenarioId} />
         </section>
       </section>
@@ -91,7 +99,7 @@ export function App() {
       <footer>
         <span>All examples are synthetic.</span>
         <span>Not issuer, regulatory or market-condition evidence.</span>
-        <span>OMST v0.5.0</span>
+        <span>OMST v0.6.0</span>
       </footer>
     </main>
   );

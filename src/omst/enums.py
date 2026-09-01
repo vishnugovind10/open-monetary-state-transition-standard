@@ -130,6 +130,55 @@ class EvidenceStatus(StrEnum):
     VALID = "VALID"
 
 
+class ProfileLifecycleStatus(StrEnum):
+    DRAFT = "DRAFT"
+    PUBLISHED = "PUBLISHED"
+    REVOKED = "REVOKED"
+    SUPERSEDED = "SUPERSEDED"
+    UNKNOWN = "UNKNOWN"
+
+
+class ParticipantType(StrEnum):
+    BANK = "BANK"
+    CORPORATE = "CORPORATE"
+    CUSTODIAN = "CUSTODIAN"
+    INFRASTRUCTURE_PROVIDER = "INFRASTRUCTURE_PROVIDER"
+    ISSUER = "ISSUER"
+    OTHER = "OTHER"
+    PAYMENT_PROVIDER = "PAYMENT_PROVIDER"
+    SETTLEMENT_AGENT = "SETTLEMENT_AGENT"
+    VENUE = "VENUE"
+
+
+class NetworkType(StrEnum):
+    CENTRALIZED = "CENTRALIZED"
+    HYBRID = "HYBRID"
+    OTHER = "OTHER"
+    PERMISSIONED_DLT = "PERMISSIONED_DLT"
+    PUBLIC_DLT = "PUBLIC_DLT"
+
+
+class MappingClassification(StrEnum):
+    APPROXIMATED = "APPROXIMATED"
+    DERIVED = "DERIVED"
+    EXACT = "EXACT"
+    LOSSLESS = "LOSSLESS"
+    LOSSY = "LOSSY"
+    UNSUPPORTED = "UNSUPPORTED"
+
+
+class MappingDirection(StrEnum):
+    BIDIRECTIONAL = "BIDIRECTIONAL"
+    EXTERNAL_TO_OMST = "EXTERNAL_TO_OMST"
+    OMST_TO_EXTERNAL = "OMST_TO_EXTERNAL"
+
+
+class SettlementRouteType(StrEnum):
+    FALLBACK = "FALLBACK"
+    PRIMARY = "PRIMARY"
+    RECOVERY = "RECOVERY"
+
+
 class ReasonSeverity(StrEnum):
     BLOCKING = "BLOCKING"
     INFORMATIONAL = "INFORMATIONAL"

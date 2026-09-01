@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://omst.dev/schemas/money-requirement-set.schema.json",
   "title": "OMST Money Requirement Set",
-  "description": "A machine-readable OMST v0.5 requirement set for settlement compatibility evaluation.",
+  "description": "A machine-readable OMST v0.6 requirement set for settlement compatibility evaluation.",
   "type": "object",
   "required": ["omst_type", "requirement_set_id", "composition", "requirements", "schema_version", "ruleset_version"],
   "properties": {
@@ -62,8 +62,8 @@
       "requirement_set_id": "tokenized-bond-dvp-eur-50m",
       "description": "Minimum requirements for a EUR 50m tokenized bond delivery-versus-payment settlement leg.",
       "composition": "AND",
-      "schema_version": "0.5.0",
-      "ruleset_version": "omst-core-0.5",
+      "schema_version": "0.6.0",
+      "ruleset_version": "omst-core-0.6",
       "requirements": [
         {
           "property": "atomic_settlement",

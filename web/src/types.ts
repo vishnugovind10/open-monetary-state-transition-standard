@@ -7,8 +7,11 @@ export type Instrument = {
   status: Status;
   jurisdiction: string;
   finality: string;
+  settlementAvailability: "24_7" | "business_hours" | "offline";
+  atomicSettlement: boolean;
   liquidity: number;
   latencySeconds: number;
+  evidenceAgeSeconds: number;
   capabilities: string[];
 };
 

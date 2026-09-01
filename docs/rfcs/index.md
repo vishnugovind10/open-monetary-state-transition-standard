@@ -32,3 +32,6 @@ Current draft RFCs:
 - RFC-0026 Route Explanations
 - RFC-0027 Conformance Runner
 - RFC-0028 Evaluation Reproducibility
+- RFC-0029 Profile Portability
+- RFC-0030 Settlement Exchange
+- RFC-0031 Adapter Classification

@@ -7,6 +7,8 @@ nav:
   - Why OMST: why-omst.md
   - What OMST Is Not: what-omst-is-not.md
   - Explorer: explorer.md
+  - API: api.md
+  - Prior Art: prior-art.md
   - Concepts:
       - Overview: concepts/01-overview.md
       - Monetary Instruments: concepts/02-monetary-instruments.md
@@ -27,13 +29,17 @@ nav:
       - Threat Model: security/threat-model.md
   - Settlement:
       - Compatibility: settlement/settlement-compatibility.md
+      - Exchange: settlement/exchange.md
       - Transition Plan: settlement/transition-plan.md
       - Finality: settlement/finality.md
       - Availability: settlement/availability.md
   - Conformance:
       - Implementer Guide: conformance/implementer-guide.md
+      - Conformance 2.0: conformance/conformance-2.md
   - Interoperability:
       - Levels: interoperability/levels.md
+      - Portable Profiles: interoperability/profiles.md
+      - Adapter Profiles: interoperability/adapters.md
   - Case Studies:
       - Tokenized Bond DvP: case-studies/tokenized-bond-dvp.md
   - Regulatory:
@@ -52,5 +58,8 @@ nav:
       - RFC-0026 Route Explanations: rfcs/RFC-0026-route-explanations.md
       - RFC-0027 Conformance Runner: rfcs/RFC-0027-conformance-runner.md
       - RFC-0028 Evaluation Reproducibility: rfcs/RFC-0028-evaluation-reproducibility.md
+      - RFC-0029 Profile Portability: rfcs/RFC-0029-profile-portability.md
+      - RFC-0030 Settlement Exchange: rfcs/RFC-0030-settlement-exchange.md
+      - RFC-0031 Adapter Classification: rfcs/RFC-0031-adapter-classification.md
 theme:
   name: material

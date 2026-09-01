@@ -1,0 +1,46 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementProfile",
+  "description": "OMST v0.6 settlement-environment capability and constraint profile.",
+  "type": "object",
+  "required": ["omst_type", "settlement_profile_id", "name", "version", "supported_assets", "supported_money", "finality", "atomicity", "availability", "latency", "transaction_limits", "operating_windows", "supported_settlement_modes", "interoperability", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "settlement-profile"},
+    "settlement_profile_id": {"type": "string"},
+    "name": {"type": "string"},
+    "version": {"type": "string"},
+    "supported_assets": {"type": "array", "items": {"type": "string"}},
+    "supported_money": {"type": "array", "items": {"type": "string"}},
+    "finality": {"type": "string"},
+    "atomicity": {"type": "boolean"},
+    "availability": {"type": "string"},
+    "latency": {"type": "object"},
+    "transaction_limits": {"type": "object"},
+    "operating_windows": {"type": "array", "items": {"type": "string"}},
+    "supported_settlement_modes": {"type": "array", "items": {"type": "string"}},
+    "interoperability": {"type": "object"},
+    "evidence": {"type": "array"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-profile",
+      "settlement_profile_id": "settlement-network-a",
+      "name": "Synthetic Settlement Network A",
+      "version": "2026-09-01",
+      "supported_assets": ["synthetic-tokenised-bond"],
+      "supported_money": ["EUR-X"],
+      "finality": "qualified",
+      "atomicity": true,
+      "availability": "24_7",
+      "latency": {"maximum_seconds": 60},
+      "transaction_limits": {"maximum_amount": "150000000", "currency": "EUR"},
+      "operating_windows": ["24_7"],
+      "supported_settlement_modes": ["DVP", "ATOMIC"],
+      "interoperability": {"profile": "OMST-INTEROPERABILITY"},
+      "evidence": []
+    }
+  ]
+}

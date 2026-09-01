@@ -1,6 +1,14 @@
 import { routeEdges } from "./data";
 import type { Instrument, SettlementVerdict, StressScenario } from "./types";
 
+const settlementRequirements = {
+  acceptedFinality: new Set(["qualified", "deterministic", "central-bank-final"]),
+  requiredAvailability: "24_7",
+  maximumLatencySeconds: 60,
+  minimumLiquidity: 50_000_000,
+  maximumEvidenceAgeSeconds: 60
+};
+
 export function evaluateSettlement(
   source: Instrument,
   target: Instrument,
@@ -18,29 +26,31 @@ export function evaluateSettlement(
     ? [source.code, target.code]
     : [source.code, "EUR-Y", target.code];
 
-  if (source.status === "restricted" || target.status === "restricted") {
-    return {
-      status: "INCOMPATIBLE",
-      reason: "Instrument restrictions fail mandatory settlement-access requirements.",
-      reasons: ["ACCESS_SCOPE_MISMATCH"],
-      confidence: "high",
-      latencySeconds: latency,
-      costBps: 0,
-      route: []
-    };
+  const reasons: string[] = [];
+  if (source.status === "restricted") {
+    reasons.push("ACCESS_RESTRICTED");
+  }
+  if (!source.atomicSettlement) {
+    reasons.push("ATOMICITY_UNAVAILABLE");
+  }
+  if (!settlementRequirements.acceptedFinality.has(source.finality)) {
+    reasons.push("FINALITY_MISMATCH");
+  }
+  if (source.settlementAvailability !== settlementRequirements.requiredAvailability) {
+    reasons.push("AVAILABILITY_MISMATCH");
+  }
+  if (source.latencySeconds > settlementRequirements.maximumLatencySeconds) {
+    reasons.push("LATENCY_REQUIREMENT_UNMET");
+  }
+  if (amount > source.liquidity * 1_000_000 || amount > stressedLiquidity * 1_000_000) {
+    reasons.push("LIQUIDITY_INSUFFICIENT");
   }
 
-  if (source.code === "EUR-Z" || target.code === "EUR-Z") {
+  if (reasons.length) {
     return {
       status: "INCOMPATIBLE",
       reason: "Mandatory atomicity, finality, availability, latency and liquidity requirements are not satisfied.",
-      reasons: [
-        "ATOMICITY_UNAVAILABLE",
-        "FINALITY_MISMATCH",
-        "AVAILABILITY_MISMATCH",
-        "LATENCY_REQUIREMENT_UNMET",
-        "LIQUIDITY_INSUFFICIENT"
-      ],
+      reasons,
       confidence: "high",
       latencySeconds: latency,
       costBps: 22,
@@ -48,10 +58,10 @@ export function evaluateSettlement(
     };
   }
 
-  if (source.code === "EUR-Y" || target.code === "EUR-Y") {
+  if (source.evidenceAgeSeconds > settlementRequirements.maximumEvidenceAgeSeconds) {
     return {
       status: "CONDITIONALLY_COMPATIBLE",
-      reason: "Mandatory settlement requirements pass, but liquidity evidence is stale under the v0.5 evidence policy.",
+      reason: "Mandatory settlement requirements pass, but liquidity evidence is stale under the v0.6 evidence policy.",
       reasons: ["LIQUIDITY_EVIDENCE_STALE"],
       confidence: "medium",
       latencySeconds: latency,

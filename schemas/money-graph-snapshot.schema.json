@@ -1,0 +1,28 @@
+{
+  "$id": "https://omst.dev/schemas/money-graph-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MoneyGraphSnapshot",
+  "description": "OMST v0.6 reproducible money graph snapshot used for routing.",
+  "type": "object",
+  "required": ["omst_type", "snapshot_id", "timestamp", "nodes", "edges", "evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "money-graph-snapshot"},
+    "snapshot_id": {"type": "string"},
+    "timestamp": {"type": "string"},
+    "nodes": {"type": "array", "items": {"type": "object"}},
+    "edges": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array"},
+    "x-note": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "money-graph-snapshot",
+      "snapshot_id": "graph-snapshot-v06-tokenized-bond-dvp",
+      "timestamp": "2026-09-01T00:00:00Z",
+      "nodes": [{"node_id": "EUR-X", "node_type": "Money"}],
+      "edges": [],
+      "evidence": []
+    }
+  ]
+}

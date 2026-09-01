@@ -8,8 +8,11 @@ export const instruments: Instrument[] = [
     status: "active",
     jurisdiction: "EU",
     finality: "qualified",
+    settlementAvailability: "24_7",
+    atomicSettlement: true,
     liquidity: 95,
     latencySeconds: 45,
+    evidenceAgeSeconds: 30,
     capabilities: ["transfer", "redeem", "programmable-controls", "dvp-cash-leg"]
   },
   {
@@ -18,9 +21,12 @@ export const instruments: Instrument[] = [
     type: "Bank claim",
     status: "active",
     jurisdiction: "EU",
-    finality: "contractual",
+    finality: "qualified",
+    settlementAvailability: "24_7",
+    atomicSettlement: true,
     liquidity: 88,
-    latencySeconds: 75,
+    latencySeconds: 55,
+    evidenceAgeSeconds: 3_600,
     capabilities: ["transfer", "redeem", "wholesale-settlement"]
   },
   {
@@ -30,9 +36,12 @@ export const instruments: Instrument[] = [
     status: "pilot",
     jurisdiction: "EU",
     finality: "probabilistic",
-    liquidity: 72,
-    latencySeconds: 180,
-    capabilities: ["transfer", "atomic-dvp", "programmable-controls"]
+    settlementAvailability: "business_hours",
+    atomicSettlement: false,
+    liquidity: 25,
+    latencySeconds: 120,
+    evidenceAgeSeconds: 45,
+    capabilities: ["transfer", "programmable-controls"]
   },
   {
     code: "CBM",
@@ -41,8 +50,11 @@ export const instruments: Instrument[] = [
     status: "active",
     jurisdiction: "EU",
     finality: "central-bank-final",
+    settlementAvailability: "24_7",
+    atomicSettlement: true,
     liquidity: 100,
     latencySeconds: 15,
+    evidenceAgeSeconds: 30,
     capabilities: ["settlement", "reserve-transfer", "irrevocable-finality"]
   },
   {
@@ -52,8 +64,11 @@ export const instruments: Instrument[] = [
     status: "restricted",
     jurisdiction: "EU",
     finality: "redeemable-claim",
+    settlementAvailability: "business_hours",
+    atomicSettlement: false,
     liquidity: 61,
     latencySeconds: 900,
+    evidenceAgeSeconds: 86_500,
     capabilities: ["redeem", "collateral"]
   }
 ];

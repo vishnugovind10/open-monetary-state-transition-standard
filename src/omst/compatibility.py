@@ -39,8 +39,8 @@ from .models import (
     SettlementIntent,
 )
 
-OMST_VERSION = "0.5.0"
-RULESET_VERSION = "omst-core-0.5"
+OMST_VERSION = "0.6.0"
+RULESET_VERSION = "omst-core-0.6"
 REFERENCE_TIMESTAMP = "2026-09-01T00:00:00Z"
 
 
@@ -96,10 +96,50 @@ def tokenized_bond_dvp_requirement_set() -> MoneyRequirementSet:
 
 def synthetic_money_states() -> dict[str, CompositeMoneyState]:
     return {
-        "EUR-X": CompositeMoneyState("EUR-X", "available", "transferable", "settlement_ready", "redeemable", "none", "qualified", "operational", "VALID"),
-        "EUR-Y": CompositeMoneyState("EUR-Y", "available", "transferable", "settlement_ready", "redeemable", "none", "qualified", "operational", "STALE"),
-        "EUR-Z": CompositeMoneyState("EUR-Z", "available", "transferable", "settlement_ready", "redeemable", "none", "probabilistic", "operational", "VALID"),
-        "CBM": CompositeMoneyState("CBM", "available", "transferable", "settlement_ready", "redeemable", "none", "deterministic", "operational", "VALID"),
+    "EUR-X": CompositeMoneyState(
+        "EUR-X",
+        "available",
+        "transferable",
+        "settlement_ready",
+        "redeemable",
+        "none",
+        "qualified",
+        "operational",
+        "VALID",
+    ),
+    "EUR-Y": CompositeMoneyState(
+        "EUR-Y",
+        "available",
+        "transferable",
+        "settlement_ready",
+        "redeemable",
+        "none",
+        "qualified",
+        "operational",
+        "STALE",
+    ),
+    "EUR-Z": CompositeMoneyState(
+        "EUR-Z",
+        "available",
+        "transferable",
+        "settlement_ready",
+        "redeemable",
+        "none",
+        "probabilistic",
+        "operational",
+        "VALID",
+    ),
+    "CBM": CompositeMoneyState(
+        "CBM",
+        "available",
+        "transferable",
+        "settlement_ready",
+        "redeemable",
+        "none",
+        "deterministic",
+        "operational",
+        "VALID",
+    ),
     }
 
 

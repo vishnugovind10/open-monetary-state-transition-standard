@@ -2,7 +2,7 @@
 
 Settlement compatibility evaluates whether a monetary instrument can satisfy an explicit settlement intent under a machine-readable requirement set.
 
-The v0.5 profile is designed for independent reproduction: two conforming implementations given the same settlement intent, money profile, state snapshot, evidence policy and requirement set should produce the same status and reason codes.
+The v0.6 profile is designed for independent reproduction: two conforming implementations given the same settlement intent, money profile, settlement profile, state snapshot, evidence policy and requirement set should produce the same status and reason codes.
 
 ## Inputs
 
@@ -13,6 +13,8 @@ The v0.5 profile is designed for independent reproduction: two conforming implem
 - Evidence policy
 - Evaluation context
 - Optional route and transition-plan context
+- Settlement profile
+- Optional participant profile
 
 ## Output Statuses
 
@@ -43,6 +45,10 @@ The synthetic EUR 50m tokenized-bond DvP scenario demonstrates the intended beha
 - `EUR-Z` is `INCOMPATIBLE` because mandatory settlement requirements fail.
 
 These outcomes are derived from schemas, profiles, state, requirements, evidence policy and rules. They are not hard-coded issuer opinions.
+
+## Portable Exchange
+
+v0.6 adds portable `SettlementRequest`, `SettlementOffer` and `SettlementResponse` objects. A response records accepted, rejected and conditional requirements, transition-plan reference, route evidence and validity window. Implementations can exchange these objects across APIs or files without assuming the same runtime.
 
 ## Boundary
 

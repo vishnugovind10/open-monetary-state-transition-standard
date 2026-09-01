@@ -1,6 +1,6 @@
 # Implementer Guide
 
-This guide describes the minimum behavior expected from an OMST v0.5 settlement-compatibility implementation.
+This guide describes the minimum behavior expected from an OMST v0.6 settlement-compatibility implementation.
 
 ## Required Inputs
 
@@ -8,6 +8,8 @@ An implementation must accept:
 
 - A settlement intent.
 - A money profile.
+- A settlement profile.
+- A participant profile when participant eligibility is in scope.
 - A money state snapshot.
 - A money requirement set.
 - An evidence policy.
@@ -30,14 +32,23 @@ An implementation must:
 ```bash
 omst requirement examples/requirements/tokenized-bond-dvp.json
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json
+omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json --settlement examples/settlement-networks/network-a.json
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-y.json
 omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-z.json
+omst settlement-profile examples/settlement-networks/network-a.json
+omst participant examples/participants/party-a.json
+omst interoperability examples/interoperability/iso20022-conceptual.json
+omst adapter iso20022
+omst exchange --intent examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json --settlement examples/settlement-networks/network-a.json
+omst conformance --profile OMST-INTEROPERABILITY
 omst conformance
 ```
 
 ## Independent Implementations
 
 The Python and TypeScript reference implementations intentionally use the same public statuses and reason-code vocabulary. The TypeScript implementation is scoped to compatibility-profile reproduction and is not a web UI dependency.
+
+Conformance 2.0 reports profile-level results for `OMST-CORE`, `OMST-MONEY`, `OMST-STATE`, `OMST-TRANSITION`, `OMST-EVIDENCE`, `OMST-SETTLEMENT`, `OMST-COMPATIBILITY`, `OMST-ROUTING` and `OMST-INTEROPERABILITY`.
 
 ## Evidence Boundary
 
