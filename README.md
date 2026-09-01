@@ -2,6 +2,10 @@
 
 ## Open Monetary State & Transition Standard
 
+Machine-readable infrastructure for digital-money state, transitions and interoperability.
+
+[Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Conformance](conformance/)
+
 Digital money is becoming programmable, tokenised and fragmented.
 
 The same currency denomination can exist across:
@@ -29,6 +33,12 @@ OMST does not issue, custody or settle money.
 
 It describes how digital money behaves and changes state.
 
+## The Problem
+
+EUR 1 is not always operationally equivalent to EUR 1.
+
+Digital-money instruments can differ in settlement finality, liquidity, redemption, availability, interoperability, access, transferability and operating windows. OMST makes these differences explicit and machine-readable.
+
 ## Positioning
 
 OMST is open infrastructure for tokenised monetary systems. It is not a stablecoin, reserve system, proof-of-reserves platform, bridge, payment app, blockchain, token, DAO or compliance product.
@@ -54,6 +64,7 @@ omst velocity EUR-X --window 30d
 omst liquidity EUR-X
 omst mobility --from EUR-X --to EUR-Y --amount 50000000
 omst route --from EUR-X --to EUR-Y --amount 50000000 --context tokenized-dvp
+omst equivalence EUR-X EUR-Y --context tokenized-dvp
 omst simulate redemption-shock
 pytest
 ```
@@ -112,4 +123,4 @@ print(result.reasons)
 
 ## Status
 
-v0.1.0 is an experimental reference specification and implementation. Do not call it an industry standard until independent implementations and conformance evidence exist.
+v0.2.0 is an experimental reference specification and implementation. Do not call it an industry standard until independent implementations and conformance evidence exist.

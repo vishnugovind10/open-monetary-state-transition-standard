@@ -1,0 +1,11 @@
+{
+  "omst_type": "money-capability",
+  "capability": "DELIVERY_VERSUS_PAYMENT",
+  "status": "CONDITIONAL",
+  "conditions": ["synthetic settlement window open"],
+  "scope": "tokenized-dvp",
+  "evidence": [],
+  "valid_from": null,
+  "valid_until": null,
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

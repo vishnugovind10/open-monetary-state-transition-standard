@@ -1,0 +1,17 @@
+{
+  "omst_type": "omst-event",
+  "omst_schema_version": "0.2.0",
+  "event_id": "event-001",
+  "event_type": "SETTLEMENT_FINAL",
+  "instrument": "EUR-X",
+  "source_state": "SETTLING",
+  "target_state": "FINAL",
+  "quantity": "50000000",
+  "currency": "EUR",
+  "timestamp": "2026-01-01T12:00:00Z",
+  "actor_reference": "synthetic-participant",
+  "ledger_reference": "synthetic-ledger",
+  "transaction_reference": "synthetic-tx",
+  "evidence": [],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

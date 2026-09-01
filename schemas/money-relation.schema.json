@@ -1,0 +1,42 @@
+{
+  "$id": "https://omst.dev/schemas/money-relation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MoneyRelation",
+  "description": "Relationship between two monetary instruments in the OMST graph.",
+  "type": "object",
+  "required": ["omst_type", "source_instrument", "target_instrument", "relation_type", "cost_bps", "latency_seconds", "liquidity", "finality", "availability", "access", "constraints", "evidence"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "money-relation"},
+    "source_instrument": {"type": "string"},
+    "target_instrument": {"type": "string"},
+    "relation_type": {"enum": ["REDEEMABLE_FOR", "CONVERTIBLE_TO", "SETTLEABLE_AGAINST", "COLLATERALIZABLE_AGAINST", "EXCHANGEABLE_FOR", "BRIDGED_TO", "MINTED_FROM", "BACKED_BY", "SETTLED_IN"]},
+    "cost_bps": {"type": "string"},
+    "latency_seconds": {"type": "integer", "minimum": 0},
+    "liquidity": {"type": "string"},
+    "finality": {"type": "string"},
+    "availability": {"type": "string"},
+    "access": {"type": "string"},
+    "constraints": {"type": "object"},
+    "evidence": {"type": "array"}
+  },
+  "examples": [
+    {
+      "omst_type": "money-relation",
+      "source_instrument": "EUR-X",
+      "target_instrument": "CBM",
+      "relation_type": "SETTLEABLE_AGAINST",
+      "cost_bps": "1.2",
+      "latency_seconds": 20,
+      "liquidity": "90000000",
+      "finality": "qualified",
+      "availability": "available",
+      "access": "institutional",
+      "constraints": {"synthetic": true},
+      "evidence": []
+    }
+  ]
+}

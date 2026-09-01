@@ -1,0 +1,36 @@
+{
+  "$id": "https://omst.dev/schemas/state-transition-machine.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StateTransitionMachine",
+  "description": "Versioned OMST state-transition machine definition.",
+  "type": "object",
+  "required": ["omst_type", "version", "valid_states", "valid_transitions", "preconditions", "postconditions", "invariants", "failure_states", "recovery_transitions"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "state-transition-machine"},
+    "version": {"type": "string"},
+    "valid_states": {"type": "array", "items": {"type": "string"}},
+    "valid_transitions": {"type": "array", "items": {"type": "object"}},
+    "preconditions": {"type": "array", "items": {"type": "string"}},
+    "postconditions": {"type": "array", "items": {"type": "string"}},
+    "invariants": {"type": "array", "items": {"type": "string"}},
+    "failure_states": {"type": "array", "items": {"type": "string"}},
+    "recovery_transitions": {"type": "array", "items": {"type": "object"}}
+  },
+  "examples": [
+    {
+      "omst_type": "state-transition-machine",
+      "version": "0.2.0",
+      "valid_states": ["AVAILABLE", "SETTLING", "FINAL", "FAILED", "UNKNOWN"],
+      "valid_transitions": [{"from": "AVAILABLE", "to": "SETTLING", "type": "TRANSFER"}],
+      "preconditions": ["quantity_non_negative", "currency_preserved"],
+      "postconditions": ["target_state_recorded"],
+      "invariants": ["UNKNOWN cannot be treated as SUCCESS"],
+      "failure_states": ["FAILED", "TIMEOUT"],
+      "recovery_transitions": [{"from": "FAILED", "to": "RECONCILIATION_REQUIRED"}]
+    }
+  ]
+}

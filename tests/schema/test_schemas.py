@@ -11,6 +11,15 @@ def test_all_examples_validate():
             failures[str(path)] = errors
     assert failures == {}
 
+
+def test_all_conformance_vectors_validate():
+    failures = {}
+    for path in Path("conformance/vectors").rglob("*.json"):
+        errors = validate_document(path)
+        if errors:
+            failures[str(path)] = errors
+    assert failures == {}
+
 def test_all_schemas_have_required_shape():
     import json
     for path in Path("schemas").glob("*.schema.json"):

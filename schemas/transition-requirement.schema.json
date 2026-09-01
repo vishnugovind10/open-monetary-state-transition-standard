@@ -1,0 +1,30 @@
+{
+  "$id": "https://omst.dev/schemas/transition-requirement.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TransitionRequirement",
+  "description": "Machine-readable requirements a monetary transition must satisfy for a context.",
+  "type": "object",
+  "required": ["omst_type", "required_finality_seconds", "required_availability", "minimum_liquidity", "required_capabilities", "evidence_required"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "transition-requirement"},
+    "required_finality_seconds": {"type": ["integer", "null"], "minimum": 0},
+    "required_availability": {"type": "string"},
+    "minimum_liquidity": {"type": "string"},
+    "required_capabilities": {"type": "array", "items": {"type": "string"}},
+    "evidence_required": {"type": "boolean"}
+  },
+  "examples": [
+    {
+      "omst_type": "transition-requirement",
+      "required_finality_seconds": 60,
+      "required_availability": "business_hours",
+      "minimum_liquidity": "50000000",
+      "required_capabilities": ["SETTLEMENT", "ATOMIC_SETTLEMENT"],
+      "evidence_required": true
+    }
+  ]
+}

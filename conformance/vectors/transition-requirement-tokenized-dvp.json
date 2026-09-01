@@ -1,0 +1,9 @@
+{
+  "omst_type": "transition-requirement",
+  "required_finality_seconds": 60,
+  "required_availability": "business_hours",
+  "minimum_liquidity": "50000000",
+  "required_capabilities": ["SETTLEMENT", "ATOMIC_SETTLEMENT"],
+  "evidence_required": true,
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

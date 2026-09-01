@@ -15,3 +15,8 @@ def test_transition_cli(capsys):
 def test_simulate_cli(capsys):
     assert main(["simulate", "redemption-shock"]) == 0
     assert "redemption demand" in capsys.readouterr().out
+
+
+def test_equivalence_cli(capsys):
+    assert main(["equivalence", "EUR-X", "EUR-Z", "--context", "tokenized-dvp"]) == 0
+    assert "FUNCTIONALLY_EQUIVALENT" in capsys.readouterr().out

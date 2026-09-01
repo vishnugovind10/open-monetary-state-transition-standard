@@ -1,0 +1,16 @@
+{
+  "omst_type": "settlement-context",
+  "transaction_type": "DvP",
+  "amount": "50000000",
+  "currency": "EUR",
+  "asset": "synthetic-tokenised-bond",
+  "venue": "synthetic-venue",
+  "deadline": "2026-01-01T14:00:00+01:00",
+  "required_finality": "qualified",
+  "required_liquidity": "50000000",
+  "participants": ["synthetic-buyer", "synthetic-seller"],
+  "jurisdiction_reference": "non-normative-eu-context",
+  "operating_window": "business_hours",
+  "settlement_mode": "DvP",
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

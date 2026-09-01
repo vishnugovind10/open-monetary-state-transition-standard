@@ -1,0 +1,46 @@
+{
+  "$id": "https://omst.dev/schemas/omst-event.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OMST Event Envelope",
+  "description": "Language-neutral event envelope for external systems emitting OMST monetary events.",
+  "type": "object",
+  "required": ["omst_type", "omst_schema_version", "event_id", "event_type", "instrument", "source_state", "target_state", "quantity", "currency", "timestamp", "actor_reference", "ledger_reference", "transaction_reference", "evidence"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "omst-event"},
+    "omst_schema_version": {"type": "string"},
+    "event_id": {"type": "string"},
+    "event_type": {"enum": ["ISSUED", "MINTED", "TRANSFER_REQUESTED", "TRANSFERRED", "RESERVED", "LOCKED", "UNLOCKED", "CONVERSION_REQUESTED", "CONVERSION_EXECUTED", "REDEMPTION_REQUESTED", "REDEEMED", "SETTLEMENT_STARTED", "SETTLEMENT_FINAL", "SETTLEMENT_FAILED", "FROZEN", "UNFROZEN", "ENCUMBERED", "RELEASED"]},
+    "instrument": {"type": "string"},
+    "source_state": {"type": "string"},
+    "target_state": {"type": "string"},
+    "quantity": {"type": "string"},
+    "currency": {"type": "string"},
+    "timestamp": {"type": "string"},
+    "actor_reference": {"type": "string"},
+    "ledger_reference": {"type": "string"},
+    "transaction_reference": {"type": "string"},
+    "evidence": {"type": "array"}
+  },
+  "examples": [
+    {
+      "omst_type": "omst-event",
+      "omst_schema_version": "0.2.0",
+      "event_id": "event-001",
+      "event_type": "SETTLEMENT_FINAL",
+      "instrument": "EUR-X",
+      "source_state": "SETTLING",
+      "target_state": "FINAL",
+      "quantity": "50000000",
+      "currency": "EUR",
+      "timestamp": "2026-01-01T12:00:00Z",
+      "actor_reference": "synthetic-participant",
+      "ledger_reference": "synthetic-ledger",
+      "transaction_reference": "synthetic-tx",
+      "evidence": []
+    }
+  ]
+}

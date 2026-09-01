@@ -1,0 +1,15 @@
+{
+  "omst_type": "money-relation",
+  "source_instrument": "EUR-X",
+  "target_instrument": "CBM",
+  "relation_type": "SETTLEABLE_AGAINST",
+  "cost_bps": "1.2",
+  "latency_seconds": 20,
+  "liquidity": "90000000",
+  "finality": "qualified",
+  "availability": "available",
+  "access": "institutional",
+  "constraints": {"synthetic": true},
+  "evidence": [],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

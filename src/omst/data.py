@@ -1,8 +1,9 @@
 from decimal import Decimal
 from typing import Any
 
+from .enums import CapabilityStatus, CapabilityType
 from .graph import MoneyGraph
-from .models import LiquidityProfile, MoneyProfile, RouteEdge, TransactionContext
+from .models import LiquidityProfile, MoneyCapability, MoneyProfile, RouteEdge, TransactionContext
 
 
 def synthetic_profiles() -> dict[str, MoneyProfile]:
@@ -34,6 +35,13 @@ def synthetic_profiles() -> dict[str, MoneyProfile]:
             control_profile={"freeze_possible": True},
             network_profile={"network": "synthetic-ledger"},
             evidence=[],
+            capabilities=[
+                MoneyCapability(CapabilityType.PAYMENT, CapabilityStatus.SUPPORTED),
+                MoneyCapability(CapabilityType.SETTLEMENT, CapabilityStatus.SUPPORTED),
+                MoneyCapability(CapabilityType.REDEMPTION, CapabilityStatus.SUPPORTED),
+                MoneyCapability(CapabilityType.DELIVERY_VERSUS_PAYMENT, CapabilityStatus.CONDITIONAL),
+                MoneyCapability(CapabilityType.ATOMIC_SETTLEMENT, CapabilityStatus.CONDITIONAL),
+            ],
         )
 
     return {

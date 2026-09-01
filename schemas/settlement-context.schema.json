@@ -1,0 +1,44 @@
+{
+  "$id": "https://omst.dev/schemas/settlement-context.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementContext",
+  "description": "Transaction context used to evaluate monetary transitions.",
+  "type": "object",
+  "required": ["omst_type", "transaction_type", "amount", "currency", "asset", "venue", "deadline", "required_finality", "required_liquidity", "participants", "jurisdiction_reference", "operating_window", "settlement_mode"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "settlement-context"},
+    "transaction_type": {"enum": ["DvP", "PvP", "payment", "redemption", "subscription", "redemption_of_asset", "collateral_transfer", "repo", "treasury_transfer", "cross_border_payment"]},
+    "amount": {"type": "string"},
+    "currency": {"type": "string"},
+    "asset": {"type": ["string", "null"]},
+    "venue": {"type": "string"},
+    "deadline": {"type": ["string", "null"]},
+    "required_finality": {"type": "string"},
+    "required_liquidity": {"type": "string"},
+    "participants": {"type": "array", "items": {"type": "string"}},
+    "jurisdiction_reference": {"type": "string"},
+    "operating_window": {"type": "string"},
+    "settlement_mode": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-context",
+      "transaction_type": "DvP",
+      "amount": "50000000",
+      "currency": "EUR",
+      "asset": "synthetic-tokenised-bond",
+      "venue": "synthetic-venue",
+      "deadline": "2026-01-01T14:00:00+01:00",
+      "required_finality": "qualified",
+      "required_liquidity": "50000000",
+      "participants": ["synthetic-buyer", "synthetic-seller"],
+      "jurisdiction_reference": "non-normative-eu-context",
+      "operating_window": "business_hours",
+      "settlement_mode": "DvP"
+    }
+  ]
+}

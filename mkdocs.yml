@@ -1,0 +1,33 @@
+site_name: OMST
+site_description: Open Monetary State & Transition Standard
+nav:
+  - Introduction: README.md
+  - Whitepaper: WHITEPAPER.md
+  - Specification: SPECIFICATION.md
+  - Why OMST: docs/why-omst.md
+  - What OMST Is Not: docs/what-omst-is-not.md
+  - Concepts:
+      - Overview: docs/concepts/01-overview.md
+      - Monetary Instruments: docs/concepts/02-monetary-instruments.md
+      - Money Profile: docs/concepts/03-money-profile.md
+      - Money Capabilities: docs/concepts/04-money-capabilities.md
+      - Money State: docs/concepts/05-money-state.md
+      - Money Transition: docs/concepts/06-money-transition.md
+      - Transition Evidence: docs/concepts/07-transition-evidence.md
+      - Settlement: docs/concepts/08-settlement.md
+      - Interoperability: docs/concepts/09-interoperability.md
+      - Monetary Equivalence: docs/concepts/10-monetary-equivalence.md
+      - Transition Integrity: docs/concepts/11-transition-integrity.md
+      - Liquidity: docs/concepts/12-liquidity.md
+      - Velocity: docs/concepts/13-velocity.md
+      - Mobility: docs/concepts/14-mobility.md
+      - Fragmentation: docs/concepts/15-fragmentation.md
+  - Security:
+      - Threat Model: docs/security/threat-model.md
+  - Regulatory:
+      - Disclaimer: docs/regulatory/disclaimer.md
+      - EU: docs/regulatory/eu.md
+      - MiCA: docs/regulatory/mica.md
+  - RFCs: RFC_PROCESS.md
+theme:
+  name: material

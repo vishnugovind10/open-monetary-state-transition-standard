@@ -1,0 +1,36 @@
+{
+  "$id": "https://omst.dev/schemas/money-capability.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MoneyCapability",
+  "description": "First-class OMST capability assertion with evidence and validity bounds.",
+  "type": "object",
+  "required": ["omst_type", "capability", "status", "conditions", "scope", "evidence", "valid_from", "valid_until"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "money-capability"},
+    "capability": {
+      "enum": ["PAYMENT", "SETTLEMENT", "REDEMPTION", "TRANSFER", "CONVERSION", "COLLATERAL", "TREASURY", "CROSS_BORDER", "PROGRAMMABLE_TRANSFER", "ATOMIC_SETTLEMENT", "ESCROW", "DELIVERY_VERSUS_PAYMENT", "PAYMENT_VERSUS_PAYMENT", "INTRADAY_LIQUIDITY"]
+    },
+    "status": {"enum": ["SUPPORTED", "UNSUPPORTED", "CONDITIONAL", "UNKNOWN"]},
+    "conditions": {"type": "array", "items": {"type": "string"}},
+    "scope": {"type": "string"},
+    "evidence": {"type": "array"},
+    "valid_from": {"type": ["string", "null"]},
+    "valid_until": {"type": ["string", "null"]}
+  },
+  "examples": [
+    {
+      "omst_type": "money-capability",
+      "capability": "DELIVERY_VERSUS_PAYMENT",
+      "status": "CONDITIONAL",
+      "conditions": ["synthetic settlement window open"],
+      "scope": "tokenized-dvp",
+      "evidence": [],
+      "valid_from": null,
+      "valid_until": null
+    }
+  ]
+}

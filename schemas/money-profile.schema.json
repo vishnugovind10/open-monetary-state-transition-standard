@@ -1,1 +1,52 @@
-{"$id":"https://omst.dev/schemas/money-profile.schema.json","$schema": "https://json-schema.org/draft/2020-12/schema","title":"MoneyProfile","description":"OMST digital-money instrument profile.","type":"object","required":["omst_type","id","name","currency","issuer","claim_type","monetary_layer_reference","functions","settlement_profile","redemption_profile","transfer_profile","access_profile","control_profile","network_profile","evidence"],"additionalProperties":false,"patternProperties":{"^x-":{}},"properties":{"omst_type":{"const":"money-profile"},"id":{"type":"string"},"name":{"type":"string"},"currency":{"type":"string"},"issuer":{"type":"string"},"claim_type":{"type":"string"},"monetary_layer_reference":{"enum":["m0_reference","m1_reference","m2_reference","other","unknown","not_applicable"]},"functions":{"type":"object","additionalProperties":{"enum":["supported","unsupported","conditional","unknown"]}},"settlement_profile":{"type":"object"},"redemption_profile":{"type":"object"},"transfer_profile":{"type":"object"},"access_profile":{"type":"object"},"control_profile":{"type":"object"},"network_profile":{"type":"object"},"evidence":{"type":"array"}},"examples":[{"omst_type":"money-profile","id":"EUR-X","name":"Synthetic EUR Money X","currency":"EUR","issuer":"Synthetic","claim_type":"digital_money","monetary_layer_reference":"m1_reference","functions":{"payment":"supported"},"settlement_profile":{},"redemption_profile":{},"transfer_profile":{},"access_profile":{},"control_profile":{},"network_profile":{},"evidence":[]}]}
+{
+  "$id": "https://omst.dev/schemas/money-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MoneyProfile",
+  "description": "OMST digital-money instrument profile.",
+  "type": "object",
+  "required": ["omst_type", "id", "name", "currency", "issuer", "claim_type", "monetary_layer_reference", "functions", "settlement_profile", "redemption_profile", "transfer_profile", "access_profile", "control_profile", "network_profile", "evidence"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": {}
+  },
+  "properties": {
+    "omst_type": {"const": "money-profile"},
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "currency": {"type": "string"},
+    "issuer": {"type": "string"},
+    "claim_type": {"type": "string"},
+    "monetary_layer_reference": {"enum": ["m0_reference", "m1_reference", "m2_reference", "other", "unknown", "not_applicable"]},
+    "functions": {"type": "object", "additionalProperties": {"enum": ["supported", "unsupported", "conditional", "unknown"]}},
+    "settlement_profile": {"type": "object"},
+    "redemption_profile": {"type": "object"},
+    "transfer_profile": {"type": "object"},
+    "access_profile": {"type": "object"},
+    "control_profile": {"type": "object"},
+    "network_profile": {"type": "object"},
+    "evidence": {"type": "array"},
+    "capabilities": {"type": "array"},
+    "version": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "money-profile",
+      "id": "EUR-X",
+      "name": "Synthetic EUR Money X",
+      "currency": "EUR",
+      "issuer": "Synthetic",
+      "claim_type": "digital_money",
+      "monetary_layer_reference": "m1_reference",
+      "functions": {"payment": "supported"},
+      "settlement_profile": {},
+      "redemption_profile": {},
+      "transfer_profile": {},
+      "access_profile": {},
+      "control_profile": {},
+      "network_profile": {},
+      "evidence": [],
+      "capabilities": [],
+      "version": "0.2.0"
+    }
+  ]
+}

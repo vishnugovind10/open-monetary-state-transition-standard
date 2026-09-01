@@ -8,6 +8,7 @@ from typing import Any
 from omst.cost import transition_cost
 from omst.data import context_by_name, synthetic_graph, synthetic_liquidity, synthetic_profiles
 from omst.enums import MoneyState, TransitionType
+from omst.equivalence import monetary_equivalence
 from omst.integrity import evaluate_transition
 from omst.io import validate_document
 from omst.models import MoneyTransition
@@ -30,6 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("state"); p.add_argument("instrument")
     p = sub.add_parser("transition"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True)
     p = sub.add_parser("compare"); p.add_argument("source"); p.add_argument("target")
+    p = sub.add_parser("equivalence"); p.add_argument("source"); p.add_argument("target"); p.add_argument("--context", default="tokenized-dvp")
     p = sub.add_parser("velocity"); p.add_argument("instrument"); p.add_argument("--window", default="30d")
     p = sub.add_parser("liquidity"); p.add_argument("instrument")
     p = sub.add_parser("mobility"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True)
@@ -57,6 +59,8 @@ def main(argv: list[str] | None = None) -> int:
         out(result)
     elif args.cmd == "compare":
         out({"source": profiles[args.source], "target": profiles[args.target]})
+    elif args.cmd == "equivalence":
+        out(monetary_equivalence(profiles[args.source], profiles[args.target], context_by_name(args.context)))
     elif args.cmd == "velocity":
         out({"instrument": args.instrument, "window": args.window, "settlement_velocity": settlement_velocity(Decimal(5000000000), Decimal(500000000))})
     elif args.cmd == "liquidity":
