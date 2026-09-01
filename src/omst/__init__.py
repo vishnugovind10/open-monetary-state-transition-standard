@@ -1,3 +1,5 @@
+from .compatibility import evaluate_settlement_compatibility
+from .conformance import implementation_manifest, run_conformance
 from .cost import transition_cost
 from .enums import CapabilityStatus, CapabilityType, MoneyEventType, MoneyState, RelationType
 from .equivalence import monetary_equivalence
@@ -15,12 +17,14 @@ from .models import (
     MoneyTransition,
     SettlementBundle,
     SettlementCompatibility,
+    SettlementCompatibilityProfile,
     SettlementIntent,
     TransactionContext,
     TransitionPlan,
     TransitionPlanStep,
     TransitionRequirement,
 )
+from .plan import validate_plan
 from .routing import route_money
 from .settlement import evaluate_settlement, plan_transition
 from .stress import stress_test
@@ -43,6 +47,7 @@ __all__ = [
     "RelationType",
     "SettlementBundle",
     "SettlementCompatibility",
+    "SettlementCompatibilityProfile",
     "SettlementIntent",
     "TransactionContext",
     "TransitionPlan",
@@ -50,11 +55,15 @@ __all__ = [
     "TransitionRequirement",
     "evaluate_requirements",
     "evaluate_settlement",
+    "evaluate_settlement_compatibility",
     "evaluate_transition",
+    "implementation_manifest",
     "monetary_equivalence",
     "plan_transition",
     "route_money",
+    "run_conformance",
     "settlement_velocity",
     "stress_test",
     "transition_cost",
+    "validate_plan",
 ]

@@ -30,6 +30,8 @@ nav:
       - Transition Plan: settlement/transition-plan.md
       - Finality: settlement/finality.md
       - Availability: settlement/availability.md
+  - Conformance:
+      - Implementer Guide: conformance/implementer-guide.md
   - Interoperability:
       - Levels: interoperability/levels.md
   - Case Studies:
@@ -38,6 +40,17 @@ nav:
       - Disclaimer: regulatory/disclaimer.md
       - EU: regulatory/eu.md
       - MiCA: regulatory/mica.md
-  - RFCs: rfcs/index.md
+  - RFCs:
+      - Index: rfcs/index.md
+      - RFC-0019 Settlement Compatibility Profile: rfcs/RFC-0019-settlement-compatibility-profile.md
+      - RFC-0020 Money Requirement Set: rfcs/RFC-0020-money-requirement-set.md
+      - RFC-0021 Evidence Policy: rfcs/RFC-0021-evidence-policy.md
+      - RFC-0022 Compatibility Reason Codes: rfcs/RFC-0022-compatibility-reason-codes.md
+      - RFC-0023 Evaluation Context: rfcs/RFC-0023-evaluation-context.md
+      - RFC-0024 Settlement Legs: rfcs/RFC-0024-settlement-legs.md
+      - RFC-0025 Transition Plan Validation: rfcs/RFC-0025-transition-plan-validation.md
+      - RFC-0026 Route Explanations: rfcs/RFC-0026-route-explanations.md
+      - RFC-0027 Conformance Runner: rfcs/RFC-0027-conformance-runner.md
+      - RFC-0028 Evaluation Reproducibility: rfcs/RFC-0028-evaluation-reproducibility.md
 theme:
   name: material

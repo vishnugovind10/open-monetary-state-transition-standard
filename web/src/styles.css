@@ -34,8 +34,8 @@ button {
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(220px, 320px) 1fr auto;
-  gap: 20px;
+  grid-template-columns: minmax(220px, 290px) minmax(0, 1fr) auto;
+  gap: 14px;
   align-items: center;
   padding: 16px 24px 10px;
   border-bottom: 1px solid #dde3e5;
@@ -68,7 +68,7 @@ h2 {
 
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 4px;
   overflow-x: auto;
 }
@@ -87,7 +87,8 @@ nav button {
   border-bottom-color: transparent;
   color: #43515a;
   min-height: 38px;
-  padding: 0 14px;
+  padding: 0 10px;
+  font-size: 14px;
   white-space: nowrap;
 }
 
@@ -209,6 +210,7 @@ nav .nav-active {
 
 .status-restricted,
 .status-medium,
+.status-conditionally_compatible,
 .warn-cell {
   color: #9a5a00;
   background: #fff3d8;
@@ -216,7 +218,7 @@ nav .nav-active {
 
 .status-pilot,
 .status-high,
-.status-blocked {
+.status-incompatible {
   color: #9f2d20;
   background: #ffe7e2;
 }
@@ -314,8 +316,23 @@ select {
   text-align: center;
 }
 
+.verdict-conditionally_compatible {
+  border-color: #f0c36b;
+  color: #8a5400;
+  background: #fff7e4;
+}
+
+.verdict-incompatible {
+  border-color: #f0b4aa;
+  color: #9f2d20;
+  background: #fff0ed;
+}
+
 .verdict-card strong {
-  font-size: 20px;
+  max-width: 180px;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+  line-height: 1.15;
 }
 
 .verdict-card span {
@@ -336,6 +353,23 @@ select {
 
 .verdict-details dl {
   margin: 10px 0 0;
+}
+
+.reason-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.reason-list span {
+  border: 1px solid #d8e0e4;
+  border-radius: 6px;
+  padding: 5px 7px;
+  color: #37454d;
+  background: #f7f9fa;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .graph-panel {
@@ -419,7 +453,7 @@ select {
 
 .conformance-panel,
 .stress-panel {
-  overflow: hidden;
+  overflow: auto;
 }
 
 table {

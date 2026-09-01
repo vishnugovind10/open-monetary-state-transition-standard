@@ -1,0 +1,30 @@
+{
+  "omst_type": "money-requirement-set",
+  "requirement_set_id": "TOKENIZED_BOND_DVP_EUR",
+  "description": "Synthetic EUR tokenized bond DvP cash-leg requirements.",
+  "composition": "AND",
+  "schema_version": "0.5.0",
+  "ruleset_version": "omst-core-0.5",
+  "requirements": [
+    { "property": "currency", "operator": "EQUALS", "value": "EUR", "priority": "MANDATORY" },
+    { "property": "finality", "operator": "IN", "value": ["qualified", "deterministic", "central-bank-final"], "priority": "MANDATORY" },
+    { "property": "atomicity", "operator": "EQUALS", "value": true, "priority": "MANDATORY" },
+    { "property": "availability", "operator": "EQUALS", "value": "24_7", "priority": "MANDATORY" },
+    { "property": "maximum_latency_seconds", "operator": "LESS_THAN_OR_EQUAL", "value": 60, "unit": "seconds", "priority": "MANDATORY" },
+    {
+      "property": "effective_liquidity",
+      "operator": "GREATER_THAN_OR_EQUAL",
+      "value": "50000000",
+      "unit": "EUR",
+      "priority": "MANDATORY",
+      "evidence_requirement": {
+        "accepted_sources": ["observed", "derived"],
+        "maximum_age_seconds": 60,
+        "required": true
+      }
+    },
+    { "property": "transferability", "operator": "EQUALS", "value": true, "priority": "MANDATORY" },
+    { "property": "access", "operator": "EQUALS", "value": "institutional", "priority": "MANDATORY" }
+  ],
+  "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+}

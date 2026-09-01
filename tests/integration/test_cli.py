@@ -37,6 +37,42 @@ def test_evaluate_settlement_cli(capsys):
     assert "COMPATIBLE" in capsys.readouterr().out
 
 
+def test_v05_evaluate_settlement_cli_with_money(capsys):
+    assert (
+        main(
+            [
+                "evaluate-settlement",
+                "examples/tokenized-bond-dvp/settlement-intent.json",
+                "--money",
+                "examples/eur-z.json",
+            ]
+        )
+        == 0
+    )
+    output = capsys.readouterr().out
+    assert "INCOMPATIBLE" in output
+    assert "FINALITY_MISMATCH" in output
+
+
+def test_requirement_cli(capsys):
+    assert main(["requirement", "examples/requirements/tokenized-bond-dvp.json"]) == 0
+    assert "TOKENIZED_BOND_DVP_EUR" in capsys.readouterr().out
+
+
+def test_conformance_cli(capsys):
+    assert main(["conformance"]) == 0
+    output = capsys.readouterr().out
+    assert "OMST-SETTLEMENT" in output
+    assert "PASS" in output
+
+
+def test_explain_cli(capsys):
+    assert main(["explain", "evaluation.json"]) == 0
+    output = capsys.readouterr().out
+    assert "Evaluation:" in output
+    assert "Synthetic" in output
+
+
 def test_plan_cli(capsys):
     assert main(["plan", "examples/tokenized-bond-dvp/"]) == 0
     assert "plan-tokenized-bond-dvp" in capsys.readouterr().out

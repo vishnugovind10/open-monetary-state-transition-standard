@@ -5,11 +5,18 @@ from typing import Any
 from .enums import (
     CapabilityStatus,
     CapabilityType,
+    CompatibilityReasonCode,
     EvidenceSourceType,
     MoneyEventType,
     MoneyState,
+    ReasonSeverity,
     RelationType,
+    RequirementComposition,
+    RequirementOperator,
+    RequirementPriority,
     SettlementBundleMode,
+    SettlementLegRelation,
+    SettlementLegType,
     TransitionEvaluationStatus,
     TransitionType,
 )
@@ -185,6 +192,90 @@ class TransitionRequirement:
 
 
 @dataclass(frozen=True)
+class EvidenceRequirement:
+    accepted_sources: tuple[EvidenceSourceType, ...] = ()
+    maximum_age_seconds: int | None = None
+    required: bool = False
+
+
+@dataclass(frozen=True)
+class EvidencePolicy:
+    accepted_sources: dict[str, tuple[EvidenceSourceType, ...]]
+    max_age_seconds: dict[str, int]
+
+
+@dataclass(frozen=True)
+class EvaluationContext:
+    omst_version: str
+    ruleset_version: str
+    evaluation_timestamp: str
+    evidence_timestamp: str
+    assumption_policy: str = "no_compatible_from_unknown"
+
+
+@dataclass(frozen=True)
+class MoneyRequirement:
+    property: str
+    operator: RequirementOperator
+    value: object
+    unit: str | None = None
+    priority: RequirementPriority = RequirementPriority.MANDATORY
+    evidence_requirement: EvidenceRequirement | None = None
+
+
+@dataclass(frozen=True)
+class MoneyRequirementSet:
+    requirement_set_id: str
+    description: str
+    composition: RequirementComposition
+    requirements: tuple[MoneyRequirement, ...]
+    schema_version: str = "0.5.0"
+    ruleset_version: str = "omst-core-0.5"
+
+
+@dataclass(frozen=True)
+class CompatibilityReason:
+    code: CompatibilityReasonCode
+    severity: ReasonSeverity
+    description: str
+    source: str
+
+
+@dataclass(frozen=True)
+class RequirementEvaluation:
+    requirement: MoneyRequirement
+    status: TransitionEvaluationStatus
+    observed_value: object
+    reasons: tuple[CompatibilityReason, ...] = ()
+
+
+@dataclass(frozen=True)
+class CompatibilitySectionEvaluation:
+    status: TransitionEvaluationStatus
+    results: tuple[RequirementEvaluation, ...]
+
+
+@dataclass(frozen=True)
+class SettlementLeg:
+    leg_id: str
+    leg_type: SettlementLegType
+    instrument: str | None
+    quantity: Decimal
+    currency: str
+    source: str
+    destination: str
+    required_state: MoneyState
+    required_finality: str
+
+
+@dataclass(frozen=True)
+class SettlementLegDependency:
+    source_leg_id: str
+    target_leg_id: str
+    relation: SettlementLegRelation
+
+
+@dataclass(frozen=True)
 class TransitionEvaluation:
     status: TransitionEvaluationStatus
     reasons: list[str]
@@ -260,3 +351,25 @@ class SettlementCompatibility:
     evidence: list[Evidence]
     assumptions: list[str]
     confidence: str
+
+
+@dataclass(frozen=True)
+class SettlementCompatibilityProfile:
+    evaluation_id: str
+    omst_version: str
+    settlement_intent: SettlementIntent
+    money_instrument: str
+    money_state: CompositeMoneyState
+    requirements: MoneyRequirementSet
+    capability_evaluation: CompatibilitySectionEvaluation
+    state_evaluation: CompatibilitySectionEvaluation
+    evidence_evaluation: CompatibilitySectionEvaluation
+    overall_status: TransitionEvaluationStatus
+    reasons: tuple[CompatibilityReason, ...]
+    blocking_conditions: tuple[CompatibilityReason, ...]
+    warnings: tuple[CompatibilityReason, ...]
+    assumptions: tuple[str, ...]
+    confidence: str
+    generated_at: str
+    evaluation_context: EvaluationContext
+    evaluation_hash: str

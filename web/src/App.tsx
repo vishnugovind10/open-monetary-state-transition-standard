@@ -12,19 +12,21 @@ import { evaluateSettlement } from "./evaluation";
 const navItems = [
   "Overview",
   "Money",
+  "Compare",
   "Settlement",
-  "Equivalence",
-  "Money Graph",
+  "Plans",
+  "Graph",
   "Stress Lab",
   "Conformance",
-  "Specification"
+  "Specification",
+  "Research"
 ];
 
 export function App() {
   const [activeTab, setActiveTab] = useState("Overview");
   const [query, setQuery] = useState("");
   const [sourceCode, setSourceCode] = useState("EUR-X");
-  const [targetCode, setTargetCode] = useState("EUR-Y");
+  const [targetCode, setTargetCode] = useState("EUR-X");
   const [amount, setAmount] = useState(50_000_000);
   const [scenarioId, setScenarioId] = useState("baseline");
 
@@ -41,7 +43,7 @@ export function App() {
       <header className="topbar">
         <div>
           <h1>OMST Explorer</h1>
-          <p>Open Monetary State & Transition Analysis</p>
+          <p>Settlement-compatibility profiles for digital money</p>
         </div>
         <nav aria-label="Explorer sections">
           {navItems.map((item) => (
@@ -57,7 +59,7 @@ export function App() {
         </nav>
         <div className="dataset-pill">
           <Database size={16} aria-hidden />
-          <span>Dataset: synthetic v0.4</span>
+          <span>Dataset: synthetic v0.5</span>
         </div>
       </header>
 
@@ -89,7 +91,7 @@ export function App() {
       <footer>
         <span>All examples are synthetic.</span>
         <span>Not issuer, regulatory or market-condition evidence.</span>
-        <span>OMST v0.4.0</span>
+        <span>OMST v0.5.0</span>
       </footer>
     </main>
   );

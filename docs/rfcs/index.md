@@ -22,3 +22,13 @@ Current draft RFCs:
 - RFC-0016 Resilience
 - RFC-0017 Privacy
 - RFC-0018 Cross-Border Transitions
+- RFC-0019 Settlement Compatibility Profile
+- RFC-0020 Money Requirement Set
+- RFC-0021 Evidence Policy
+- RFC-0022 Compatibility Reason Codes
+- RFC-0023 Evaluation Context
+- RFC-0024 Settlement Legs
+- RFC-0025 Transition Plan Validation
+- RFC-0026 Route Explanations
+- RFC-0027 Conformance Runner
+- RFC-0028 Evaluation Reproducibility

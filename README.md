@@ -1,12 +1,10 @@
-# OMST
+# OMST — Open Monetary State & Transition Standard
 
-## Open Monetary State & Transition Standard
-
-Machine-readable infrastructure for digital-money state, transitions and interoperability.
+An open, machine-readable standard for evaluating whether digital money can satisfy settlement requirements across heterogeneous financial systems.
 
 [Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Explorer](web/) [Conformance](conformance/)
 
-Digital money is becoming programmable, tokenised and fragmented.
+Digital money is becoming programmable, tokenised and fragmented. Same currency denomination does not necessarily imply settlement equivalence.
 
 The same currency denomination can exist across:
 
@@ -28,6 +26,9 @@ OMST provides open machine-readable primitives for:
 - effective liquidity
 - monetary mobility
 - transition integrity
+- settlement-compatibility profiles
+- requirement sets
+- conformance vectors
 
 OMST does not issue, custody or settle money.
 
@@ -55,11 +56,16 @@ pip install -e .
 
 ## Explorer
 
-OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, equivalence, routing, stress scenarios and conformance status.
+OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, equivalence, routing, stress scenarios and conformance status. The v0.5 scenario compares EUR-X, EUR-Y and EUR-Z against the same EUR 50m tokenized-bond DvP requirements:
+
+- `EUR-X`: `COMPATIBLE`
+- `EUR-Y`: `CONDITIONALLY_COMPATIBLE` because mandatory requirements pass but liquidity evidence is stale
+- `EUR-Z`: `INCOMPATIBLE` because mandatory atomicity, finality, availability, latency and liquidity requirements fail
 
 ```bash
 npm install
 npm run web:build
+npm run ts:check
 npm run web:test
 npm run web:dev
 ```
@@ -71,6 +77,7 @@ The Explorer is not issuer evidence, regulatory evidence, market-condition evide
 ```bash
 omst validate examples/
 omst validate conformance/vectors/
+omst requirement examples/requirements/tokenized-bond-dvp.json
 omst inspect examples/synthetic-eur-stablecoin/eur-x.json
 omst profile examples/eur-x.json
 omst state EUR-X
@@ -81,8 +88,13 @@ omst velocity EUR-X --window 30d
 omst liquidity EUR-X
 omst mobility --from EUR-X --to EUR-Y --amount 50000000
 omst route --from EUR-X --to EUR-Y --amount 50000000 --context tokenized-dvp
-omst evaluate-settlement examples/tokenized-bond-dvp/
+omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-x.json
+omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-y.json
+omst evaluate-settlement examples/tokenized-bond-dvp/settlement-intent.json --money examples/eur-z.json
+omst explain evaluation.json
 omst plan examples/tokenized-bond-dvp/
+omst conformance
+omst manifest
 omst graph --format mermaid
 omst simulate redemption-shock
 omst stress --scenario liquidity-shock
@@ -91,7 +103,7 @@ pytest
 
 ## Flagship Scenario
 
-The v0.3 reference scenario evaluates a synthetic EUR 50m tokenised-bond DvP cash leg. It loads synthetic money profiles, checks state, liquidity, route constraints, transition cost, settlement latency, finality and transition integrity, then produces a settlement compatibility result and transition plan.
+The v0.5 reference scenario evaluates a synthetic EUR 50m tokenized-bond DvP cash leg. It loads synthetic money profiles, checks machine-readable requirements, state predicates, liquidity, evidence freshness, route constraints, settlement latency, finality and atomic settlement capability, then produces a reproducible settlement-compatibility profile.
 
 All public examples are synthetic.
 

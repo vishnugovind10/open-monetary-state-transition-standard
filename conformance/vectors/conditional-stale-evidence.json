@@ -1,0 +1,12 @@
+{
+  "omst_type": "compatibility-vector",
+  "vector_id": "conditional-stale-evidence",
+  "description": "EUR-Y satisfies core monetary requirements but has stale liquidity evidence.",
+  "input": { "settlement_intent": "examples/tokenized-bond-dvp/settlement-intent.json", "money_profile": "examples/synthetic-tokenised-deposit/eur-y.json" },
+  "expected_status": "CONDITIONALLY_COMPATIBLE",
+  "expected_reasons": ["LIQUIDITY_EVIDENCE_STALE"],
+  "expected_properties": { "money_instrument": "EUR-Y" },
+  "schema_version": "0.5.0",
+  "ruleset_version": "omst-core-0.5",
+  "x-note": "Synthetic vector. Not issuer, market or regulatory evidence."
+}

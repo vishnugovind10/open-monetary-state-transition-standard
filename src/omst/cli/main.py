@@ -6,6 +6,16 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from omst.compatibility import (
+    canonical_json,
+    evaluate_settlement_compatibility,
+    explain_compatibility,
+    load_money_profile,
+    load_requirement_set,
+    load_settlement_intent_v05,
+    synthetic_money_states,
+)
+from omst.conformance import implementation_manifest, run_conformance
 from omst.cost import transition_cost
 from omst.data import (
     context_by_name,
@@ -51,6 +61,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("profile"); p.add_argument("path")
     p = sub.add_parser("state"); p.add_argument("instrument")
     p = sub.add_parser("capability"); p.add_argument("instrument")
+    p = sub.add_parser("requirement"); p.add_argument("path", nargs="?")
     p = sub.add_parser("transition"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True)
     p = sub.add_parser("compare"); p.add_argument("source"); p.add_argument("target")
     p = sub.add_parser("equivalence"); p.add_argument("source"); p.add_argument("target"); p.add_argument("--context", default="tokenized-dvp")
@@ -58,8 +69,11 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("liquidity"); p.add_argument("instrument")
     p = sub.add_parser("mobility"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True)
     p = sub.add_parser("route"); p.add_argument("--from", dest="from_", required=True); p.add_argument("--to", required=True); p.add_argument("--amount", required=True); p.add_argument("--context", default="tokenized-dvp")
-    p = sub.add_parser("evaluate-settlement"); p.add_argument("path")
+    p = sub.add_parser("evaluate-settlement"); p.add_argument("path"); p.add_argument("--money")
     p = sub.add_parser("plan"); p.add_argument("path")
+    p = sub.add_parser("explain"); p.add_argument("path")
+    sub.add_parser("conformance")
+    sub.add_parser("manifest")
     p = sub.add_parser("graph"); p.add_argument("--format", choices=["json", "mermaid"], default="json")
     p = sub.add_parser("simulate"); p.add_argument("scenario")
     p = sub.add_parser("stress"); p.add_argument("--scenario", default="liquidity-shock")
@@ -78,6 +92,9 @@ def main(argv: list[str] | None = None) -> int:
         out({"instrument": args.instrument, "state": "AVAILABLE", "definition": STATE_DEFINITIONS["AVAILABLE"]})
     elif args.cmd == "capability":
         out({"instrument": args.instrument, "capabilities": profiles[args.instrument].capabilities})
+    elif args.cmd == "requirement":
+        requirement_path = Path(args.path) if args.path else None
+        out(load_requirement_set(requirement_path))
     elif args.cmd == "transition":
         src_id, src_state = args.from_.split(":")
         tgt_id, tgt_state = args.to.split(":")
@@ -98,9 +115,31 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "route":
         out(route_money(synthetic_graph(), args.from_, args.to, Decimal(args.amount), context_by_name(args.context)))
     elif args.cmd == "evaluate-settlement":
-        out(evaluate_settlement(load_settlement_intent(Path(args.path))))
+        if args.money:
+            intent_path = Path(args.path)
+            requirement_path = intent_path.parent.parent / "requirements" / "tokenized-bond-dvp.json"
+            money = load_money_profile(Path(args.money))
+            states = synthetic_money_states()
+            out(
+                canonical_json(
+                    evaluate_settlement_compatibility(
+                        load_settlement_intent_v05(intent_path),
+                        money,
+                        states.get(money.id),
+                        load_requirement_set(requirement_path if requirement_path.exists() else None),
+                    )
+                )
+            )
+        else:
+            out(evaluate_settlement(load_settlement_intent(Path(args.path))))
     elif args.cmd == "plan":
         out(plan_transition(load_settlement_intent(Path(args.path))))
+    elif args.cmd == "explain":
+        print(explain_compatibility(json.loads(Path(args.path).read_text(encoding="utf-8"))))
+    elif args.cmd == "conformance":
+        out(canonical_json(run_conformance()))
+    elif args.cmd == "manifest":
+        out(implementation_manifest())
     elif args.cmd == "graph":
         graph = synthetic_graph()
         if args.format == "mermaid":

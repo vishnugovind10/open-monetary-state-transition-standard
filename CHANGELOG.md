@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.5.0
+
+- Added settlement-compatibility profiles with `COMPATIBLE`, `CONDITIONALLY_COMPATIBLE`, `INCOMPATIBLE` and `UNKNOWN` statuses.
+- Added machine-readable money requirement sets, evidence policies, reason codes and deterministic compatibility evaluation.
+- Added v0.5 conformance vectors proving EUR-X compatible, EUR-Y conditionally compatible and EUR-Z incompatible for the synthetic EUR 50m tokenized-bond DvP scenario.
+- Added `omst requirement`, `omst evaluate-settlement --money`, `omst explain`, `omst conformance` and `omst manifest`.
+- Added a TypeScript reference compatibility evaluator and updated OMST Explorer to use v0.5 status and reason-code vocabulary.
+- Added implementer guidance for independent reproducibility and evidence-boundary handling.
+
 ## v0.4.0
 
 - Added OMST Explorer, a Vite/React workbench for synthetic monetary state, settlement, equivalence, graph, stress and conformance inspection.

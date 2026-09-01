@@ -1,0 +1,12 @@
+{
+  "omst_type": "compatibility-vector",
+  "vector_id": "compatible-basic-payment",
+  "description": "EUR-X satisfies the synthetic EUR DvP requirements.",
+  "input": { "settlement_intent": "examples/tokenized-bond-dvp/settlement-intent.json", "money_profile": "examples/eur-x.json" },
+  "expected_status": "COMPATIBLE",
+  "expected_reasons": [],
+  "expected_properties": { "money_instrument": "EUR-X" },
+  "schema_version": "0.5.0",
+  "ruleset_version": "omst-core-0.5",
+  "x-note": "Synthetic vector. Not issuer, market or regulatory evidence."
+}

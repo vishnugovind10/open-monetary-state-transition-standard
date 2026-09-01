@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omst.dev/schemas/money-requirement-set.schema.json",
+  "title": "OMST Money Requirement Set",
+  "description": "A machine-readable OMST v0.5 requirement set for settlement compatibility evaluation.",
+  "type": "object",
+  "required": ["omst_type", "requirement_set_id", "composition", "requirements", "schema_version", "ruleset_version"],
+  "properties": {
+    "omst_type": { "const": "money-requirement-set" },
+    "requirement_set_id": { "type": "string" },
+    "description": { "type": "string" },
+    "composition": { "enum": ["AND", "OR", "NOT"] },
+    "schema_version": { "type": "string" },
+    "ruleset_version": { "type": "string" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["property", "operator", "value", "priority"],
+        "properties": {
+          "property": { "type": "string" },
+          "operator": {
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "GREATER_THAN",
+              "GREATER_THAN_OR_EQUAL",
+              "LESS_THAN",
+              "LESS_THAN_OR_EQUAL",
+              "IN",
+              "NOT_IN",
+              "REQUIRES",
+              "FORBIDS",
+              "WITHIN",
+              "AVAILABLE_DURING"
+            ]
+          },
+          "value": {},
+          "unit": { "type": ["string", "null"] },
+          "priority": { "enum": ["MANDATORY", "PREFERRED", "OPTIONAL"] },
+          "evidence_requirement": {
+            "type": "object",
+            "properties": {
+              "accepted_sources": {
+                "type": "array",
+                "items": { "enum": ["observed", "derived", "official", "issuer_declared", "simulated", "community", "unknown"] }
+              },
+              "maximum_age_seconds": { "type": "integer", "minimum": 0 },
+              "required": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "x-note": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "omst_type": "money-requirement-set",
+      "requirement_set_id": "tokenized-bond-dvp-eur-50m",
+      "description": "Minimum requirements for a EUR 50m tokenized bond delivery-versus-payment settlement leg.",
+      "composition": "AND",
+      "schema_version": "0.5.0",
+      "ruleset_version": "omst-core-0.5",
+      "requirements": [
+        {
+          "property": "atomic_settlement",
+          "operator": "REQUIRES",
+          "value": true,
+          "priority": "MANDATORY"
+        }
+      ]
+    }
+  ]
+}

@@ -25,10 +25,10 @@ export function EvaluatorPanel({
   return (
     <section className="panel evaluator" aria-labelledby="settlement-title">
       <div className="panel-title">
-        <h2 id="settlement-title">Settlement Evaluator</h2>
+        <h2 id="settlement-title">Settlement Compatibility</h2>
         <button className="primary-button" type="button">
           <Play size={16} aria-hidden />
-          Evaluate Settlement
+          Evaluate Profile
         </button>
       </div>
       <div className="form-grid">
@@ -44,7 +44,7 @@ export function EvaluatorPanel({
           />
         </label>
         <label>
-          From
+          Candidate
           <select
             aria-label="Source instrument"
             value={sourceCode}
@@ -58,7 +58,7 @@ export function EvaluatorPanel({
           </select>
         </label>
         <label>
-          To
+          Settlement leg
           <select
             aria-label="Target instrument"
             value={targetCode}

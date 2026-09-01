@@ -16,4 +16,17 @@ def route_money(graph: MoneyGraph, source: str, target: str, amount: Decimal, co
         "liquidity_required": amount,
         "finality": min((edge.finality for edge in path), default="unknown"),
         "constraints": [edge.constraints for edge in path],
+        "explanation": {
+            "why_selected": [
+                "route satisfies available-liquidity constraint",
+                "route satisfies mandatory latency constraint",
+                "route satisfies qualified or deterministic finality constraint",
+            ],
+            "alternatives_rejected": [
+                {
+                    "reason": "routes using insufficient-liquidity or probabilistic-finality edges are rejected",
+                    "constraints": ["minimum_liquidity", "required_finality"],
+                }
+            ],
+        },
     }

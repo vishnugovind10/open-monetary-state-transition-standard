@@ -27,8 +27,10 @@ export type StressScenario = {
 };
 
 export type SettlementVerdict = {
-  status: "COMPATIBLE" | "CONSTRAINED" | "BLOCKED";
+  status: "COMPATIBLE" | "CONDITIONALLY_COMPATIBLE" | "INCOMPATIBLE" | "UNKNOWN";
   reason: string;
+  reasons: string[];
+  confidence: "high" | "medium" | "low";
   latencySeconds: number;
   costBps: number;
   route: string[];

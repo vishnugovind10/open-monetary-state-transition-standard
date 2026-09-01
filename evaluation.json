@@ -1,0 +1,8 @@
+{
+  "evaluation_id": "eval-intent-tokenized-bond-dvp-EUR-X",
+  "money_instrument": "EUR-X",
+  "overall_status": "COMPATIBLE",
+  "reasons": [],
+  "evaluation_hash": "ee555db3eb8060ea14d497ab4ea33a1725ae433db464336e1554554086425c61",
+  "x-note": "Synthetic example. Not issuer, regulatory or market-condition evidence."
+}

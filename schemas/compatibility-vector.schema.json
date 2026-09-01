@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omst.dev/schemas/compatibility-vector.schema.json",
+  "title": "OMST Compatibility Vector",
+  "description": "A reproducible OMST v0.5 settlement-compatibility conformance vector.",
+  "type": "object",
+  "required": [
+    "omst_type",
+    "vector_id",
+    "description",
+    "input",
+    "expected_status",
+    "expected_reasons",
+    "expected_properties",
+    "schema_version",
+    "ruleset_version"
+  ],
+  "properties": {
+    "omst_type": { "const": "compatibility-vector" },
+    "vector_id": { "type": "string" },
+    "description": { "type": "string" },
+    "input": { "type": "object" },
+    "expected_status": { "enum": ["COMPATIBLE", "CONDITIONALLY_COMPATIBLE", "INCOMPATIBLE", "UNKNOWN"] },
+    "expected_reasons": { "type": "array", "items": { "type": "string" } },
+    "expected_properties": { "type": "object" },
+    "schema_version": { "type": "string" },
+    "ruleset_version": { "type": "string" },
+    "x-note": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "omst_type": "compatibility-vector",
+      "vector_id": "compatible-basic-payment",
+      "description": "EUR-X satisfies the tokenized bond DvP requirement set.",
+      "input": {
+        "settlement_intent": "examples/tokenized-bond-dvp/settlement-intent.json",
+        "money": "examples/eur-x.json"
+      },
+      "expected_status": "COMPATIBLE",
+      "expected_reasons": [],
+      "expected_properties": {
+        "money_instrument": "EUR-X"
+      },
+      "schema_version": "0.5.0",
+      "ruleset_version": "omst-core-0.5"
+    }
+  ]
+}
