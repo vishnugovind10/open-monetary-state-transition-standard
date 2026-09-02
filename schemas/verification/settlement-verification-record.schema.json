@@ -1,0 +1,52 @@
+{
+  "$id": "https://omst.dev/schemas/verification/settlement-verification-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementVerificationRecord",
+  "description": "Human-facing technical verification record. Not a regulatory certificate.",
+  "type": "object",
+  "required": [
+    "omst_type",
+    "verification_id",
+    "package_fingerprint",
+    "evaluation_fingerprint",
+    "status",
+    "omst_version",
+    "ruleset_version",
+    "schema_version",
+    "verified_at",
+    "verifier",
+    "conformance_profile",
+    "warnings"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "omst_type": {"const": "settlement-verification-record"},
+    "verification_id": {"type": "string"},
+    "package_fingerprint": {"type": "string"},
+    "evaluation_fingerprint": {"type": "string"},
+    "status": {"type": "string"},
+    "omst_version": {"type": "string"},
+    "ruleset_version": {"type": "string"},
+    "schema_version": {"type": "string"},
+    "verified_at": {"type": "string"},
+    "verifier": {"type": "string"},
+    "conformance_profile": {"type": "string"},
+    "warnings": {"type": "array"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-verification-record",
+      "verification_id": "record-pkg-tokenized-bond-dvp-eur-x-v07",
+      "package_fingerprint": "example",
+      "evaluation_fingerprint": "example",
+      "status": "VERIFIED",
+      "omst_version": "0.7.0",
+      "ruleset_version": "omst-core-0.7",
+      "schema_version": "0.7.0",
+      "verified_at": "2026-09-02T00:00:00Z",
+      "verifier": "OMST Reference Verifier",
+      "conformance_profile": "OMST-VERIFICATION",
+      "warnings": []
+    }
+  ]
+}

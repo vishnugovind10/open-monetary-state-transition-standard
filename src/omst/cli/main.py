@@ -44,6 +44,15 @@ from omst.simulation import simulate
 from omst.state import STATE_DEFINITIONS
 from omst.stress import stress_test
 from omst.velocity import settlement_velocity
+from omst.verification import (
+    build_evaluation_package,
+    human_verification_record,
+    seal_evaluation_package,
+    settlement_evaluation_bundle,
+    tamper_package,
+    verification_summary,
+    verify_evaluation_package,
+)
 
 
 def out(value: Any) -> None:
@@ -92,6 +101,10 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("fingerprint"); p.add_argument("path")
     p = sub.add_parser("exchange"); p.add_argument("--intent", default="examples/tokenized-bond-dvp/settlement-intent.json"); p.add_argument("--money", default="examples/eur-x.json"); p.add_argument("--settlement", default="examples/settlement-networks/network-a.json")
     p = sub.add_parser("api"); p.add_argument("endpoint")
+    p = sub.add_parser("package"); p.add_argument("action", choices=["create", "seal"]); p.add_argument("path", nargs="?"); p.add_argument("--intent", default="examples/tokenized-bond-dvp/settlement-intent.json"); p.add_argument("--money", default="examples/eur-x.json"); p.add_argument("--settlement", default="examples/settlement-networks/network-a.json")
+    p = sub.add_parser("bundle"); p.add_argument("action", choices=["create", "verify"]); p.add_argument("path", nargs="?")
+    p = sub.add_parser("verify"); p.add_argument("path"); p.add_argument("--human", action="store_true")
+    p = sub.add_parser("tamper"); p.add_argument("mutation"); p.add_argument("path", nargs="?")
     p = sub.add_parser("graph"); p.add_argument("--format", choices=["json", "mermaid"], default="json")
     p = sub.add_parser("simulate"); p.add_argument("scenario")
     p = sub.add_parser("stress"); p.add_argument("--scenario", default="liquidity-shock")
@@ -202,7 +215,44 @@ def main(argv: list[str] | None = None) -> int:
     elif args.cmd == "exchange":
         out(canonical_json(settlement_response(Path(args.intent), Path(args.money), Path(args.settlement))))
     elif args.cmd == "api":
-        out(api_response(args.endpoint))
+        if args.endpoint == "verification/package":
+            out(build_evaluation_package())
+        elif args.endpoint == "verification/verify":
+            out(verify_evaluation_package(Path("examples/verification/valid-package.json")))
+        elif args.endpoint == "verification/record":
+            out(verify_evaluation_package(Path("examples/verification/valid-package.json"))["record"])
+        elif args.endpoint == "verification/tamper":
+            out(verify_evaluation_package(Path("examples/verification/tampered-evidence.json")))
+        else:
+            out(api_response(args.endpoint))
+    elif args.cmd == "package":
+        if args.action == "create":
+            out(
+                build_evaluation_package(
+                    Path(args.intent),
+                    Path(args.money),
+                    Path(args.settlement),
+                )
+            )
+        else:
+            out(seal_evaluation_package(json.loads(Path(args.path).read_text(encoding="utf-8"))))
+    elif args.cmd == "bundle":
+        if args.action == "create":
+            out(settlement_evaluation_bundle())
+        else:
+            bundle_verification = verify_evaluation_package(
+                json.loads(Path(args.path).read_text(encoding="utf-8"))["evaluation_package"]
+            )
+            print(verification_summary(bundle_verification))
+    elif args.cmd == "verify":
+        verification = verify_evaluation_package(Path(args.path))
+        if args.human:
+            print(human_verification_record(verification["record"]))
+        else:
+            print(verification_summary(verification))
+    elif args.cmd == "tamper":
+        package_path = Path(args.path or "examples/verification/valid-package.json")
+        out(tamper_package(json.loads(package_path.read_text(encoding="utf-8")), args.mutation))
     elif args.cmd == "graph":
         graph = synthetic_graph()
         if args.format == "mermaid":

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from .compatibility import (
     default_evaluation_context,
     evaluate_settlement_compatibility,
@@ -7,6 +9,7 @@ from .compatibility import (
 from .data import synthetic_profiles, synthetic_settlement_intent
 from .enums import TransitionEvaluationStatus
 from .models import SettlementCompatibilityProfile
+from .verification import verify_evaluation_package
 
 CONFORMANCE_PROFILES = (
     "OMST-CORE",
@@ -18,6 +21,7 @@ CONFORMANCE_PROFILES = (
     "OMST-COMPATIBILITY",
     "OMST-ROUTING",
     "OMST-INTEROPERABILITY",
+    "OMST-VERIFICATION",
 )
 
 CANONICAL_COMPATIBILITY_EXPECTATIONS = {
@@ -41,6 +45,7 @@ def run_compatibility_vectors() -> list[SettlementCompatibilityProfile]:
 
 def run_conformance() -> dict[str, object]:
     evaluations = run_compatibility_vectors()
+    verification_result = verify_evaluation_package(Path("examples/verification/valid-package.json"))
     failures = [
         {
             "instrument": evaluation.money_instrument,
@@ -50,13 +55,22 @@ def run_conformance() -> dict[str, object]:
         for evaluation in evaluations
         if evaluation.overall_status != CANONICAL_COMPATIBILITY_EXPECTATIONS[evaluation.money_instrument]
     ]
+    if verification_result["status"] != "VERIFIED":
+        failures.append(
+            {
+                "instrument": "verification",
+                "expected": "VERIFIED",
+                "actual": verification_result["status"],
+            }
+        )
     return {
-        "omst_version": "0.6.0",
+        "omst_version": "0.7.0",
         "profiles": {profile: {"status": "PASS", "level": 3} for profile in CONFORMANCE_PROFILES},
         "vectors": "PASS" if not failures else "FAIL",
         "cross_language": {
             "python": "PASS",
             "typescript": "PASS",
+            "minimal_verifier": "PASS" if verification_result["status"] == "VERIFIED" else "FAIL",
             "semantic_parity": "PASS" if not failures else "FAIL",
         },
         "failures": failures,
@@ -65,8 +79,8 @@ def run_conformance() -> dict[str, object]:
 
 def implementation_manifest() -> dict[str, object]:
     return {
-        "omst_version": "0.6.0",
-        "ruleset_version": "omst-core-0.6",
+        "omst_version": "0.7.0",
+        "ruleset_version": "omst-core-0.7",
         "conformance": [
             "CORE",
             "MONEY",
@@ -76,10 +90,11 @@ def implementation_manifest() -> dict[str, object]:
             "COMPATIBILITY",
             "ROUTING",
             "INTEROPERABILITY",
+            "VERIFICATION",
         ],
-        "implementation": {"name": "python-reference", "version": "0.6.0"},
+        "implementation": {"name": "python-reference", "version": "0.7.0"},
         "profiles": ["money", "settlement", "participant", "interoperability"],
-        "settlement": ["request", "offer", "response"],
+        "settlement": ["request", "offer", "response", "evaluation-package", "verification-record"],
         "interoperability": ["generic", "otas", "iso20022", "cdm"],
         "synthetic_mode": True,
     }

@@ -1,0 +1,23 @@
+{
+  "ruleset_id": "omst-core-0.7",
+  "version": "0.7.0",
+  "effective_from": "2026-09-02T00:00:00Z",
+  "effective_until": null,
+  "precedence": [
+    "schema",
+    "canonicalization",
+    "integrity",
+    "evidence",
+    "ruleset",
+    "evaluation",
+    "transition_plan",
+    "route"
+  ],
+  "rules": [
+    "mandatory requirements fail closed",
+    "stale mandatory evidence produces conditional or invalid verification state",
+    "package fingerprints identify artifact integrity, not factual truth",
+    "semantic equivalence compares status, reason codes, evaluated properties and blocking conditions"
+  ],
+  "boundary": "Technical verification ruleset. Not regulatory certification or legal advice."
+}

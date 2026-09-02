@@ -36,6 +36,10 @@ nav:
   - Conformance:
       - Implementer Guide: conformance/implementer-guide.md
       - Conformance 2.0: conformance/conformance-2.md
+      - Independent Verifier: conformance/building-an-independent-verifier.md
+  - Verification:
+      - Portable Verification: verification/portable-verification.md
+      - Verification Specification: verification/verification-specification.md
   - Interoperability:
       - Levels: interoperability/levels.md
       - Portable Profiles: interoperability/profiles.md
@@ -61,5 +65,14 @@ nav:
       - RFC-0029 Profile Portability: rfcs/RFC-0029-profile-portability.md
       - RFC-0030 Settlement Exchange: rfcs/RFC-0030-settlement-exchange.md
       - RFC-0031 Adapter Classification: rfcs/RFC-0031-adapter-classification.md
+      - RFC-0032 Evaluation Package: rfcs/RFC-0032-evaluation-package.md
+      - RFC-0033 Canonicalization: rfcs/RFC-0033-canonicalization.md
+      - RFC-0034 Verification Semantics: rfcs/RFC-0034-verification-semantics.md
+      - RFC-0035 Semantic Equivalence: rfcs/RFC-0035-semantic-equivalence.md
+      - RFC-0036 Evidence Manifest: rfcs/RFC-0036-evidence-manifest.md
+      - RFC-0037 Ruleset Versioning: rfcs/RFC-0037-ruleset-versioning.md
+      - RFC-0038 Verification Conformance: rfcs/RFC-0038-verification-conformance.md
+      - RFC-0039 Settlement Evaluation Bundle: rfcs/RFC-0039-settlement-evaluation-bundle.md
+      - RFC-0040 Verification Records: rfcs/RFC-0040-verification-records.md
 theme:
   name: material

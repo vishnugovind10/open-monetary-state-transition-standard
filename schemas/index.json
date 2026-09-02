@@ -1,0 +1,9 @@
+{
+  "schemas": [
+    {"schema": "evaluation-package", "version": "0.7.0", "status": "EXPERIMENTAL", "location": "schemas/verification/evaluation-package.schema.json"},
+    {"schema": "evidence-manifest", "version": "0.7.0", "status": "EXPERIMENTAL", "location": "schemas/verification/evidence-manifest.schema.json"},
+    {"schema": "verification-result", "version": "0.7.0", "status": "EXPERIMENTAL", "location": "schemas/verification/verification-result.schema.json"},
+    {"schema": "settlement-verification-record", "version": "0.7.0", "status": "EXPERIMENTAL", "location": "schemas/verification/settlement-verification-record.schema.json"},
+    {"schema": "settlement-evaluation-bundle", "version": "0.7.0", "status": "EXPERIMENTAL", "location": "schemas/verification/settlement-evaluation-bundle.schema.json"}
+  ]
+}

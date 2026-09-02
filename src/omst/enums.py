@@ -179,6 +179,39 @@ class SettlementRouteType(StrEnum):
     RECOVERY = "RECOVERY"
 
 
+class PackageLifecycleStatus(StrEnum):
+    CREATED = "CREATED"
+    INVALID = "INVALID"
+    SEALED = "SEALED"
+    SUPERSEDED = "SUPERSEDED"
+    VERIFIED = "VERIFIED"
+
+
+class VerificationStatus(StrEnum):
+    DIFFERENT = "DIFFERENT"
+    INVALID = "INVALID"
+    UNKNOWN = "UNKNOWN"
+    UNSUPPORTED = "UNSUPPORTED"
+    VERIFIED = "VERIFIED"
+    VERIFIED_WITH_WARNINGS = "VERIFIED_WITH_WARNINGS"
+
+
+class EvidenceItemType(StrEnum):
+    ATTESTED = "ATTESTED"
+    CRYPTOGRAPHIC = "CRYPTOGRAPHIC"
+    DERIVED = "DERIVED"
+    ISSUER_DECLARED = "ISSUER_DECLARED"
+    OBSERVED = "OBSERVED"
+    OFFICIAL = "OFFICIAL"
+    SIMULATED = "SIMULATED"
+
+
+class VerificationCheckStatus(StrEnum):
+    FAIL = "FAIL"
+    PASS = "PASS"
+    WARN = "WARN"
+
+
 class ReasonSeverity(StrEnum):
     BLOCKING = "BLOCKING"
     INFORMATIONAL = "INFORMATIONAL"

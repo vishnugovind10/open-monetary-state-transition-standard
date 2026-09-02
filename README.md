@@ -1,6 +1,8 @@
 # OMST — Open Monetary State & Transition Standard
 
-OMST is an open standard for describing digital money and determining whether it can satisfy settlement requirements across heterogeneous financial systems.
+Portable settlement compatibility and verification for heterogeneous digital-money systems.
+
+OMST defines what a settlement requires, describes what a form of digital money can currently provide, attaches evidence, evaluates compatibility, and gives another implementation enough information to independently verify the result.
 
 [Specification](SPECIFICATION.md) [Whitepaper](WHITEPAPER.md) [Schemas](schemas/) [Python](src/omst/) [Explorer](web/) [Conformance](conformance/)
 
@@ -30,6 +32,8 @@ OMST provides open machine-readable primitives for:
 - settlement, participant and interoperability profiles
 - settlement request, offer and response exchange
 - adapter mappings for external standards
+- portable settlement evaluation packages
+- independent verification records
 - requirement sets
 - conformance vectors
 
@@ -59,7 +63,7 @@ pip install -e .
 
 ## Explorer
 
-OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, profile exchange, adapters, routing, stress scenarios and conformance status. The v0.6 scenario compares EUR-X, EUR-Y and EUR-Z against the same EUR 50m tokenized-bond DvP requirements:
+OMST Explorer is a synthetic-data web workbench for monetary state, settlement compatibility, profile exchange, adapters, routing, stress scenarios, conformance status and portable verification. The v0.7 scenario compares EUR-X, EUR-Y and EUR-Z against the same EUR 50m tokenized-bond DvP requirements:
 
 - `EUR-X`: `COMPATIBLE`
 - `EUR-Y`: `CONDITIONALLY_COMPATIBLE` because mandatory requirements pass but liquidity evidence is stale
@@ -111,15 +115,34 @@ omst explain evaluation.json
 omst plan examples/tokenized-bond-dvp/
 omst conformance
 omst manifest
+omst package create
+omst verify examples/verification/valid-package.json
+omst verify examples/verification/valid-package.json --human
+omst tamper liquidity examples/verification/valid-package.json
+omst bundle verify examples/verification/settlement-evaluation-bundle.json
+python implementations/minimal-verifier/verify.py examples/verification/valid-package.json
+npm run verify
 omst graph --format mermaid
 omst simulate redemption-shock
 omst stress --scenario liquidity-shock
 pytest
 ```
 
+## Portable Verification
+
+OMST v0.7 adds a portable settlement verification layer:
+
+- `evaluation-package`: canonical settlement result, source references, evidence manifest and integrity fingerprints.
+- `settlement-evaluation-bundle`: packaged evaluation data for exchange and archival.
+- `verification-result`: machine-readable verifier output with schema, canonicalization, integrity, evidence, ruleset and semantic checks.
+- `settlement-verification-record`: human-facing summary suitable for review workflows.
+- `OMST-VERIFICATION`: conformance profile for independent verifiers.
+
+The reference package verifies as `VERIFIED`. Mutated fixtures under `examples/verification/` and `conformance/vectors/verification/` intentionally fail as `INVALID`, `DIFFERENT` or `UNSUPPORTED` so implementers can prove they reject tampered results.
+
 ## Flagship Scenario
 
-The v0.6 reference scenario evaluates a synthetic EUR 50m tokenized-bond DvP cash leg. It loads synthetic money profiles, settlement profiles, state predicates, evidence, machine-readable requirements, route constraints, settlement latency, finality and atomic settlement capability, then produces a portable settlement response with a reproducible compatibility profile.
+The v0.7 reference scenario evaluates a synthetic EUR 50m tokenized-bond DvP cash leg. It loads synthetic money profiles, settlement profiles, state predicates, evidence, machine-readable requirements, route constraints, settlement latency, finality and atomic settlement capability, then produces a portable settlement response and independently verifiable evaluation package.
 
 All public examples are synthetic.
 
@@ -171,4 +194,4 @@ print(result.reasons)
 
 ## Status
 
-v0.6.0 is an experimental open-standard reference specification and implementation with synthetic profiles, conformance vectors, API-shaped endpoints and a synthetic-data Explorer. Do not call it an industry standard until independent implementations and conformance evidence exist.
+v0.7.0 is an experimental open-standard reference specification and implementation with synthetic profiles, conformance vectors, portable verification packages, API-shaped endpoints and a synthetic-data Explorer. Do not call it an industry standard until independent implementations and conformance evidence exist.

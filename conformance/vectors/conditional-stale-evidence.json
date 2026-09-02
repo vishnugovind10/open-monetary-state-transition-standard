@@ -6,7 +6,7 @@
   "expected_status": "CONDITIONALLY_COMPATIBLE",
   "expected_reasons": ["LIQUIDITY_EVIDENCE_STALE"],
   "expected_properties": { "money_instrument": "EUR-Y" },
-  "schema_version": "0.6.0",
-  "ruleset_version": "omst-core-0.6",
+  "schema_version": "0.7.0",
+  "ruleset_version": "omst-core-0.7",
   "x-note": "Synthetic vector. Not issuer, market or regulatory evidence."
 }

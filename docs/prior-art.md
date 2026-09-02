@@ -11,4 +11,4 @@
 
 ## Adapter Boundary
 
-v0.6 treats these projects and standards as interoperability surfaces, not dependencies or endorsements. OMST adapter profiles classify each mapped field as exact, approximated, derived, unsupported or lossy. This keeps message-level compatibility separate from semantic settlement compatibility.
+OMST treats these projects and standards as interoperability surfaces, not dependencies or endorsements. OMST adapter profiles classify each mapped field as exact, approximated, derived, unsupported or lossy. This keeps message-level compatibility separate from semantic settlement compatibility and portable verification.

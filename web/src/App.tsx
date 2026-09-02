@@ -9,6 +9,7 @@ import { MoneyGraphPanel } from "./components/MoneyGraphPanel";
 import { ProfilesPanel } from "./components/ProfilesPanel";
 import { StressPanel } from "./components/StressPanel";
 import { VerdictPanel } from "./components/VerdictPanel";
+import { VerificationLabPanel } from "./components/VerificationLabPanel";
 import { instruments, stressScenarios } from "./data";
 import { evaluateSettlement } from "./evaluation";
 
@@ -20,6 +21,7 @@ const navItems = [
   "Plans",
   "Graph",
   "Conformance",
+  "Verification Lab",
   "Stress Lab",
   "Profiles",
   "Adapters",
@@ -48,7 +50,7 @@ export function App() {
       <header className="topbar">
         <div>
           <h1>OMST Explorer</h1>
-          <p>Settlement-compatibility profiles for digital money</p>
+          <p>Portable settlement compatibility and verification for digital money</p>
         </div>
         <nav aria-label="Explorer sections">
           {navItems.map((item) => (
@@ -64,7 +66,7 @@ export function App() {
         </nav>
         <div className="dataset-pill">
           <Database size={16} aria-hidden />
-          <span>Dataset: synthetic v0.6</span>
+          <span>Dataset: synthetic v0.7</span>
         </div>
       </header>
 
@@ -89,6 +91,7 @@ export function App() {
           <VerdictPanel source={source} target={target} amount={amount} verdict={verdict} />
           <MoneyGraphPanel sourceCode={sourceCode} onSelect={setSourceCode} />
           <ConformancePanel />
+          <VerificationLabPanel />
           <ProfilesPanel />
           <ExchangePanel />
           <AdapterPanel />
@@ -99,7 +102,7 @@ export function App() {
       <footer>
         <span>All examples are synthetic.</span>
         <span>Not issuer, regulatory or market-condition evidence.</span>
-        <span>OMST v0.6.0</span>
+        <span>OMST v0.7.0</span>
       </footer>
     </main>
   );

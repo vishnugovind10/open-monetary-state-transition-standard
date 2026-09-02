@@ -1,6 +1,6 @@
 {
   "name": "omst-explorer",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "OMST Explorer web interface for synthetic monetary state and transition analysis.",
   "type": "module",
@@ -9,7 +9,8 @@
     "web:build": "tsc -p web/tsconfig.json && vite build --config web/vite.config.ts",
     "web:preview": "vite preview --config web/vite.config.ts",
     "web:test": "playwright test -c web/playwright.config.ts",
-    "ts:check": "tsc -p implementations/typescript/tsconfig.json"
+    "ts:check": "tsc -p implementations/typescript/tsconfig.json",
+    "verify": "tsx implementations/typescript/verify.ts examples/verification/valid-package.json"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.2",
@@ -23,6 +24,7 @@
     "@types/node": "^26.4.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "$id": "https://omst.dev/schemas/verification/settlement-evaluation-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SettlementEvaluationBundle",
+  "description": "Transferable bundle carrying an OMST evaluation package and verification metadata.",
+  "type": "object",
+  "required": ["omst_type", "bundle_id", "bundle_version", "evaluation_package", "verification_metadata", "boundary"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "settlement-evaluation-bundle"},
+    "bundle_id": {"type": "string"},
+    "bundle_version": {"type": "string"},
+    "evaluation_package": {"type": "object"},
+    "verification_metadata": {"type": "object"},
+    "boundary": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "settlement-evaluation-bundle",
+      "bundle_id": "bundle-tokenized-bond-dvp-eur-x-v07",
+      "bundle_version": "0.7.0",
+      "evaluation_package": {},
+      "verification_metadata": {},
+      "boundary": "Synthetic example."
+    }
+  ]
+}

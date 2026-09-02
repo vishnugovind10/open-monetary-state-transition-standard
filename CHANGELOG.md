@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.7.0
+
+- Added portable `evaluation-package`, `evidence-manifest`, `verification-result`, `settlement-verification-record` and `settlement-evaluation-bundle` schemas.
+- Added Python verification APIs and CLI commands for package creation, sealing, verification, bundle verification and tamper-vector generation.
+- Added `OMST-VERIFICATION` conformance coverage with valid, modified, stale, missing-evidence and unsupported-ruleset vectors.
+- Added an isolated minimal verifier and TypeScript verification entry point for independent implementation checks.
+- Added stateless API-shaped verification endpoints under `/api/v1/verification/*`.
+- Updated OMST Explorer with a Verification Lab panel for package fingerprints, verifier layers and tamper outcomes.
+
 ## v0.6.0
 
 - Added portable settlement interoperability layer with settlement, participant, network and interoperability profile models.

@@ -1,0 +1,27 @@
+{
+  "$id": "https://omst.dev/schemas/verification/verification-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VerificationResult",
+  "description": "Layered result returned by an OMST evaluation package verifier.",
+  "type": "object",
+  "required": ["omst_type", "verification_id", "status", "checks", "semantic_equivalence", "reasons"],
+  "additionalProperties": true,
+  "properties": {
+    "omst_type": {"const": "verification-result"},
+    "verification_id": {"type": "string"},
+    "status": {"enum": ["VERIFIED", "VERIFIED_WITH_WARNINGS", "DIFFERENT", "INVALID", "UNSUPPORTED", "UNKNOWN"]},
+    "checks": {"type": "array"},
+    "semantic_equivalence": {"type": "string"},
+    "reasons": {"type": "array"}
+  },
+  "examples": [
+    {
+      "omst_type": "verification-result",
+      "verification_id": "verify-pkg-tokenized-bond-dvp-eur-x-v07",
+      "status": "VERIFIED",
+      "checks": [],
+      "semantic_equivalence": "SEMANTICALLY_EQUIVALENT",
+      "reasons": []
+    }
+  ]
+}

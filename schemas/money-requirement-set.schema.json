@@ -62,8 +62,8 @@
       "requirement_set_id": "tokenized-bond-dvp-eur-50m",
       "description": "Minimum requirements for a EUR 50m tokenized bond delivery-versus-payment settlement leg.",
       "composition": "AND",
-      "schema_version": "0.6.0",
-      "ruleset_version": "omst-core-0.6",
+      "schema_version": "0.7.0",
+      "ruleset_version": "omst-core-0.7",
       "requirements": [
         {
           "property": "atomic_settlement",

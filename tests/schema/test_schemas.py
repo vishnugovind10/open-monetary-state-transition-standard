@@ -22,7 +22,7 @@ def test_all_conformance_vectors_validate():
 
 def test_all_schemas_have_required_shape():
     import json
-    for path in Path("schemas").glob("*.schema.json"):
+    for path in Path("schemas").rglob("*.schema.json"):
         data = json.loads(path.read_text())
         for key in ["$id","$schema","title","description","type","properties","required","additionalProperties","examples"]:
             assert key in data, path

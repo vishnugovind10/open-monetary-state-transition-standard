@@ -40,6 +40,14 @@ from .routing import route_money
 from .settlement import evaluate_settlement, plan_transition
 from .stress import stress_test
 from .velocity import settlement_velocity
+from .verification import (
+    build_evaluation_package,
+    evaluation_fingerprint,
+    package_fingerprint,
+    seal_evaluation_package,
+    settlement_evaluation_bundle,
+    verify_evaluation_package,
+)
 
 __all__ = [
     "CapabilityStatus",
@@ -70,20 +78,26 @@ __all__ = [
     "TransitionPlanStep",
     "TransitionRequirement",
     "adapter_mapping",
+    "build_evaluation_package",
     "evaluate_requirements",
     "evaluate_settlement",
     "evaluate_settlement_compatibility",
     "evaluate_transition",
+    "evaluation_fingerprint",
     "implementation_manifest",
     "monetary_equivalence",
+    "package_fingerprint",
     "plan_transition",
     "profile_fingerprint",
     "route_money",
     "run_conformance",
+    "seal_evaluation_package",
+    "settlement_evaluation_bundle",
     "settlement_response",
     "settlement_velocity",
     "stress_test",
     "transition_cost",
     "v06_manifest",
     "validate_plan",
+    "verify_evaluation_package",
 ]

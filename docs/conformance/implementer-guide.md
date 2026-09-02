@@ -1,6 +1,6 @@
 # Implementer Guide
 
-This guide describes the minimum behavior expected from an OMST v0.6 settlement-compatibility implementation.
+This guide describes the minimum behavior expected from an OMST settlement-compatibility and verification implementation.
 
 ## Required Inputs
 

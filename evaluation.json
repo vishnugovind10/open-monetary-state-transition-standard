@@ -3,8 +3,8 @@
   "money_instrument": "EUR-X",
   "overall_status": "COMPATIBLE",
   "reasons": [],
-  "omst_version": "0.6.0",
-  "ruleset_version": "omst-core-0.6",
-  "evaluation_hash": "c2905ccc677a8bc235a46cbcab1b1845a2b9459dde0d1562d418ded37318f908",
+  "omst_version": "0.7.0",
+  "ruleset_version": "omst-core-0.7",
+  "evaluation_hash": "d2ba2b34f7c230e5dcbd8ffafd5a4ad0fc66e34817defce2214aacbf21f9091e",
   "x-note": "Synthetic example. Not issuer, regulatory or market-condition evidence."
 }

@@ -1,0 +1,779 @@
+{
+  "omst_type": "evaluation-package",
+  "package_id": "pkg-tokenized-bond-dvp-eur-x-v07",
+  "package_version": "0.7.0",
+  "lifecycle_status": "SEALED",
+  "omst_version": "0.7.0",
+  "schema_version": "0.7.0",
+  "ruleset_version": "omst-core-0.7",
+  "evaluation_context": {
+    "assumption_policy": "no_compatible_from_unknown",
+    "evaluation_timestamp": "2026-09-02T00:00:00Z",
+    "evidence_timestamp": "2026-09-02T00:00:00Z",
+    "omst_version": "0.7.0",
+    "ruleset_version": "omst-core-0.7"
+  },
+  "settlement_intent": {
+    "asset": "synthetic-tokenised-bond",
+    "cash": {
+      "amount": "50000000",
+      "currency": "EUR"
+    },
+    "intent_id": "intent-tokenized-bond-dvp",
+    "intent_type": "TOKENIZED_BOND_DVP",
+    "omst_schema_version": "0.3.0",
+    "omst_type": "settlement-intent",
+    "participants": [
+      "synthetic-buyer",
+      "synthetic-seller"
+    ],
+    "requirements": {
+      "atomicity": true,
+      "availability": "24_7",
+      "finality": "qualified",
+      "maximum_latency_seconds": 60
+    },
+    "venue": "synthetic-venue",
+    "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+  },
+  "money_profile": {
+    "access_profile": {
+      "institutional": true,
+      "retail": false
+    },
+    "claim_type": "digital_money",
+    "control_profile": {
+      "freeze_possible": true
+    },
+    "currency": "EUR",
+    "evidence": [],
+    "functions": {
+      "collateral": "conditional",
+      "cross_border": "conditional",
+      "liquidity": "supported",
+      "payment": "supported",
+      "programmable_transfer": "supported",
+      "redemption": "supported",
+      "settlement": "supported",
+      "store_of_value": "conditional",
+      "treasury": "supported"
+    },
+    "id": "EUR-X",
+    "issuer": "Synthetic Issuer X",
+    "monetary_layer_reference": "m1_reference",
+    "name": "Synthetic EUR Money X",
+    "network_profile": {
+      "network": "synthetic-ledger"
+    },
+    "omst_type": "money-profile",
+    "redemption_profile": {
+      "at_par": true,
+      "latency_seconds": 30
+    },
+    "settlement_profile": {
+      "availability": "24_7",
+      "finality_type": "qualified"
+    },
+    "transfer_profile": {
+      "limits": "synthetic",
+      "transferable": true
+    },
+    "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+  },
+  "money_state": {
+    "availability": "available",
+    "encumbrance": "none",
+    "evidence_status": "VALID",
+    "finality": "qualified",
+    "instrument": "EUR-X",
+    "operational_status": "operational",
+    "redemption": "redeemable",
+    "settlement": "settlement_ready",
+    "transferability": "transferable"
+  },
+  "settlement_profile": {
+    "atomicity": true,
+    "availability": "24_7",
+    "evidence": [],
+    "finality": "qualified",
+    "interoperability": {
+      "adapter": "generic",
+      "profile": "OMST-INTEROPERABILITY"
+    },
+    "latency": {
+      "maximum_seconds": 60,
+      "observed_seconds": 45
+    },
+    "name": "Synthetic Settlement Network A",
+    "omst_type": "settlement-profile",
+    "operating_windows": [
+      "24_7"
+    ],
+    "settlement_profile_id": "settlement-network-a",
+    "supported_assets": [
+      "synthetic-tokenised-bond"
+    ],
+    "supported_money": [
+      "EUR-X",
+      "EUR-Y"
+    ],
+    "supported_settlement_modes": [
+      "DVP",
+      "ATOMIC"
+    ],
+    "transaction_limits": {
+      "currency": "EUR",
+      "maximum_amount": "150000000"
+    },
+    "version": "2026-09-01",
+    "x-note": "Synthetic settlement environment. Not an operator attestation."
+  },
+  "money_requirement_set": {
+    "composition": "AND",
+    "description": "Synthetic EUR tokenized bond DvP cash-leg requirements.",
+    "omst_type": "money-requirement-set",
+    "requirement_set_id": "TOKENIZED_BOND_DVP_EUR",
+    "requirements": [
+      {
+        "operator": "EQUALS",
+        "priority": "MANDATORY",
+        "property": "currency",
+        "value": "EUR"
+      },
+      {
+        "operator": "IN",
+        "priority": "MANDATORY",
+        "property": "finality",
+        "value": [
+          "qualified",
+          "deterministic",
+          "central-bank-final"
+        ]
+      },
+      {
+        "operator": "EQUALS",
+        "priority": "MANDATORY",
+        "property": "atomicity",
+        "value": true
+      },
+      {
+        "operator": "EQUALS",
+        "priority": "MANDATORY",
+        "property": "availability",
+        "value": "24_7"
+      },
+      {
+        "operator": "LESS_THAN_OR_EQUAL",
+        "priority": "MANDATORY",
+        "property": "maximum_latency_seconds",
+        "unit": "seconds",
+        "value": 60
+      },
+      {
+        "evidence_requirement": {
+          "accepted_sources": [
+            "observed",
+            "derived"
+          ],
+          "maximum_age_seconds": 60,
+          "required": true
+        },
+        "operator": "GREATER_THAN_OR_EQUAL",
+        "priority": "MANDATORY",
+        "property": "effective_liquidity",
+        "unit": "EUR",
+        "value": "50000000"
+      },
+      {
+        "operator": "EQUALS",
+        "priority": "MANDATORY",
+        "property": "transferability",
+        "value": true
+      },
+      {
+        "operator": "EQUALS",
+        "priority": "MANDATORY",
+        "property": "access",
+        "value": "institutional"
+      }
+    ],
+    "ruleset_version": "omst-core-0.7",
+    "schema_version": "0.7.0",
+    "x-note": "Synthetic example. Not an issuer assessment. Not a regulatory assessment. Not a representation of actual market conditions."
+  },
+  "evidence_manifest": {
+    "omst_type": "evidence-manifest",
+    "manifest_id": "evidence-tokenized-bond-dvp-eur-x-v07",
+    "created_at": "2026-09-02T00:00:00Z",
+    "evidence_items": [
+      {
+        "evidence_id": "liq-eur-x-001",
+        "type": "OBSERVED",
+        "source": "synthetic://liquidity/EUR-X",
+        "observed_at": "2026-09-02T00:00:00Z",
+        "valid_from": "2026-09-02T00:00:00Z",
+        "expires_at": "2026-09-03T00:00:00Z",
+        "content_reference": "synthetic://evidence/liq-eur-x-001",
+        "content_hash": "dcdcf5a41d51ea2e903fc08b16d090a8c0ea6d29ee5ed48449d8146821eb52fc",
+        "method": "synthetic-reference-snapshot",
+        "status": "VALID",
+        "inline_content": {
+          "amount": "120000000",
+          "currency": "EUR",
+          "instrument": "EUR-X",
+          "property": "effective_liquidity"
+        }
+      },
+      {
+        "evidence_id": "lat-eur-x-001",
+        "type": "OBSERVED",
+        "source": "synthetic://latency/EUR-X",
+        "observed_at": "2026-09-02T00:00:00Z",
+        "valid_from": "2026-09-02T00:00:00Z",
+        "expires_at": "2026-09-03T00:00:00Z",
+        "content_reference": "synthetic://evidence/lat-eur-x-001",
+        "content_hash": "9e1248fc9271f75a615e62ef6acfb10e250638784905c3db60088b9645cdba09",
+        "method": "synthetic-reference-snapshot",
+        "status": "VALID",
+        "inline_content": {
+          "instrument": "EUR-X",
+          "property": "maximum_latency_seconds",
+          "seconds": 45
+        }
+      }
+    ],
+    "policy": {
+      "accepted_sources": {
+        "availability": [
+          "official",
+          "observed"
+        ],
+        "effective_liquidity": [
+          "observed",
+          "derived"
+        ],
+        "finality": [
+          "official",
+          "derived"
+        ]
+      },
+      "max_age_seconds": {
+        "availability": 86400,
+        "effective_liquidity": 60,
+        "finality": 86400
+      }
+    },
+    "snapshot_reference": "synthetic://snapshot/tokenized-bond-dvp/EUR-X/2026-09-02"
+  },
+  "evidence_policy": {
+    "accepted_sources": {
+      "availability": [
+        "official",
+        "observed"
+      ],
+      "effective_liquidity": [
+        "observed",
+        "derived"
+      ],
+      "finality": [
+        "official",
+        "derived"
+      ]
+    },
+    "max_age_seconds": {
+      "availability": 86400,
+      "effective_liquidity": 60,
+      "finality": 86400
+    }
+  },
+  "evaluation_result": {
+    "assumptions": [
+      "synthetic reference data",
+      "no hidden network calls",
+      "no compatible result from unknown evidence"
+    ],
+    "blocking_conditions": [],
+    "capability_evaluation": {
+      "results": [
+        {
+          "observed_value": "EUR",
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "EQUALS",
+            "priority": "MANDATORY",
+            "property": "currency",
+            "unit": null,
+            "value": "EUR"
+          },
+          "status": "COMPATIBLE"
+        },
+        {
+          "observed_value": true,
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "EQUALS",
+            "priority": "MANDATORY",
+            "property": "atomicity",
+            "unit": null,
+            "value": true
+          },
+          "status": "COMPATIBLE"
+        },
+        {
+          "observed_value": true,
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "EQUALS",
+            "priority": "MANDATORY",
+            "property": "transferability",
+            "unit": null,
+            "value": true
+          },
+          "status": "COMPATIBLE"
+        },
+        {
+          "observed_value": "institutional",
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "EQUALS",
+            "priority": "MANDATORY",
+            "property": "access",
+            "unit": null,
+            "value": "institutional"
+          },
+          "status": "COMPATIBLE"
+        }
+      ],
+      "status": "COMPATIBLE"
+    },
+    "confidence": "synthetic-reference",
+    "evaluation_context": {
+      "assumption_policy": "no_compatible_from_unknown",
+      "evaluation_timestamp": "2026-09-02T00:00:00Z",
+      "evidence_timestamp": "2026-09-02T00:00:00Z",
+      "omst_version": "0.7.0",
+      "ruleset_version": "omst-core-0.7"
+    },
+    "evaluation_hash": "343575ed699a556fbb987af9501eb089396859003ac3c6cb9206e2c37caaf59b",
+    "evaluation_id": "eval-intent-tokenized-bond-dvp-EUR-X",
+    "evidence_evaluation": {
+      "results": [
+        {
+          "observed_value": 45,
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "LESS_THAN_OR_EQUAL",
+            "priority": "MANDATORY",
+            "property": "maximum_latency_seconds",
+            "unit": "seconds",
+            "value": 60
+          },
+          "status": "COMPATIBLE"
+        },
+        {
+          "observed_value": "120000000",
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": {
+              "accepted_sources": [
+                "observed",
+                "derived"
+              ],
+              "maximum_age_seconds": 60,
+              "required": true
+            },
+            "operator": "GREATER_THAN_OR_EQUAL",
+            "priority": "MANDATORY",
+            "property": "effective_liquidity",
+            "unit": "EUR",
+            "value": "50000000"
+          },
+          "status": "COMPATIBLE"
+        }
+      ],
+      "status": "COMPATIBLE"
+    },
+    "generated_at": "2026-09-02T00:00:00Z",
+    "money_instrument": "EUR-X",
+    "money_state": {
+      "availability": "available",
+      "encumbrance": "none",
+      "evidence_status": "VALID",
+      "finality": "qualified",
+      "instrument": "EUR-X",
+      "operational_status": "operational",
+      "redemption": "redeemable",
+      "settlement": "settlement_ready",
+      "transferability": "transferable"
+    },
+    "omst_version": "0.7.0",
+    "overall_status": "INCOMPATIBLE",
+    "reasons": [],
+    "requirements": {
+      "composition": "AND",
+      "description": "Synthetic EUR tokenized bond DvP cash-leg requirements.",
+      "requirement_set_id": "TOKENIZED_BOND_DVP_EUR",
+      "requirements": [
+        {
+          "evidence_requirement": null,
+          "operator": "EQUALS",
+          "priority": "MANDATORY",
+          "property": "currency",
+          "unit": null,
+          "value": "EUR"
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "IN",
+          "priority": "MANDATORY",
+          "property": "finality",
+          "unit": null,
+          "value": [
+            "qualified",
+            "deterministic",
+            "central-bank-final"
+          ]
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "EQUALS",
+          "priority": "MANDATORY",
+          "property": "atomicity",
+          "unit": null,
+          "value": true
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "EQUALS",
+          "priority": "MANDATORY",
+          "property": "availability",
+          "unit": null,
+          "value": "24_7"
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "LESS_THAN_OR_EQUAL",
+          "priority": "MANDATORY",
+          "property": "maximum_latency_seconds",
+          "unit": "seconds",
+          "value": 60
+        },
+        {
+          "evidence_requirement": {
+            "accepted_sources": [
+              "observed",
+              "derived"
+            ],
+            "maximum_age_seconds": 60,
+            "required": true
+          },
+          "operator": "GREATER_THAN_OR_EQUAL",
+          "priority": "MANDATORY",
+          "property": "effective_liquidity",
+          "unit": "EUR",
+          "value": "50000000"
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "EQUALS",
+          "priority": "MANDATORY",
+          "property": "transferability",
+          "unit": null,
+          "value": true
+        },
+        {
+          "evidence_requirement": null,
+          "operator": "EQUALS",
+          "priority": "MANDATORY",
+          "property": "access",
+          "unit": null,
+          "value": "institutional"
+        }
+      ],
+      "ruleset_version": "omst-core-0.7",
+      "schema_version": "0.7.0"
+    },
+    "settlement_intent": {
+      "asset": "synthetic-tokenised-bond",
+      "cash_amount": "50000000",
+      "cash_currency": "EUR",
+      "intent_id": "intent-tokenized-bond-dvp",
+      "intent_type": "TOKENIZED_BOND_DVP",
+      "maximum_latency_seconds": 60,
+      "omst_schema_version": "0.3.0",
+      "participants": [
+        "synthetic-buyer",
+        "synthetic-seller"
+      ],
+      "required_atomicity": true,
+      "required_availability": "24_7",
+      "required_finality": "qualified",
+      "venue": "synthetic-venue"
+    },
+    "state_evaluation": {
+      "results": [
+        {
+          "observed_value": "qualified",
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "IN",
+            "priority": "MANDATORY",
+            "property": "finality",
+            "unit": null,
+            "value": [
+              "qualified",
+              "deterministic",
+              "central-bank-final"
+            ]
+          },
+          "status": "COMPATIBLE"
+        },
+        {
+          "observed_value": "24_7",
+          "reasons": [],
+          "requirement": {
+            "evidence_requirement": null,
+            "operator": "EQUALS",
+            "priority": "MANDATORY",
+            "property": "availability",
+            "unit": null,
+            "value": "24_7"
+          },
+          "status": "COMPATIBLE"
+        }
+      ],
+      "status": "COMPATIBLE"
+    },
+    "warnings": []
+  },
+  "canonical_evaluation_result": {
+    "assumptions": [
+      "synthetic reference data",
+      "no hidden network calls",
+      "no compatible result from unknown evidence"
+    ],
+    "blocking_conditions": [],
+    "evaluated_requirements": [
+      {
+        "observed_value": "institutional",
+        "priority": "MANDATORY",
+        "property": "access",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": true,
+        "priority": "MANDATORY",
+        "property": "atomicity",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": "24_7",
+        "priority": "MANDATORY",
+        "property": "availability",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": "EUR",
+        "priority": "MANDATORY",
+        "property": "currency",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": "120000000",
+        "priority": "MANDATORY",
+        "property": "effective_liquidity",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": "qualified",
+        "priority": "MANDATORY",
+        "property": "finality",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": 45,
+        "priority": "MANDATORY",
+        "property": "maximum_latency_seconds",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      },
+      {
+        "observed_value": true,
+        "priority": "MANDATORY",
+        "property": "transferability",
+        "reason_codes": [],
+        "status": "COMPATIBLE"
+      }
+    ],
+    "evidence_status": "VALID",
+    "reason_codes": [],
+    "status": "INCOMPATIBLE",
+    "warnings": []
+  },
+  "transition_plan": {
+    "assumptions": [
+      "synthetic data",
+      "not an issuer assessment",
+      "not a regulatory assessment"
+    ],
+    "intent": {
+      "asset": "synthetic-tokenised-bond",
+      "cash_amount": "50000000",
+      "cash_currency": "EUR",
+      "intent_id": "intent-tokenized-bond-dvp",
+      "intent_type": "TOKENIZED_BOND_DVP",
+      "maximum_latency_seconds": 60,
+      "omst_schema_version": "0.3.0",
+      "participants": [
+        "synthetic-buyer",
+        "synthetic-seller"
+      ],
+      "required_atomicity": true,
+      "required_availability": "24_7",
+      "required_finality": "qualified",
+      "venue": "synthetic-venue"
+    },
+    "plan_id": "plan-tokenized-bond-dvp",
+    "status": "PLANNED",
+    "steps": [
+      {
+        "evidence": [],
+        "expected_state": "SETTLING",
+        "failure_path": "timeout -> reconciliation_required -> recovered_or_failed",
+        "requirements": {
+          "evidence_required": false,
+          "minimum_liquidity": "50000000",
+          "required_access": "institutional",
+          "required_atomicity": true,
+          "required_availability": "24_7",
+          "required_capabilities": [
+            "SETTLEMENT",
+            "ATOMIC_SETTLEMENT",
+            "DVP"
+          ],
+          "required_finality": "qualified",
+          "required_finality_seconds": 60
+        },
+        "source": "EUR-X",
+        "target": "CBM",
+        "transition": "CONVERT"
+      },
+      {
+        "evidence": [],
+        "expected_state": "FINAL",
+        "failure_path": "settlement_failed -> manual_intervention",
+        "requirements": {
+          "evidence_required": false,
+          "minimum_liquidity": "50000000",
+          "required_access": "institutional",
+          "required_atomicity": true,
+          "required_availability": "24_7",
+          "required_capabilities": [
+            "SETTLEMENT",
+            "ATOMIC_SETTLEMENT",
+            "DVP"
+          ],
+          "required_finality": "qualified",
+          "required_finality_seconds": 60
+        },
+        "source": "CBM",
+        "target": "EUR-Y",
+        "transition": "SETTLE"
+      }
+    ]
+  },
+  "route": {
+    "fallback": {
+      "conditions": [
+        "issuer_available",
+        "redemption_capacity_available",
+        "deadline_not_exceeded"
+      ],
+      "route": [
+        "EUR-X",
+        "REDEMPTION",
+        "BANK_MONEY",
+        "EUR-Y"
+      ],
+      "type": "FALLBACK"
+    },
+    "primary": {
+      "constraints": [
+        {
+          "synthetic": true
+        },
+        {
+          "synthetic": true
+        }
+      ],
+      "cost_bps": "2.3",
+      "explanation": {
+        "alternatives_rejected": [
+          {
+            "constraints": [
+              "minimum_liquidity",
+              "required_finality"
+            ],
+            "reason": "routes using insufficient-liquidity or probabilistic-finality edges are rejected"
+          }
+        ],
+        "why_selected": [
+          "route satisfies available-liquidity constraint",
+          "route satisfies mandatory latency constraint",
+          "route satisfies qualified or deterministic finality constraint"
+        ]
+      },
+      "finality": "deterministic",
+      "latency_seconds": 45,
+      "liquidity_required": "50000000",
+      "route": [
+        "EUR-X",
+        "CBM",
+        "EUR-Y"
+      ],
+      "status": "ROUTE_FOUND"
+    },
+    "recovery": {
+      "conditions": [
+        "settlement_failed",
+        "manual_or_automated_reconciliation_required"
+      ],
+      "route": [
+        "reconcile",
+        "restore_settlement_state"
+      ],
+      "type": "RECOVERY"
+    },
+    "settlement_profile": "settlement-network-a",
+    "settlement_profile_fingerprint": "eb0004a2b945a4bd5a8fd99116be681dd973f39af26740121968bd726d995092",
+    "snapshot_id": "graph-snapshot-v06-tokenized-bond-dvp"
+  },
+  "canonicalization": {
+    "profile": "OMST-CANONICAL-JSON-0.7",
+    "monetary_amounts": "decimal-string",
+    "timestamps": "RFC3339-UTC",
+    "unicode": "UTF-8 with ASCII-safe reference fixtures"
+  },
+  "integrity": {
+    "package_fingerprint": "75ed62b3db676808ca7bf915046f381177fba931023f0995778f46d44bf6ce9f",
+    "evaluation_fingerprint": "cb7849ecba0d4afbbcbbf71d49b5220a2e6a410b1b3fc3a24107ac1f133b5252",
+    "canonical_result_fingerprint": "f4ba95430dd46ac2d9191c2b69ab66d6ad2048509230cc9083cad2067dbfdf81",
+    "evidence_manifest_fingerprint": "5ba50b396a1fb58feae52e8f698ad1c2e4a03768c806eea2c170aa22845fbb02"
+  },
+  "metadata": {
+    "synthetic": true,
+    "boundary": "Technical verification artifact. Not regulatory certification, legal advice, credit assessment, reserve attestation or issuer endorsement."
+  }
+}

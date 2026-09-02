@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://omst.dev/schemas/compatibility-vector.schema.json",
   "title": "OMST Compatibility Vector",
-  "description": "A reproducible OMST v0.6 settlement-compatibility conformance vector.",
+  "description": "A reproducible OMST v0.7 settlement-compatibility conformance vector.",
   "type": "object",
   "required": [
     "omst_type",
@@ -42,8 +42,8 @@
       "expected_properties": {
         "money_instrument": "EUR-X"
       },
-      "schema_version": "0.6.0",
-      "ruleset_version": "omst-core-0.6"
+      "schema_version": "0.7.0",
+      "ruleset_version": "omst-core-0.7"
     }
   ]
 }

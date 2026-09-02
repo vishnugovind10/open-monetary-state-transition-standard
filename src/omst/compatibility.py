@@ -39,9 +39,9 @@ from .models import (
     SettlementIntent,
 )
 
-OMST_VERSION = "0.6.0"
-RULESET_VERSION = "omst-core-0.6"
-REFERENCE_TIMESTAMP = "2026-09-01T00:00:00Z"
+OMST_VERSION = "0.7.0"
+RULESET_VERSION = "omst-core-0.7"
+REFERENCE_TIMESTAMP = "2026-09-02T00:00:00Z"
 
 
 def default_evaluation_context() -> EvaluationContext:

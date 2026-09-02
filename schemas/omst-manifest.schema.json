@@ -2,7 +2,7 @@
   "$id": "https://omst.dev/schemas/omst-manifest.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "OMSTManifest",
-  "description": "OMST v0.6 decentralized implementation discovery manifest.",
+  "description": "OMST v0.7 decentralized implementation discovery and verification manifest.",
   "type": "object",
   "required": ["omst_type", "omst_version", "implementation", "conformance", "profiles", "settlement", "interoperability", "experimental"],
   "additionalProperties": false,
@@ -15,18 +15,20 @@
     "settlement": {"type": "array", "items": {"type": "string"}},
     "interoperability": {"type": "array", "items": {"type": "string"}},
     "experimental": {"type": "boolean"},
+    "verification": {"type": "array", "items": {"type": "string"}},
     "boundary": {"type": "string"},
     "x-note": {"type": "string"}
   },
   "examples": [
     {
       "omst_type": "omst-manifest",
-      "omst_version": "0.6.0",
-      "implementation": {"name": "python-reference", "version": "0.6.0"},
+      "omst_version": "0.7.0",
+      "implementation": {"name": "python-reference", "version": "0.7.0"},
       "conformance": [],
       "profiles": ["money", "settlement"],
       "settlement": ["request", "response"],
       "interoperability": ["generic"],
+      "verification": ["package", "verify", "record"],
       "experimental": true
     }
   ]

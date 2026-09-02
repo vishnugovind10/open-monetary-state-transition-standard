@@ -1,8 +1,8 @@
 {
-  "omst": "0.6.0",
+  "omst": "0.7.0",
   "implementation": "python-reference",
   "profiles": ["money", "settlement", "participant", "interoperability"],
-  "conformance": ["CORE", "SETTLEMENT", "COMPATIBILITY", "INTEROPERABILITY"],
+  "conformance": ["CORE", "SETTLEMENT", "COMPATIBILITY", "INTEROPERABILITY", "VERIFICATION"],
   "manifest": "omst-manifest.json",
   "experimental": true
 }

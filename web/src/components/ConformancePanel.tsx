@@ -16,6 +16,7 @@ export function ConformancePanel() {
             <th>Value</th>
             <th>Settlement</th>
             <th>Jurisdiction</th>
+            <th>Verify</th>
             <th>Overall</th>
           </tr>
         </thead>

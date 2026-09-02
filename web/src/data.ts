@@ -1,4 +1,4 @@
-import type { Instrument, RouteEdge, StressScenario } from "./types";
+import type { Instrument, RouteEdge, StressScenario, TamperCase, VerificationCheck } from "./types";
 
 export const instruments: Instrument[] = [
   {
@@ -90,9 +90,45 @@ export const stressScenarios: StressScenario[] = [
 ];
 
 export const conformanceRows = [
-  ["EUR-X", "pass", "pass", "pass", "pass", "Compliant"],
-  ["EUR-Y", "pass", "pass", "pass", "pass", "Compliant"],
-  ["EUR-Z", "pass", "warn", "pass", "warn", "Partial"],
-  ["CBM", "pass", "pass", "pass", "pass", "Compliant"],
-  ["MMF-A", "pass", "warn", "warn", "pass", "Partial"]
+  ["EUR-X", "pass", "pass", "pass", "pass", "pass", "Compliant"],
+  ["EUR-Y", "pass", "pass", "pass", "pass", "pass", "Compliant"],
+  ["EUR-Z", "pass", "warn", "pass", "warn", "warn", "Partial"],
+  ["CBM", "pass", "pass", "pass", "pass", "pass", "Compliant"],
+  ["MMF-A", "pass", "warn", "warn", "pass", "warn", "Partial"]
+];
+
+export const verificationChecks: VerificationCheck[] = [
+  { layer: "Schema", status: "PASS", detail: "evaluation-package v0.7" },
+  { layer: "Canonicalization", status: "PASS", detail: "OMST-CANONICAL-JSON-0.7" },
+  { layer: "Integrity", status: "PASS", detail: "package and evaluation fingerprints match" },
+  { layer: "Evidence", status: "PASS", detail: "liquidity evidence hash and expiry valid" },
+  { layer: "Ruleset", status: "PASS", detail: "omst-core-0.7 supported" },
+  { layer: "Semantic parity", status: "PASS", detail: "reproduced result is equivalent" }
+];
+
+export const tamperCases: TamperCase[] = [
+  {
+    id: "liquidity",
+    label: "Liquidity",
+    status: "INVALID",
+    reason: "package fingerprint mismatch"
+  },
+  {
+    id: "evidence",
+    label: "Evidence",
+    status: "INVALID",
+    reason: "evidence hash mismatch"
+  },
+  {
+    id: "result",
+    label: "Result",
+    status: "DIFFERENT",
+    reason: "semantic evaluation differs"
+  },
+  {
+    id: "ruleset",
+    label: "Ruleset",
+    status: "UNSUPPORTED",
+    reason: "ruleset version is not supported"
+  }
 ];

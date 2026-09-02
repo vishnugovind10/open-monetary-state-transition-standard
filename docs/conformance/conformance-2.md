@@ -1,6 +1,6 @@
 # Conformance 2.0
 
-OMST v0.6 expands conformance beyond schema validation.
+OMST conformance expands beyond schema validation.
 
 ## Profiles
 

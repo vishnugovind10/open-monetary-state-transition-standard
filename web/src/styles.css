@@ -203,7 +203,8 @@ nav .nav-active {
 
 .status-active,
 .status-low,
-.status-pass {
+.status-pass,
+.status-verified {
   color: #006d71;
   background: #e2f5f2;
 }
@@ -218,7 +219,11 @@ nav .nav-active {
 
 .status-pilot,
 .status-high,
-.status-incompatible {
+.status-incompatible,
+.status-fail,
+.status-invalid,
+.status-different,
+.status-unsupported {
   color: #9f2d20;
   background: #ffe7e2;
 }
@@ -452,6 +457,7 @@ select {
 }
 
 .conformance-panel,
+.verification-panel,
 .profiles-panel,
 .exchange-panel,
 .adapter-panel,
@@ -553,6 +559,78 @@ th {
   font-size: 11px;
 }
 
+.verification-panel {
+  grid-column: 1 / -1;
+}
+
+.verification-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.6fr) repeat(2, minmax(220px, 1fr));
+  gap: 10px;
+  padding: 14px;
+}
+
+.verification-status,
+.fingerprint-block,
+.tamper-result {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  border: 1px solid #d8e0e4;
+  border-radius: 6px;
+  padding: 12px;
+  background: #f8fafb;
+}
+
+.verification-status strong,
+.tamper-result strong {
+  color: #006d71;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.fingerprint-block span,
+.verification-status span,
+.tamper-result span {
+  color: #526068;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fingerprint-block code {
+  overflow-wrap: anywhere;
+  color: #172026;
+  font-size: 12px;
+}
+
+.tamper-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px;
+  border-top: 1px solid #eef1f2;
+}
+
+.tamper-controls button {
+  min-height: 34px;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  padding: 0 12px;
+  background: #ffffff;
+  color: #37454d;
+  font-weight: 700;
+}
+
+.tamper-controls button.selected {
+  border-color: #9f2d20;
+  color: #9f2d20;
+  background: #fff0ed;
+}
+
+.tamper-result {
+  margin: 0 14px 14px;
+}
+
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -583,6 +661,7 @@ footer {
   .form-grid,
   .flow-strip,
   .adapter-grid,
+  .verification-grid,
   .scenario-strip {
     grid-template-columns: repeat(2, minmax(160px, 1fr));
   }
@@ -634,7 +713,8 @@ footer {
   }
 
   .flow-strip,
-  .adapter-grid {
+  .adapter-grid,
+  .verification-grid {
     grid-template-columns: 1fr;
   }
 }

@@ -35,3 +35,12 @@ Current draft RFCs:
 - RFC-0029 Profile Portability
 - RFC-0030 Settlement Exchange
 - RFC-0031 Adapter Classification
+- RFC-0032 Evaluation Package
+- RFC-0033 Canonicalization
+- RFC-0034 Verification Semantics
+- RFC-0035 Semantic Equivalence
+- RFC-0036 Evidence Manifest
+- RFC-0037 Ruleset Versioning
+- RFC-0038 Verification Conformance
+- RFC-0039 Settlement Evaluation Bundle
+- RFC-0040 Verification Records

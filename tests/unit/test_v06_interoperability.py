@@ -41,5 +41,6 @@ def test_fallback_routes_are_reproducible_from_snapshot():
 
 def test_manifest_declares_interoperability_layer():
     manifest = v06_manifest()
-    assert manifest["omst_version"] == "0.6.0"
+    assert manifest["omst_version"] == "0.7.0"
     assert "interoperability" in manifest["profiles"]
+    assert "OMST-VERIFICATION" in {entry["profile"] for entry in manifest["conformance"]}

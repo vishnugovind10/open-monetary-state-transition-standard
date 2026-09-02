@@ -61,7 +61,7 @@ export function evaluateSettlement(
   if (source.evidenceAgeSeconds > settlementRequirements.maximumEvidenceAgeSeconds) {
     return {
       status: "CONDITIONALLY_COMPATIBLE",
-      reason: "Mandatory settlement requirements pass, but liquidity evidence is stale under the v0.6 evidence policy.",
+      reason: "Mandatory settlement requirements pass, but liquidity evidence is stale under the v0.7 evidence policy.",
       reasons: ["LIQUIDITY_EVIDENCE_STALE"],
       confidence: "medium",
       latencySeconds: latency,

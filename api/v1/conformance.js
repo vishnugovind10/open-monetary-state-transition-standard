@@ -7,8 +7,8 @@ export default function handler(req, res) {
     return;
   }
   respond(res, {
-    omst_version: "0.6.0",
+    omst_version: "0.7.0",
     vectors: "PASS",
-    cross_language: { python: "PASS", typescript: "PASS", semantic_parity: "PASS" }
+    cross_language: { python: "PASS", typescript: "PASS", minimal_verifier: "PASS", semantic_parity: "PASS" }
   });
 }

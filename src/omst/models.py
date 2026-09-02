@@ -371,8 +371,8 @@ class MoneyRequirementSet:
     description: str
     composition: RequirementComposition
     requirements: tuple[MoneyRequirement, ...]
-    schema_version: str = "0.6.0"
-    ruleset_version: str = "omst-core-0.6"
+    schema_version: str = "0.7.0"
+    ruleset_version: str = "omst-core-0.7"
 
 
 @dataclass(frozen=True)

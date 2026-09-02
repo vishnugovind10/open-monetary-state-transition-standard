@@ -1,0 +1,101 @@
+{
+  "$id": "https://omst.dev/schemas/verification/evaluation-package.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvaluationPackage",
+  "description": "Portable OMST evaluation package containing inputs, evidence, result, canonicalization metadata and integrity fingerprints.",
+  "type": "object",
+  "required": [
+    "omst_type",
+    "package_id",
+    "package_version",
+    "lifecycle_status",
+    "omst_version",
+    "schema_version",
+    "ruleset_version",
+    "evaluation_context",
+    "settlement_intent",
+    "money_profile",
+    "money_state",
+    "settlement_profile",
+    "money_requirement_set",
+    "evidence_manifest",
+    "evidence_policy",
+    "evaluation_result",
+    "canonical_evaluation_result",
+    "transition_plan",
+    "route",
+    "canonicalization",
+    "integrity",
+    "metadata"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "evaluation-package"},
+    "package_id": {"type": "string"},
+    "package_version": {"type": "string"},
+    "lifecycle_status": {"enum": ["CREATED", "SEALED", "VERIFIED", "SUPERSEDED", "INVALID"]},
+    "omst_version": {"type": "string"},
+    "schema_version": {"type": "string"},
+    "ruleset_version": {"type": "string"},
+    "evaluation_context": {"type": "object"},
+    "settlement_intent": {"type": "object"},
+    "money_profile": {"type": "object"},
+    "money_state": {"type": "object"},
+    "settlement_profile": {"type": "object"},
+    "money_requirement_set": {"type": "object"},
+    "evidence_manifest": {"type": "object"},
+    "evidence_policy": {"type": "object"},
+    "evaluation_result": {"type": "object"},
+    "canonical_evaluation_result": {"type": "object"},
+    "transition_plan": {"type": "object"},
+    "route": {"type": "object"},
+    "canonicalization": {"type": "object"},
+    "integrity": {
+      "type": "object",
+      "required": [
+        "package_fingerprint",
+        "evaluation_fingerprint",
+        "canonical_result_fingerprint",
+        "evidence_manifest_fingerprint"
+      ],
+      "properties": {
+        "package_fingerprint": {"type": "string"},
+        "evaluation_fingerprint": {"type": "string"},
+        "canonical_result_fingerprint": {"type": "string"},
+        "evidence_manifest_fingerprint": {"type": "string"}
+      }
+    },
+    "metadata": {"type": "object"}
+  },
+  "examples": [
+    {
+      "omst_type": "evaluation-package",
+      "package_id": "pkg-tokenized-bond-dvp-eur-x-v07",
+      "package_version": "0.7.0",
+      "lifecycle_status": "SEALED",
+      "omst_version": "0.7.0",
+      "schema_version": "0.7.0",
+      "ruleset_version": "omst-core-0.7",
+      "evaluation_context": {},
+      "settlement_intent": {},
+      "money_profile": {},
+      "money_state": {},
+      "settlement_profile": {},
+      "money_requirement_set": {},
+      "evidence_manifest": {},
+      "evidence_policy": {},
+      "evaluation_result": {},
+      "canonical_evaluation_result": {},
+      "transition_plan": {},
+      "route": {},
+      "canonicalization": {},
+      "integrity": {
+        "package_fingerprint": "example",
+        "evaluation_fingerprint": "example",
+        "canonical_result_fingerprint": "example",
+        "evidence_manifest_fingerprint": "example"
+      },
+      "metadata": {}
+    }
+  ]
+}

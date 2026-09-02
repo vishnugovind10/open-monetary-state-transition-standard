@@ -38,3 +38,16 @@ export type SettlementVerdict = {
   costBps: number;
   route: string[];
 };
+
+export type VerificationCheck = {
+  layer: string;
+  status: "PASS" | "WARN" | "FAIL";
+  detail: string;
+};
+
+export type TamperCase = {
+  id: string;
+  label: string;
+  status: "INVALID" | "DIFFERENT" | "UNSUPPORTED";
+  reason: string;
+};

@@ -1,0 +1,58 @@
+{
+  "$id": "https://omst.dev/schemas/verification/evidence-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceManifest",
+  "description": "Manifest describing evidence available at OMST evaluation time.",
+  "type": "object",
+  "required": ["omst_type", "manifest_id", "created_at", "evidence_items", "policy", "snapshot_reference"],
+  "additionalProperties": false,
+  "properties": {
+    "omst_type": {"const": "evidence-manifest"},
+    "manifest_id": {"type": "string"},
+    "created_at": {"type": "string"},
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "type",
+          "source",
+          "observed_at",
+          "valid_from",
+          "expires_at",
+          "content_reference",
+          "content_hash",
+          "method",
+          "status"
+        ],
+        "properties": {
+          "evidence_id": {"type": "string"},
+          "type": {"enum": ["OFFICIAL", "ISSUER_DECLARED", "OBSERVED", "ATTESTED", "CRYPTOGRAPHIC", "DERIVED", "SIMULATED"]},
+          "source": {"type": "string"},
+          "observed_at": {"type": "string"},
+          "valid_from": {"type": "string"},
+          "expires_at": {"type": "string"},
+          "content_reference": {"type": "string"},
+          "content_hash": {"type": "string"},
+          "method": {"type": "string"},
+          "status": {"enum": ["VALID", "STALE", "MISSING", "CONFLICTING", "UNVERIFIED"]},
+          "inline_content": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "policy": {"type": "object"},
+    "snapshot_reference": {"type": "string"}
+  },
+  "examples": [
+    {
+      "omst_type": "evidence-manifest",
+      "manifest_id": "evidence-tokenized-bond-dvp-eur-x-v07",
+      "created_at": "2026-09-02T00:00:00Z",
+      "evidence_items": [],
+      "policy": {},
+      "snapshot_reference": "synthetic://snapshot"
+    }
+  ]
+}

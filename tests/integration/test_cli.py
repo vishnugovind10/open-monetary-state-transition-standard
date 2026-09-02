@@ -136,7 +136,7 @@ def test_v06_exchange_cli(capsys):
 
 def test_v06_manifest_and_discovery_cli(capsys):
     assert main(["manifest"]) == 0
-    assert "0.6.0" in capsys.readouterr().out
+    assert "0.7.0" in capsys.readouterr().out
     assert main(["discovery"]) == 0
     assert "experimental" in capsys.readouterr().out
 
@@ -146,3 +146,44 @@ def test_v06_api_cli(capsys):
     output = capsys.readouterr().out
     assert "portable" not in output
     assert "COMPATIBLE" in output
+
+
+def test_v07_package_create_cli(capsys):
+    assert main(["package", "create"]) == 0
+    output = capsys.readouterr().out
+    assert "evaluation-package" in output
+    assert "package_fingerprint" in output
+
+
+def test_v07_verify_cli(capsys):
+    assert main(["verify", "examples/verification/valid-package.json"]) == 0
+    output = capsys.readouterr().out
+    assert "VERIFIED" in output
+    assert "Semantic evaluation: PASS" in output
+
+
+def test_v07_verify_human_cli(capsys):
+    assert main(["verify", "examples/verification/valid-package.json", "--human"]) == 0
+    output = capsys.readouterr().out
+    assert "OMST SETTLEMENT VERIFICATION" in output
+    assert "Not regulatory certification" in output
+
+
+def test_v07_tamper_cli(capsys):
+    assert main(["tamper", "evidence", "examples/verification/valid-package.json"]) == 0
+    output = capsys.readouterr().out
+    assert '"content_hash": "0000000000000000000000000000000000000000000000000000000000000000"' in output
+
+
+def test_v07_bundle_cli(capsys):
+    assert main(["bundle", "create"]) == 0
+    assert "settlement-evaluation-bundle" in capsys.readouterr().out
+    assert main(["bundle", "verify", "examples/verification/settlement-evaluation-bundle.json"]) == 0
+    assert "VERIFIED" in capsys.readouterr().out
+
+
+def test_v07_api_verification_cli(capsys):
+    assert main(["api", "verification/verify"]) == 0
+    output = capsys.readouterr().out
+    assert "verification-result" in output
+    assert "VERIFIED" in output

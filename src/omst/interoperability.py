@@ -43,7 +43,7 @@ from .models import (
 from .routing import route_money
 from .settlement import plan_transition
 
-REFERENCE_VALID_UNTIL = "2026-09-02T00:00:00Z"
+REFERENCE_VALID_UNTIL = "2026-09-03T00:00:00Z"
 
 
 def profile_fingerprint(profile: dict[str, Any]) -> str:
@@ -305,17 +305,19 @@ def settlement_response(
 def v06_manifest() -> dict[str, Any]:
     return {
         "omst_type": "omst-manifest",
-        "omst_version": "0.6.0",
-        "implementation": {"name": "python-reference", "version": "0.6.0"},
+        "omst_version": "0.7.0",
+        "implementation": {"name": "python-reference", "version": "0.7.0"},
         "ruleset_version": RULESET_VERSION,
         "conformance": [
-            {"profile": "OMST-CORE", "level": 3, "version": "0.6.0"},
-            {"profile": "OMST-COMPATIBILITY", "level": 3, "version": "0.6.0"},
-            {"profile": "OMST-INTEROPERABILITY", "level": 4, "version": "0.6.0"},
+            {"profile": "OMST-CORE", "level": 3, "version": "0.7.0"},
+            {"profile": "OMST-COMPATIBILITY", "level": 3, "version": "0.7.0"},
+            {"profile": "OMST-INTEROPERABILITY", "level": 4, "version": "0.7.0"},
+            {"profile": "OMST-VERIFICATION", "level": 4, "version": "0.7.0"},
         ],
         "profiles": ["money", "settlement", "participant", "interoperability"],
-        "settlement": ["request", "offer", "response", "graph-snapshot"],
+        "settlement": ["request", "offer", "response", "graph-snapshot", "evaluation-package"],
         "interoperability": ["generic", "otas", "iso20022", "cdm"],
+        "verification": ["package", "verify", "record", "tamper-demo"],
         "experimental": True,
         "boundary": "Synthetic reference implementation; not issuer, regulatory or market-condition evidence.",
     }
@@ -323,10 +325,10 @@ def v06_manifest() -> dict[str, Any]:
 
 def well_known_discovery() -> dict[str, Any]:
     return {
-        "omst": "0.6.0",
+        "omst": "0.7.0",
         "implementation": "python-reference",
         "profiles": ["money", "settlement", "participant", "interoperability"],
-        "conformance": ["CORE", "SETTLEMENT", "COMPATIBILITY", "INTEROPERABILITY"],
+        "conformance": ["CORE", "SETTLEMENT", "COMPATIBILITY", "INTEROPERABILITY", "VERIFICATION"],
         "manifest": "omst-manifest.json",
         "experimental": True,
     }

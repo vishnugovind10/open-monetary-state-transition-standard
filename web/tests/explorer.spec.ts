@@ -6,6 +6,7 @@ test("loads the Explorer dashboard and primary panels", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Settlement Compatibility" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Money Graph" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Conformance Status" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Verification Lab" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Profiles" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Settlement Exchange" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Adapters" })).toBeVisible();
@@ -32,6 +33,10 @@ test("supports equivalence, graph and conformance navigation", async ({ page }) 
   await expect(page.getByLabel("Source instrument")).toHaveValue("EUR-Z");
   await page.getByRole("button", { name: "Conformance" }).click();
   await expect(page.getByRole("cell", { name: "Partial" }).first()).toBeVisible();
+  await page.getByRole("button", { name: "Verification Lab" }).click();
+  await expect(page.getByText("pkg-tokenized-bond-dvp-eur-x-v07")).toBeVisible();
+  await page.getByRole("button", { name: "Result" }).click();
+  await expect(page.getByText("DIFFERENT")).toBeVisible();
   await page.getByRole("button", { name: "Profiles" }).click();
   await expect(page.locator("[aria-label='Profiles workspace']")).toBeVisible();
   await page.getByRole("button", { name: "Adapters" }).click();
